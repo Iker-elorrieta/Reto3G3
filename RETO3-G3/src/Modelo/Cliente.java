@@ -1,5 +1,6 @@
 package Modelo;
 
+
 import java.util.Objects;
 
 public class Cliente {
@@ -8,15 +9,23 @@ public class Cliente {
 	private String apellidos;
 	private String sexo;
 	private String contrasena;
+	private Entrada[] arrayEntrada;
 	
-	public Cliente(String dni, String nombre, String apellidos, String sexo, String contrasena) {
+	
+	public Cliente(String dni, String nombre, String apellidos, String sexo, String contrasena,
+			Entrada[] arrayEntrada) {
+		super();
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.sexo = sexo;
 		this.contrasena = contrasena;
+		this.arrayEntrada = arrayEntrada;
 	}
-	
+
+
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -29,12 +38,14 @@ public class Cliente {
 		return Objects.equals(dni, other.dni);
 	}
 
-
+	
 	@Override
 	public String toString() {
 		return "Cliente [dni=" + dni + ", nombre=" + nombre + ", apellidos=" + apellidos + ", sexo=" + sexo
-				+ ", contraseña=" + contrasena + "]";
+				+ ", contrasena=" + contrasena + "]";
 	}
+
+
 
 
 	public String getDni() {
@@ -52,6 +63,9 @@ public class Cliente {
 	public String getContrasena() {
 		return contrasena;
 	}
+	public Entrada[] getArrayEntrada() {
+		return arrayEntrada;
+	}
 	public void setDni(String dni) {
 		this.dni = dni;
 	}
@@ -67,6 +81,11 @@ public class Cliente {
 	public void setContrasena(String contrasena) {
 		this.contrasena = contrasena;
 	}
+	public void setArrayEntrada(Entrada[] arrayEntrada) {
+		this.arrayEntrada = arrayEntrada;
+	}
+	
+	
 	
 	
 	

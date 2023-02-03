@@ -5,19 +5,27 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import Modelo.Cine;
+import Modelo.Sala;
 
 class CineTest {
-
-	Cine cin0 = new Cine("2BH", 7);
+	private Sala[] arraySalas= new Sala[1];
+	Sala obj1 = new Sala("sds", 3, "sdas");
+	
+Cine cin0 = new Cine("A243F", "Cinesa", "Bilbao", null);
 	
 	@Test
 	void test_getters_y_setters() {
-		Cine cin = new Cine("CX2", 8);
-		cin.setCodigoCine("CX2");
-		cin.setNumeroSalas(8);
+		arraySalas[0]=obj1;
+		Cine cin = new Cine("A243F", "Cinesa", "Bilbao", arraySalas);
+		cin.setCodigoCine("A243F");
+		cin.setNombre("Cinesa");
+		cin.setDireccion("Bilbao");
+		cin.setArraySalas(arraySalas);
 		
-		assertEquals(cin.getCodigoCine(), "CX2");
-		assertEquals(cin.getNumeroSalas(), 8);
+		assertEquals(cin.getCodigoCine(), "A243F");
+		assertEquals(cin.getNombre(), "Cinesa");
+		assertEquals(cin.getDireccion(), "Bilbao");
+		assertEquals(cin.getArraySalas(), arraySalas);
 
 	
 	}
@@ -25,15 +33,14 @@ class CineTest {
 	@Test
 	void test_toString() {
 		String resul = cin0.toString();
-		assertEquals("Cine [codigoCine=2BH, numeroSalas=7]", resul);
-
+		assertEquals("Cine [codigoCine=A243F, nombre=Cinesa, direccion=Bilbao]", resul);
 	}
 	
 	
 	@Test
 	void test_equals() {
-		Cine cin1 = new Cine("", 0);
-		Cine cin2 = new Cine("", 0);
+		Cine cin1 = new Cine("", "", "", null);
+		Cine cin2 = new Cine("", "", "", null);
 		
 		cin1.setCodigoCine("CX2");
 		cin2.setCodigoCine("CX2");
@@ -60,6 +67,5 @@ class CineTest {
 	boolean resultado6 = cin1.equals(null);
 	assertFalse(resultado6);
 	}
-	
 
 }
