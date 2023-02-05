@@ -4,19 +4,30 @@ import java.util.Objects;
 
 public class Pelicula {
 	private String codigoPelícula;
-	private String nombre;
 	private int duracion; //(en minutos)
+	private String nombre;
 	private String genero;
-	private float precio;
+	private Sesion[] arraySesiones;
 	
-	public Pelicula(String codigoPelícula, String nombre, int duracion, String genero, float precio) {
+	public Pelicula(String codigoPelícula, int duracion, String nombre, String genero, Sesion[] arraySesiones) {
+		super();
 		this.codigoPelícula = codigoPelícula;
-		this.nombre = nombre;
 		this.duracion = duracion;
+		this.nombre = nombre;
 		this.genero = genero;
-		this.precio = precio;
+		this.arraySesiones = arraySesiones;
 	}
-	
+
+
+
+	@Override
+	public String toString() {
+		return "Pelicula [codigoPelícula=" + codigoPelícula + ", duracion=" + duracion + ", nombre=" + nombre
+				+ ", genero=" + genero + "]";
+	}
+
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -28,45 +39,44 @@ public class Pelicula {
 		Pelicula other = (Pelicula) obj;
 		return Objects.equals(codigoPelícula, other.codigoPelícula);
 	}
-
-
-	@Override
-	public String toString() {
-		return "Pelicula [codigoPelícula=" + codigoPelícula + ", nombre=" + nombre + ", duracion=" + duracion
-				+ ", genero=" + genero + ", precio=" + precio + "]";
-	}
-
-
+	
+	
+	
 	public String getCodigoPelícula() {
 		return codigoPelícula;
-	}
-	public String getNombre() {
-		return nombre;
 	}
 	public int getDuracion() {
 		return duracion;
 	}
+	public String getNombre() {
+		return nombre;
+	}
 	public String getGenero() {
 		return genero;
 	}
-	public float getPrecio() {
-		return precio;
+	public Sesion[] getArraySesiones() {
+		return arraySesiones;
 	}
 	public void setCodigoPelícula(String codigoPelícula) {
 		this.codigoPelícula = codigoPelícula;
 	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
 	public void setDuracion(int duracion) {
 		this.duracion = duracion;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 	public void setGenero(String genero) {
 		this.genero = genero;
 	}
-	public void setPrecio(float precio) {
-		this.precio = precio;
+	public void setArraySesiones(Sesion[] arraySesiones) {
+		this.arraySesiones = arraySesiones;
 	}
+	
+	
+	
+	
+	
 	
 	
 }

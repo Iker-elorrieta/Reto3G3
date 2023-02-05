@@ -4,44 +4,45 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import Modelo.Cine;
 import Modelo.Pelicula;
+import Modelo.Sesion;
 
 class PeliculaTest {
 
-	Pelicula pel0 = new Pelicula("GDG5", "Harry Potter", 120, "Fantasy", (float) 4.5);
+	private Sesion[] arraySesiones= new Sesion[1];
+	Sesion obj1 = new Sesion(null, null, null, null, null, null, null, null);
+	
+Pelicula pel0 = new Pelicula("DFDF67", 142, "Scary Movie", "Comedia", arraySesiones);
 	
 	@Test
 	void test_getters_y_setters() {
-		Pelicula pel = new Pelicula("", "", 0, "", 0);
-		pel.setCodigoPelícula("GDG5");
-		pel.setNombre("Harry Potter");
-		pel.setDuracion(120);
-		pel.setGenero("Fantasy");
-		pel.setPrecio((float) 4.5);
+		arraySesiones[0]=obj1;
+		Pelicula pel = new Pelicula("DFDF67", 142, "Scary Movie", "Comedia", arraySesiones);
+		pel.setCodigoPelícula("DFDF67");
+		pel.setDuracion(142);
+		pel.setNombre("Scary Movie");
+		pel.setGenero("Comedia");
+		pel.setArraySesiones(arraySesiones);
 		
-		assertEquals(pel.getCodigoPelícula(), "GDG5");
-		assertEquals(pel.getNombre(), "Harry Potter");
-		assertEquals(pel.getDuracion(), 120);
-		assertEquals(pel.getGenero(), "Fantasy");
-		assertEquals(pel.getPrecio(), (float) 4.5);
-
+		assertEquals(pel.getCodigoPelícula(), "DFDF67");
+		assertEquals(pel.getDuracion(), 142);
+		assertEquals(pel.getNombre(), "Scary Movie");
+		assertEquals(pel.getGenero(), "Comedia");
+		assertEquals(pel.getArraySesiones(), arraySesiones);
 	
 	}
 	
 	@Test
 	void test_toString() {
 		String resul = pel0.toString();
-		//System.out.println(resul);
-		assertEquals("Pelicula [codigoPelícula=GDG5, nombre=Harry Potter, duracion=120, genero=Fantasy, precio=4.5]", resul);
-
+		assertEquals("Pelicula [codigoPelícula=DFDF67, duracion=142, nombre=Scary Movie, genero=Comedia]", resul);
 	}
 	
 	
 	@Test
 	void test_equals() {
-		Pelicula pel1 = new Pelicula("", "", 0, "", 0);
-		Pelicula pel2 = new Pelicula("", "", 0, "", 0);
+		Pelicula pel1 = new Pelicula(null, 0, null, null, arraySesiones);
+		Pelicula pel2 = new Pelicula(null, 0, null, null, arraySesiones);
 		
 		pel1.setCodigoPelícula("ZZ3");
 		pel2.setCodigoPelícula("ZZ3");
@@ -67,6 +68,6 @@ class PeliculaTest {
 	
 	boolean resultado6 = pel1.equals(null);
 	assertFalse(resultado6);
-	}
 
+	}
 }

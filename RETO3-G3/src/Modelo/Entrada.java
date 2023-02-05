@@ -1,25 +1,45 @@
 package Modelo;
 
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Objects;
 
 public class Entrada {
 	private String codigoEntrada;
-	private Date fecha;
-	//private int horario; no poner hora (sacarla del date)
-	private String sala;
-	private String pelicula;
+	private float precio;
+	private String codigoSesion;
+	private String dni;
+	private Cliente[] arrayCliente;
+	private Sesion[] arraySesiones;
 	
-	public Entrada(String codigoEntrada, Date fecha, String sala, String pelicula) {
+	
+	
+	
+
+	public Entrada(String codigoEntrada, float precio, String codigoSesion, String dni, Cliente[] arrayCliente,
+			Sesion[] arraySesiones) {
+		super();
 		this.codigoEntrada = codigoEntrada;
-		this.fecha = fecha;
-		this.sala = sala;
-		this.pelicula = pelicula;
+		this.precio = precio;
+		this.codigoSesion = codigoSesion;
+		this.dni = dni;
+		this.arrayCliente = arrayCliente;
+		this.arraySesiones = arraySesiones;
 	}
+
+
+
 	
+	
+	@Override
+	public String toString() {
+		return "Entrada [codigoEntrada=" + codigoEntrada + ", precio=" + precio + ", codigoSesion=" + codigoSesion
+				+ ", dni=" + dni + "]";
+	}
+
+
+
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -31,41 +51,55 @@ public class Entrada {
 		Entrada other = (Entrada) obj;
 		return Objects.equals(codigoEntrada, other.codigoEntrada);
 	}
-
-
-	@Override
-	public String toString() {
-		DateFormat dt = new SimpleDateFormat("dd/MM/yyyy"); 
-		
-		return "Entrada [codigoEntrada=" + codigoEntrada + ", fecha=" + dt.format(fecha) + ", sala=" + sala + ", pelicula="
-				+ pelicula + "]";
-	}
-
-
+	
+	
+	
 	public String getCodigoEntrada() {
 		return codigoEntrada;
 	}
-	public Date getFecha() {
-		return fecha;
+	public float getPrecio() {
+		return precio;
 	}
-	public String getSala() {
-		return sala;
+	public String getCodigoSesion() {
+		return codigoSesion;
 	}
-	public String getPelicula() {
-		return pelicula;
+	public String getDni() {
+		return dni;
+	}
+	public Cliente[] getArrayCliente() {
+		return arrayCliente;
+	}
+	public Sesion[] getArraySesiones() {
+		return arraySesiones;
 	}
 	public void setCodigoEntrada(String codigoEntrada) {
 		this.codigoEntrada = codigoEntrada;
 	}
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
+	public void setPrecio(float precio) {
+		this.precio = precio;
 	}
-	public void setSala(String sala) {
-		this.sala = sala;
+	public void setCodigoSesion(String codigoSesion) {
+		this.codigoSesion = codigoSesion;
 	}
-	public void setPelicula(String pelicula) {
-		this.pelicula = pelicula;
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+	public void setArrayCliente(Cliente[] arrayCliente) {
+		this.arrayCliente = arrayCliente;
+	}
+	public void setArraySesiones(Sesion[] arraySesiones) {
+		this.arraySesiones = arraySesiones;
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

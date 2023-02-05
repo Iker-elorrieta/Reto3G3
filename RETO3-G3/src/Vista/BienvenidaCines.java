@@ -9,6 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class BienvenidaCines extends JFrame {
 
@@ -48,23 +50,37 @@ public class BienvenidaCines extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JButton btnNewButton = new JButton("ACEPTAR");
-		btnNewButton.setBounds(259, 207, 89, 23);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton.setBounds(328, 227, 89, 23);
 		contentPane.add(btnNewButton);
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("New radio button");
+		JRadioButton rdbtnNewRadioButton = new JRadioButton("Cine Elorrieta");
 		rdbtnNewRadioButton.setBounds(37, 61, 109, 23);
 		contentPane.add(rdbtnNewRadioButton);
 		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("New radio button");
+		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Roxy Valladolid");
 		rdbtnNewRadioButton_1.setBounds(37, 106, 109, 23);
 		contentPane.add(rdbtnNewRadioButton_1);
 		
-		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("New radio button");
+		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("Cinesa zubiarte");
 		rdbtnNewRadioButton_2.setBounds(37, 156, 109, 23);
 		contentPane.add(rdbtnNewRadioButton_2);
 		
-		JRadioButton rdbtnNewRadioButton_3 = new JRadioButton("New radio button");
-		rdbtnNewRadioButton_3.setBounds(37, 207, 109, 23);
+		JRadioButton rdbtnNewRadioButton_3 = new JRadioButton("Cinesa max ocio barakaldo");
+		rdbtnNewRadioButton_3.setBounds(37, 207, 153, 23);
 		contentPane.add(rdbtnNewRadioButton_3);
+		
+		JButton btnNewButton_1 = new JButton("Finalizar");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//if ningula peli selecionada se sale, si no al resumen
+				
+			}
+		});
+		btnNewButton_1.setBounds(229, 227, 89, 23);
+		contentPane.add(btnNewButton_1);
 	}
 }

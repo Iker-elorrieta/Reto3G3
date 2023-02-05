@@ -4,38 +4,45 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import Modelo.Cine;
 import Modelo.Sala;
+import Modelo.Sesion;
 
 class SalaTest {
 
-Sala sal0 = new Sala("2B", "X78H");
+	private Sesion[] arraySesiones= new Sesion[1];
+	Sesion obj1 = new Sesion(null, null, null, null, null, null, null, null);
+	
+Sala sal0 = new Sala("L454G", 4, "CICJCC", arraySesiones);
 	
 	@Test
 	void test_getters_y_setters() {
-		Sala sal = new Sala("", "");
-	sal.setNombre("2B");
-	sal.setCodigoSala("X78H");
+		arraySesiones[0]=obj1;
+		Sala sal = new Sala("L454G", 4, "CICJCC", arraySesiones);
+		sal.setCodigoSala("L454G");
+		sal.setNumero(4);
+		sal.setCodigoCine("CICJCC");
+		sal.setArraySesiones(arraySesiones);
 		
-		assertEquals(sal.getNombre(), "2B");
-		assertEquals(sal.getCodigoSala(), "X78H");
-
+	
+		assertEquals(sal.getCodigoSala(), "L454G");
+		assertEquals(sal.getNumero(), 4);
+		assertEquals(sal.getCodigoCine(), "CICJCC");
+		assertEquals(sal.getArraySesiones(), arraySesiones);
 	
 	}
 	
 	@Test
 	void test_toString() {
 		String resul = sal0.toString();
-		//System.out.println(resul);
-		assertEquals("Sala [nombre=2B, codigoSala=X78H]", resul);
-
+		System.out.println(resul);
+		assertEquals("Sala [codigoSala=L454G, numero=4, codigoCine=CICJCC]", resul);
 	}
 	
 	
 	@Test
 	void test_equals() {
-		Sala sal1 = new Sala("", "");
-		Sala sal2 = new Sala("", "");
+		Sala sal1 = new Sala(null, 0, null, arraySesiones);
+		Sala sal2 = new Sala(null, 0, null, arraySesiones);
 		
 		sal1.setCodigoSala("Y9Y9");
 		sal2.setCodigoSala("Y9Y9");

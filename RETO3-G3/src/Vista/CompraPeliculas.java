@@ -70,6 +70,10 @@ public class CompraPeliculas extends JFrame {
 		JButton btnNewButton = new JButton("Comprar Pelicula");
 		btnNewButton.setBounds(308, 227, 116, 23);
 		contentPane.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Volver");
+		btnNewButton_1.setBounds(209, 227, 89, 23);
+		contentPane.add(btnNewButton_1);
 	}
 
 }

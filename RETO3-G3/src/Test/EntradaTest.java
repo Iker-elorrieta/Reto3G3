@@ -2,67 +2,55 @@ package Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
 import org.junit.jupiter.api.Test;
 
-import Modelo.Cine;
+import Modelo.Cliente;
 import Modelo.Entrada;
+import Modelo.Sesion;
 
 class EntradaTest {
-	DateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
+
+	private Cliente[] arrayClientes= new Cliente[1];
+	Cliente obj1_c = new Cliente("", "", "", "", "", null);
 	
-	Date fecha = null;
-	Calendar cal = Calendar.getInstance();
-	/*cal.set(Calendar.DAY_OF_MONTH, 20);
-	cal.set(Calendar.MONTH, 0);
-	cal.set(Calendar.YEAR, 2023);
-	fecha = cal.getTime();*/
-	Entrada ent0 = new Entrada("SH2RYSK", fecha, "2C", "Iron Man 2");
+	private Sesion[] arraySesiones= new Sesion[1];
+	Sesion obj1_s = new Sesion(null, null, null, null, null, null, null, null);
+	
+Entrada ent0 = new Entrada("FDG557", (float) 4.7, "4563HH", "34542443K", arrayClientes, arraySesiones);
 	
 	@Test
 	void test_getters_y_setters() {
-		cal.set(Calendar.DAY_OF_MONTH, 20);
-		cal.set(Calendar.MONTH, 0);
-		cal.set(Calendar.YEAR, 2023);
-		fecha =  cal.getTime();
+		arrayClientes[0]=obj1_c;
+		arraySesiones[0]=obj1_s;
+		Entrada ent = new Entrada("FDG557", (float) 4.7, "4563HH", "34542443K", arrayClientes, arraySesiones);
+		ent.setCodigoEntrada("FDG557");
+		ent.setPrecio((float) 4.7);
+		ent.setCodigoSesion("4563HH");
+		ent.setDni("34542443K");
+		ent.setArrayCliente(arrayClientes);
+		ent.setArraySesiones(arraySesiones);
 		
-		Entrada ent = new Entrada("", null, "", "");
-		ent.setCodigoEntrada("SH2RYSK");
-		ent.setFecha(fecha);
-		ent.setSala("2C");
-		ent.setPelicula("Iron Man 2");
-	
-		assertEquals(ent.getCodigoEntrada(), "SH2RYSK");
-		assertEquals(ent.getFecha(), fecha);
-		assertEquals(ent.getSala(), "2C");
-		assertEquals(ent.getPelicula(), "Iron Man 2");
-
-	
+		
+		assertEquals(ent.getCodigoEntrada(), "FDG557");
+		assertEquals(ent.getPrecio(), (float) 4.7);
+		assertEquals(ent.getCodigoSesion(), "4563HH");
+		assertEquals(ent.getDni(), "34542443K");
+		assertEquals(ent.getArrayCliente(), arrayClientes);
+		assertEquals(ent.getArraySesiones(), arraySesiones);
 	}
 	
 	@Test
 	void test_toString() {
-		cal.set(Calendar.DAY_OF_MONTH, 20);
-		cal.set(Calendar.MONTH, 11);
-		cal.set(Calendar.YEAR, 2023);
-		fecha =  cal.getTime();
-		ent0.setFecha(fecha);
 		String resul = ent0.toString();
-		//System.out.println(ent0.toString());
-		assertEquals("Entrada [codigoEntrada=SH2RYSK, fecha=20/12/2023, sala=2C, pelicula=Iron Man 2]", resul);
-
+		System.out.println(resul);
+		assertEquals("Entrada [codigoEntrada=FDG557, precio=4.7, codigoSesion=4563HH, dni=34542443K]", resul);
 	}
 	
 	
 	@Test
 	void test_equals() {
-		Entrada ent1 = new Entrada("", null, "", "");
-		Entrada ent2 = new Entrada("", null, "", "");
+		Entrada ent1 = new Entrada(null, 0, null, null, arrayClientes, arraySesiones);
+		Entrada ent2 = new Entrada(null, 0, null, null, arrayClientes, arraySesiones);
 		
 		ent1.setCodigoEntrada("Z824");
 		ent2.setCodigoEntrada("Z824");

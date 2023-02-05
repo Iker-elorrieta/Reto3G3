@@ -1,5 +1,6 @@
 package Modelo;
 
+
 import java.util.Objects;
 
 public class Cliente {
@@ -7,16 +8,24 @@ public class Cliente {
 	private String nombre;
 	private String apellidos;
 	private String sexo;
-	private String contraseña;
+	private String contrasena;
+	private Entrada[] arrayEntrada;
 	
-	public Cliente(String dni, String nombre, String apellidos, String sexo, String contraseña) {
+	
+	public Cliente(String dni, String nombre, String apellidos, String sexo, String contrasena,
+			Entrada[] arrayEntrada) {
+		super();
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.sexo = sexo;
-		this.contraseña = contraseña;
+		this.contrasena = contrasena;
+		this.arrayEntrada = arrayEntrada;
 	}
-	
+
+
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -29,12 +38,14 @@ public class Cliente {
 		return Objects.equals(dni, other.dni);
 	}
 
-
+	
 	@Override
 	public String toString() {
 		return "Cliente [dni=" + dni + ", nombre=" + nombre + ", apellidos=" + apellidos + ", sexo=" + sexo
-				+ ", contraseña=" + contraseña + "]";
+				+ ", contrasena=" + contrasena + "]";
 	}
+
+
 
 
 	public String getDni() {
@@ -49,8 +60,11 @@ public class Cliente {
 	public String getSexo() {
 		return sexo;
 	}
-	public String getContraseña() {
-		return contraseña;
+	public String getContrasena() {
+		return contrasena;
+	}
+	public Entrada[] getArrayEntrada() {
+		return arrayEntrada;
 	}
 	public void setDni(String dni) {
 		this.dni = dni;
@@ -64,9 +78,14 @@ public class Cliente {
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
 	}
+	public void setArrayEntrada(Entrada[] arrayEntrada) {
+		this.arrayEntrada = arrayEntrada;
+	}
+	
+	
 	
 	
 	
