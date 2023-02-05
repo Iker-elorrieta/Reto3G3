@@ -1,33 +1,50 @@
 package Modelo;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 
 public class Sesion {
 	private String codigoSesion;
-	private String hora;
-	private String fecha;
+	private Date hora;
+	private Date fecha;
 	private String codigoPelicula;
 	private String codigoSala;
-	
 	private Pelicula[] arrayPeliculas;
 	private Sala[] arraySalas;
 	private Entrada[] arrayEntradas;
 	
-	public Sesion(String codigoSesion, String hora, String fecha, String codigoPelicula, String codigoSala) {
+	
+
+	public Sesion(String codigoSesion, Date hora, Date fecha, String codigoPelicula, String codigoSala,
+			Pelicula[] arrayPeliculas, Sala[] arraySalas, Entrada[] arrayEntradas) {
 		super();
 		this.codigoSesion = codigoSesion;
 		this.hora = hora;
 		this.fecha = fecha;
 		this.codigoPelicula = codigoPelicula;
 		this.codigoSala = codigoSala;
+		this.arrayPeliculas = arrayPeliculas;
+		this.arraySalas = arraySalas;
+		this.arrayEntradas = arrayEntradas;
 	}
+
+
+
 
 
 	@Override
 	public String toString() {
-		return "Sesion [codigoSesion=" + codigoSesion + ", hora=" + hora + ", fecha=" + fecha + ", codigoPelicula="
+		DateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
+		DateFormat dt2 = new SimpleDateFormat("hh:mm");
+		
+		return "Sesion [codigoSesion=" + codigoSesion + ", hora=" + dt2.format(hora) + ", fecha=" + dt.format(fecha) + ", codigoPelicula="
 				+ codigoPelicula + ", codigoSala=" + codigoSala + "]";
 	}
+
+
+
 
 
 	@Override
@@ -39,18 +56,20 @@ public class Sesion {
 		if (getClass() != obj.getClass())
 			return false;
 		Sesion other = (Sesion) obj;
-		return Objects.equals(codigoPelicula, other.codigoPelicula) && Objects.equals(codigoSala, other.codigoSala)
-				&& Objects.equals(codigoSesion, other.codigoSesion) && Objects.equals(fecha, other.fecha)
-				&& Objects.equals(hora, other.hora);
+		return Objects.equals(codigoSesion, other.codigoSesion);
 	}
-
+	
+	
+	
+	
+	
 	public String getCodigoSesion() {
 		return codigoSesion;
 	}
-	public String getHora() {
+	public Date getHora() {
 		return hora;
 	}
-	public String getFecha() {
+	public Date getFecha() {
 		return fecha;
 	}
 	public String getCodigoPelicula() {
@@ -59,13 +78,22 @@ public class Sesion {
 	public String getCodigoSala() {
 		return codigoSala;
 	}
+	public Pelicula[] getArrayPeliculas() {
+		return arrayPeliculas;
+	}
+	public Sala[] getArraySalas() {
+		return arraySalas;
+	}
+	public Entrada[] getArrayEntradas() {
+		return arrayEntradas;
+	}
 	public void setCodigoSesion(String codigoSesion) {
 		this.codigoSesion = codigoSesion;
 	}
-	public void setHora(String hora) {
+	public void setHora(Date hora) {
 		this.hora = hora;
 	}
-	public void setFecha(String fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 	public void setCodigoPelicula(String codigoPelicula) {
@@ -74,6 +102,17 @@ public class Sesion {
 	public void setCodigoSala(String codigoSala) {
 		this.codigoSala = codigoSala;
 	}
+	public void setArrayPeliculas(Pelicula[] arrayPeliculas) {
+		this.arrayPeliculas = arrayPeliculas;
+	}
+	public void setArraySalas(Sala[] arraySalas) {
+		this.arraySalas = arraySalas;
+	}
+	public void setArrayEntradas(Entrada[] arrayEntradas) {
+		this.arrayEntradas = arrayEntradas;
+	}
+	
+
 	
 	
 	

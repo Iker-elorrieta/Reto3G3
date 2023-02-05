@@ -4,42 +4,48 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import Modelo.Cine;
 import Modelo.Cliente;
+import Modelo.Entrada;
 
 class ClienteTest {
 
-Cliente cli0 = new Cliente("365353H", "pako", "gomez", "H", "2424");
+	private Entrada[] arrayEntradas= new Entrada[1];
+	Entrada obj1 = new Entrada(null, 0, null, null, null, null);
+	
+Cliente cli0 = new Cliente("4737J", "George", "Smith", "H", "lmao999", null);
 	
 	@Test
 	void test_getters_y_setters() {
-		Cliente cli = new Cliente("365353H", "pako", "gomez", "H", "2424");
-		cli.setDni("365353H");
-		cli.setNombre("pako");
-		cli.setApellidos("gomez");
+		arrayEntradas[0]=obj1;
+		Cliente cli = new Cliente("4737J", "George", "Smith", "H", "lmao999", arrayEntradas);
+		cli.setDni("4737J");
+		cli.setNombre("George");
+		cli.setApellidos("Smith");
 		cli.setSexo("H");
-		cli.setContrasena("2424");
+		cli.setContrasena("lmao999");
+		cli.setArrayEntrada(arrayEntradas);
 		
-		assertEquals(cli.getDni(), "365353H");
-		assertEquals(cli.getNombre(), "pako");
-		assertEquals(cli.getApellidos(), "gomez");
+		assertEquals(cli.getDni(), "4737J");
+		assertEquals(cli.getNombre(), "George");
+		assertEquals(cli.getApellidos(), "Smith");
 		assertEquals(cli.getSexo(), "H");
-		assertEquals(cli.getContrasena(), "2424");
-		
+		assertEquals(cli.getContrasena(), "lmao999");
+		assertEquals(cli.getArrayEntrada(), arrayEntradas);
+	
 	}
 	
 	@Test
 	void test_toString() {
 		String resul = cli0.toString();
-		assertEquals("Cliente [dni=365353H, nombre=pako, apellidos=gomez, sexo=H, contrasena=2424]", resul);
-
+		System.out.println(resul);
+		assertEquals("Cliente [dni=4737J, nombre=George, apellidos=Smith, sexo=H, contrasena=lmao999]", resul);
 	}
 	
 	
 	@Test
 	void test_equals() {
-		Cliente cli1 = new Cliente("", "", "", "", "");
-		Cliente cli2 = new Cliente("", "", "", "", "");
+		Cliente cli1 = new Cliente("", "", "", "", "", null);
+		Cliente cli2 = new Cliente("", "", "", "", "", null);
 		
 		cli1.setDni("365353H");
 		cli2.setDni("365353H");

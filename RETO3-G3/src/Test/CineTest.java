@@ -9,7 +9,7 @@ import Modelo.Sala;
 
 class CineTest {
 	private Sala[] arraySalas= new Sala[1];
-	Sala obj1 = new Sala("sds", 3, "sdas");
+	Sala obj1 = new Sala(null, 0, null, null);
 	
 Cine cin0 = new Cine("A243F", "Cinesa", "Bilbao", null);
 	
