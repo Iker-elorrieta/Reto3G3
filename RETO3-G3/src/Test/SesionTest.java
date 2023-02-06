@@ -21,9 +21,7 @@ class SesionTest {
 	
 	Pelicula xPelicula = new Pelicula(null, 0, null, null);
 	
-	Sala xSala = new Sala(null, 0);
-	
-Sesion ses0 = new Sesion("SES934", fecha, xPelicula, xSala);
+Sesion ses0 = new Sesion("SES934", fecha, xPelicula);
 	
 	@Test
 	void test_getters_y_setters() {
@@ -32,18 +30,15 @@ Sesion ses0 = new Sesion("SES934", fecha, xPelicula, xSala);
 		cal.set(Calendar.YEAR, 2023);
 		fecha =  cal.getTime();
 		
-		Sesion ses = new Sesion("SES934", fecha, xPelicula, xSala);
+		Sesion ses = new Sesion("SES934", fecha, xPelicula);
 		ses.setCodigoSesion("SES934");
 		ses.setFecha(fecha);
 		ses.setArrayPeliculas(xPelicula);
-		ses.setArraySalas(xSala);
 		
 		assertEquals(ses.getCodigoSesion(), "SES934");
 		assertEquals(ses.getFecha(), fecha);
 		assertEquals(ses.getArrayPeliculas(), xPelicula);
-		assertEquals(ses.getArraySalas(), xSala);
 
-	
 	}
 	
 	@Test
@@ -56,7 +51,7 @@ Sesion ses0 = new Sesion("SES934", fecha, xPelicula, xSala);
 		cal.set(Calendar.YEAR, 2023);
 		fecha =  cal.getTime();
 		
-		Sesion ses0 = new Sesion("SES934", fecha, xPelicula, xSala);
+		Sesion ses0 = new Sesion("SES934", fecha, xPelicula);
 		String resul = ses0.toString();
 		System.out.println(resul);
 		assertEquals("Sesion [codigoSesion=SES934, hora=05:30, fecha=20/01/2023]", resul);
@@ -65,8 +60,8 @@ Sesion ses0 = new Sesion("SES934", fecha, xPelicula, xSala);
 	
 	@Test
 	void test_equals() {
-		Sesion ses1 = new Sesion(null, fecha, xPelicula, xSala);
-		Sesion ses2 = new Sesion(null, fecha, xPelicula, xSala);
+		Sesion ses1 = new Sesion(null, fecha, xPelicula);
+		Sesion ses2 = new Sesion(null, fecha, xPelicula);
 		
 		ses1.setCodigoSesion("DFFD");
 		ses2.setCodigoSesion("DFFD");

@@ -4,20 +4,27 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import Modelo.Entrada;
 import Modelo.Sala;
+import Modelo.Sesion;
 
 class SalaTest {
 	
-Sala sal0 = new Sala("L454G", 4);
+	private Sesion[] arraySesiones= new Sesion[1];
+	Sesion obj1 = new Sesion(null, null, null);
+	
+Sala sal0 = new Sala("L454G", 4, arraySesiones);
 	
 	@Test
 	void test_getters_y_setters() {
-		Sala sal = new Sala("L454G", 4);
+		Sala sal = new Sala("L454G", 4, arraySesiones);
 		sal.setCodigoSala("L454G");
 		sal.setNumero(4);
+		sal.setArraySesiones(arraySesiones);
 	
 		assertEquals(sal.getCodigoSala(), "L454G");
 		assertEquals(sal.getNumero(), 4);
+		assertEquals(sal.getArraySesiones(), arraySesiones);
 	
 	}
 	
@@ -31,8 +38,8 @@ Sala sal0 = new Sala("L454G", 4);
 	
 	@Test
 	void test_equals() {
-		Sala sal1 = new Sala(null, 0);
-		Sala sal2 = new Sala(null, 0);
+		Sala sal1 = new Sala(null, 0, arraySesiones);
+		Sala sal2 = new Sala(null, 0, arraySesiones);
 		
 		sal1.setCodigoSala("Y9Y9");
 		sal2.setCodigoSala("Y9Y9");

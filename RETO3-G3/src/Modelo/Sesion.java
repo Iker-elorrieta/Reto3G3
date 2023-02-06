@@ -10,16 +10,14 @@ public class Sesion {
 	//private Date hora;
 	private Date fecha;
 	private Pelicula xPelicula;
-	private Sala xSala;
 	
 	
 
-	public Sesion(String codigoSesion, Date fecha, Pelicula xPelicula, Sala xSala) {
+	public Sesion(String codigoSesion, Date fecha, Pelicula xPelicula) {
 		super();
 		this.codigoSesion = codigoSesion;
 		this.fecha = fecha;
 		this.xPelicula = xPelicula;
-		this.xSala = xSala;
 	}
 
 	@Override
@@ -54,9 +52,6 @@ public class Sesion {
 	public Pelicula getArrayPeliculas() {
 		return xPelicula;
 	}
-	public Sala getArraySalas() {
-		return xSala;
-	}
 	public void setCodigoSesion(String codigoSesion) {
 		this.codigoSesion = codigoSesion;
 	}
@@ -65,9 +60,6 @@ public class Sesion {
 	}
 	public void setArrayPeliculas(Pelicula xPelicula) {
 		this.xPelicula = xPelicula;
-	}
-	public void setArraySalas(Sala xSala) {
-		this.xSala = xSala;
 	}
 	
 

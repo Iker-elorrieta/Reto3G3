@@ -5,22 +5,23 @@ import java.util.Objects;
 public class Sala {
 	private String codigoSala;
 	private int numero;
+	private Sesion[] arraySesiones;
 	
 	
-	public Sala(String codigoSala, int numero) {
+
+
+	public Sala(String codigoSala, int numero, Sesion[] arraySesiones) {
 		super();
 		this.codigoSala = codigoSala;
 		this.numero = numero;
+		this.arraySesiones = arraySesiones;
 	}
 
-	
 
 	@Override
 	public String toString() {
 		return "Sala [codigoSala=" + codigoSala + ", numero=" + numero + "]";
 	}
-
-
 
 
 
@@ -38,13 +39,14 @@ public class Sala {
 
 
 
-
-
 	public String getCodigoSala() {
 		return codigoSala;
 	}
 	public int getNumero() {
 		return numero;
+	}
+	public Sesion[] getArraySesiones() {
+		return arraySesiones;
 	}
 	public void setCodigoSala(String codigoSala) {
 		this.codigoSala = codigoSala;
@@ -52,12 +54,8 @@ public class Sala {
 	public void setNumero(int numero) {
 		this.numero = numero;
 	}
-
-	
-	
-	
-	
-
-	
+	public void setArraySesiones(Sesion[] arraySesiones) {
+		this.arraySesiones = arraySesiones;
+	}
 	
 }
