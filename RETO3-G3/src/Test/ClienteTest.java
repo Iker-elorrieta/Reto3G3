@@ -10,27 +10,25 @@ import Modelo.Entrada;
 class ClienteTest {
 
 	private Entrada[] arrayEntradas= new Entrada[1];
-	Entrada obj1 = new Entrada(null, 0, null, null, null, null);
+	Entrada obj1 = new Entrada(null, 0, null, null);
 	
-Cliente cli0 = new Cliente("4737J", "George", "Smith", "H", "lmao999", null);
+Cliente cli0 = new Cliente("4737J", "George", "Smith", "H", "lmao999");
 	
 	@Test
 	void test_getters_y_setters() {
 		arrayEntradas[0]=obj1;
-		Cliente cli = new Cliente("4737J", "George", "Smith", "H", "lmao999", arrayEntradas);
+		Cliente cli = new Cliente("4737J", "George", "Smith", "H", "lmao999");
 		cli.setDni("4737J");
 		cli.setNombre("George");
 		cli.setApellidos("Smith");
 		cli.setSexo("H");
 		cli.setContrasena("lmao999");
-		cli.setArrayEntrada(arrayEntradas);
 		
 		assertEquals(cli.getDni(), "4737J");
 		assertEquals(cli.getNombre(), "George");
 		assertEquals(cli.getApellidos(), "Smith");
 		assertEquals(cli.getSexo(), "H");
 		assertEquals(cli.getContrasena(), "lmao999");
-		assertEquals(cli.getArrayEntrada(), arrayEntradas);
 	
 	}
 	
@@ -44,8 +42,8 @@ Cliente cli0 = new Cliente("4737J", "George", "Smith", "H", "lmao999", null);
 	
 	@Test
 	void test_equals() {
-		Cliente cli1 = new Cliente("", "", "", "", "", null);
-		Cliente cli2 = new Cliente("", "", "", "", "", null);
+		Cliente cli1 = new Cliente("", "", "", "", "");
+		Cliente cli2 = new Cliente("", "", "", "", "");
 		
 		cli1.setDni("365353H");
 		cli2.setDni("365353H");

@@ -5,23 +5,24 @@ import java.util.Objects;
 public class Sala {
 	private String codigoSala;
 	private int numero;
-	private String codigoCine;
-	private Sesion[] arraySesiones;
 	
-	public Sala(String codigoSala, int numero, String codigoCine, Sesion[] arraySesiones) {
+	
+	public Sala(String codigoSala, int numero) {
 		super();
 		this.codigoSala = codigoSala;
 		this.numero = numero;
-		this.codigoCine = codigoCine;
-		this.arraySesiones = arraySesiones;
 	}
 
+	
 
 	@Override
 	public String toString() {
-		return "Sala [codigoSala=" + codigoSala + ", numero=" + numero + ", codigoCine=" + codigoCine + "]";
+		return "Sala [codigoSala=" + codigoSala + ", numero=" + numero + "]";
 	}
-	
+
+
+
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -45,24 +46,13 @@ public class Sala {
 	public int getNumero() {
 		return numero;
 	}
-	public String getCodigoCine() {
-		return codigoCine;
-	}
-	public Sesion[] getArraySesiones() {
-		return arraySesiones;
-	}
 	public void setCodigoSala(String codigoSala) {
 		this.codigoSala = codigoSala;
 	}
 	public void setNumero(int numero) {
 		this.numero = numero;
 	}
-	public void setCodigoCine(String codigoCine) {
-		this.codigoCine = codigoCine;
-	}
-	public void setArraySesiones(Sesion[] arraySesiones) {
-		this.arraySesiones = arraySesiones;
-	}
+
 	
 	
 	

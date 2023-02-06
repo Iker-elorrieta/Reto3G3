@@ -7,15 +7,13 @@ public class Pelicula {
 	private int duracion; //(en minutos)
 	private String nombre;
 	private String genero;
-	private Sesion[] arraySesiones;
 	
-	public Pelicula(String codigoPelícula, int duracion, String nombre, String genero, Sesion[] arraySesiones) {
+	public Pelicula(String codigoPelícula, int duracion, String nombre, String genero) {
 		super();
 		this.codigoPelícula = codigoPelícula;
 		this.duracion = duracion;
 		this.nombre = nombre;
 		this.genero = genero;
-		this.arraySesiones = arraySesiones;
 	}
 
 
@@ -54,9 +52,6 @@ public class Pelicula {
 	public String getGenero() {
 		return genero;
 	}
-	public Sesion[] getArraySesiones() {
-		return arraySesiones;
-	}
 	public void setCodigoPelícula(String codigoPelícula) {
 		this.codigoPelícula = codigoPelícula;
 	}
@@ -68,9 +63,6 @@ public class Pelicula {
 	}
 	public void setGenero(String genero) {
 		this.genero = genero;
-	}
-	public void setArraySesiones(Sesion[] arraySesiones) {
-		this.arraySesiones = arraySesiones;
 	}
 	
 	

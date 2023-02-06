@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Built-By: Txemi
-Build-Jdk: 17.0.5
+Built-By: in1dm3
+Build-Jdk: 18.0.2.1
 Created-By: Maven Integration for Eclipse
 
