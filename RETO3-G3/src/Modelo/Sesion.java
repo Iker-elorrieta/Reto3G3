@@ -7,44 +7,26 @@ import java.util.Objects;
 
 public class Sesion {
 	private String codigoSesion;
-	private Date hora;
+	//private Date hora;
 	private Date fecha;
-	private String codigoPelicula;
-	private String codigoSala;
-	private Pelicula[] arrayPeliculas;
-	private Sala[] arraySalas;
-	private Entrada[] arrayEntradas;
+	private Pelicula xPelicula;
 	
 	
 
-	public Sesion(String codigoSesion, Date hora, Date fecha, String codigoPelicula, String codigoSala,
-			Pelicula[] arrayPeliculas, Sala[] arraySalas, Entrada[] arrayEntradas) {
+	public Sesion(String codigoSesion, Date fecha, Pelicula xPelicula) {
 		super();
 		this.codigoSesion = codigoSesion;
-		this.hora = hora;
 		this.fecha = fecha;
-		this.codigoPelicula = codigoPelicula;
-		this.codigoSala = codigoSala;
-		this.arrayPeliculas = arrayPeliculas;
-		this.arraySalas = arraySalas;
-		this.arrayEntradas = arrayEntradas;
+		this.xPelicula = xPelicula;
 	}
-
-
-
-
 
 	@Override
 	public String toString() {
 		DateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
 		DateFormat dt2 = new SimpleDateFormat("hh:mm");
 		
-		return "Sesion [codigoSesion=" + codigoSesion + ", hora=" + dt2.format(hora) + ", fecha=" + dt.format(fecha) + ", codigoPelicula="
-				+ codigoPelicula + ", codigoSala=" + codigoSala + "]";
+		return "Sesion [codigoSesion=" + codigoSesion + ", hora=" + dt2.format(fecha) + ", fecha=" + dt.format(fecha) + "]";
 	}
-
-
-
 
 
 	@Override
@@ -61,55 +43,23 @@ public class Sesion {
 	
 	
 	
-	
-	
 	public String getCodigoSesion() {
 		return codigoSesion;
-	}
-	public Date getHora() {
-		return hora;
 	}
 	public Date getFecha() {
 		return fecha;
 	}
-	public String getCodigoPelicula() {
-		return codigoPelicula;
-	}
-	public String getCodigoSala() {
-		return codigoSala;
-	}
-	public Pelicula[] getArrayPeliculas() {
-		return arrayPeliculas;
-	}
-	public Sala[] getArraySalas() {
-		return arraySalas;
-	}
-	public Entrada[] getArrayEntradas() {
-		return arrayEntradas;
+	public Pelicula getArrayPeliculas() {
+		return xPelicula;
 	}
 	public void setCodigoSesion(String codigoSesion) {
 		this.codigoSesion = codigoSesion;
 	}
-	public void setHora(Date hora) {
-		this.hora = hora;
-	}
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	public void setCodigoPelicula(String codigoPelicula) {
-		this.codigoPelicula = codigoPelicula;
-	}
-	public void setCodigoSala(String codigoSala) {
-		this.codigoSala = codigoSala;
-	}
-	public void setArrayPeliculas(Pelicula[] arrayPeliculas) {
-		this.arrayPeliculas = arrayPeliculas;
-	}
-	public void setArraySalas(Sala[] arraySalas) {
-		this.arraySalas = arraySalas;
-	}
-	public void setArrayEntradas(Entrada[] arrayEntradas) {
-		this.arrayEntradas = arrayEntradas;
+	public void setArrayPeliculas(Pelicula xPelicula) {
+		this.xPelicula = xPelicula;
 	}
 	
 

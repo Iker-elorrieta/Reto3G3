@@ -10,32 +10,26 @@ import Modelo.Sesion;
 
 class EntradaTest {
 
-	private Cliente[] arrayClientes= new Cliente[1];
-	Cliente obj1_c = new Cliente("", "", "", "", "", null);
+	Cliente xCliente = new Cliente("", "", "", "", "");
 	
 	private Sesion[] arraySesiones= new Sesion[1];
-	Sesion obj1_s = new Sesion(null, null, null, null, null, null, null, null);
+	Sesion obj1_s = new Sesion(null, null, null);
 	
-Entrada ent0 = new Entrada("FDG557", (float) 4.7, "4563HH", "34542443K", arrayClientes, arraySesiones);
+Entrada ent0 = new Entrada("FDG557", (float) 4.7, xCliente, arraySesiones);
 	
 	@Test
 	void test_getters_y_setters() {
-		arrayClientes[0]=obj1_c;
 		arraySesiones[0]=obj1_s;
-		Entrada ent = new Entrada("FDG557", (float) 4.7, "4563HH", "34542443K", arrayClientes, arraySesiones);
+		Entrada ent = new Entrada("FDG557", (float) 4.7, xCliente, arraySesiones);
 		ent.setCodigoEntrada("FDG557");
 		ent.setPrecio((float) 4.7);
-		ent.setCodigoSesion("4563HH");
-		ent.setDni("34542443K");
-		ent.setArrayCliente(arrayClientes);
+		ent.setArrayCliente(xCliente);
 		ent.setArraySesiones(arraySesiones);
 		
 		
 		assertEquals(ent.getCodigoEntrada(), "FDG557");
 		assertEquals(ent.getPrecio(), (float) 4.7);
-		assertEquals(ent.getCodigoSesion(), "4563HH");
-		assertEquals(ent.getDni(), "34542443K");
-		assertEquals(ent.getArrayCliente(), arrayClientes);
+		assertEquals(ent.getArrayCliente(), xCliente);
 		assertEquals(ent.getArraySesiones(), arraySesiones);
 	}
 	
@@ -43,14 +37,14 @@ Entrada ent0 = new Entrada("FDG557", (float) 4.7, "4563HH", "34542443K", arrayCl
 	void test_toString() {
 		String resul = ent0.toString();
 		System.out.println(resul);
-		assertEquals("Entrada [codigoEntrada=FDG557, precio=4.7, codigoSesion=4563HH, dni=34542443K]", resul);
+		assertEquals("Entrada [codigoEntrada=FDG557, precio=4.7]", resul);
 	}
 	
 	
 	@Test
 	void test_equals() {
-		Entrada ent1 = new Entrada(null, 0, null, null, arrayClientes, arraySesiones);
-		Entrada ent2 = new Entrada(null, 0, null, null, arrayClientes, arraySesiones);
+		Entrada ent1 = new Entrada(null, 0, xCliente, arraySesiones);
+		Entrada ent2 = new Entrada(null, 0, xCliente, arraySesiones);
 		
 		ent1.setCodigoEntrada("Z824");
 		ent2.setCodigoEntrada("Z824");

@@ -5,30 +5,23 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import Modelo.Pelicula;
-import Modelo.Sesion;
 
 class PeliculaTest {
-
-	private Sesion[] arraySesiones= new Sesion[1];
-	Sesion obj1 = new Sesion(null, null, null, null, null, null, null, null);
 	
-Pelicula pel0 = new Pelicula("DFDF67", 142, "Scary Movie", "Comedia", arraySesiones);
+Pelicula pel0 = new Pelicula("DFDF67", 142, "Scary Movie", "Comedia");
 	
 	@Test
 	void test_getters_y_setters() {
-		arraySesiones[0]=obj1;
-		Pelicula pel = new Pelicula("DFDF67", 142, "Scary Movie", "Comedia", arraySesiones);
+		Pelicula pel = new Pelicula("DFDF67", 142, "Scary Movie", "Comedia");
 		pel.setCodigoPelícula("DFDF67");
 		pel.setDuracion(142);
 		pel.setNombre("Scary Movie");
 		pel.setGenero("Comedia");
-		pel.setArraySesiones(arraySesiones);
 		
 		assertEquals(pel.getCodigoPelícula(), "DFDF67");
 		assertEquals(pel.getDuracion(), 142);
 		assertEquals(pel.getNombre(), "Scary Movie");
 		assertEquals(pel.getGenero(), "Comedia");
-		assertEquals(pel.getArraySesiones(), arraySesiones);
 	
 	}
 	
@@ -41,8 +34,8 @@ Pelicula pel0 = new Pelicula("DFDF67", 142, "Scary Movie", "Comedia", arraySesio
 	
 	@Test
 	void test_equals() {
-		Pelicula pel1 = new Pelicula(null, 0, null, null, arraySesiones);
-		Pelicula pel2 = new Pelicula(null, 0, null, null, arraySesiones);
+		Pelicula pel1 = new Pelicula(null, 0, null, null);
+		Pelicula pel2 = new Pelicula(null, 0, null, null);
 		
 		pel1.setCodigoPelícula("ZZ3");
 		pel2.setCodigoPelícula("ZZ3");
