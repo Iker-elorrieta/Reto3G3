@@ -48,7 +48,7 @@ public class Entrada {
 	public float getPrecio() {
 		return precio;
 	}
-	public Cliente getArrayCliente() {
+	public Cliente getxCliente() {
 		return xCliente;
 	}
 	public Sesion[] getArraySesiones() {
@@ -60,7 +60,7 @@ public class Entrada {
 	public void setPrecio(float precio) {
 		this.precio = precio;
 	}
-	public void setArrayCliente(Cliente arrayCliente) {
+	public void setxCliente(Cliente arrayCliente) {
 		this.xCliente = arrayCliente;
 	}
 	public void setArraySesiones(Sesion[] arraySesiones) {
