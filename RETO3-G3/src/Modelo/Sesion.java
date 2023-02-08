@@ -20,6 +20,10 @@ public class Sesion {
 		this.xPelicula = xPelicula;
 	}
 
+	public Sesion() {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public String toString() {
 		DateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
@@ -49,7 +53,7 @@ public class Sesion {
 	public Date getFecha() {
 		return fecha;
 	}
-	public Pelicula getArrayPeliculas() {
+	public Pelicula getxPeliculas() {
 		return xPelicula;
 	}
 	public void setCodigoSesion(String codigoSesion) {
@@ -58,7 +62,7 @@ public class Sesion {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	public void setArrayPeliculas(Pelicula xPelicula) {
+	public void setxPeliculas(Pelicula xPelicula) {
 		this.xPelicula = xPelicula;
 	}
 	

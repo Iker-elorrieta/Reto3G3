@@ -17,18 +17,18 @@ import Modelo.Sala;
 import Modelo.Sesion;
 
 import javax.swing.JLabel;
-import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.util.Calendar;
 import java.awt.event.ActionEvent;
 import javax.swing.ButtonGroup;
+import java.awt.Color;
 
 public class BienvenidaCines extends JFrame {
 
@@ -47,13 +47,21 @@ public class BienvenidaCines extends JFrame {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	Connection conexion;
 	ResultSet registroCines;
+	ResultSet registroSalas2;
+	ResultSet registroSesiones2;
+	ResultSet registroPelis2;
 	ResultSet registroClientes;
 	ResultSet registroEntradas;
-	ResultSet registroPelis;
-	ResultSet registroSalas;
-	ResultSet registroSesiones;
+	//ResultSet registroPelis;
+	//ResultSet registroSalas;
+	//ResultSet registroSesiones;
 	Statement comando;
-	CompraPeliculas vent;
+	SeleccionPeliculas vent;
+	int opcionCine = -1;
+	JLabel lblNewLabel_1;
+	Sala[] arraySalas;
+	Sesion[] arraySesiones;
+	Pelicula pel;
 
 	/**
 	 * Launch the application.
@@ -84,36 +92,88 @@ public class BienvenidaCines extends JFrame {
 		Cine[] arrayCines = new Cine[100];
 		Cliente[] arrayClientes = new Cliente[100];
 		Entrada[] arrayEntradas = new Entrada[100];
-		Pelicula[] arrayPelis = new Pelicula[100];
-		Sala[] arraySalas = new Sala[100];
-		Sesion[] arraySesiones = new Sesion[100];
+		
+
+		
 		
 		try {
-			conexion=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/reto3_grupo3","root"
-			,"");
+			conexion=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/reto3_grupo3","root","");
 			comando=(Statement) conexion.createStatement();
 			registroCines = comando.executeQuery("select * from cine");
-			System.out.println(registroCines);
 			int i=0;
+			
 			while (registroCines.next()) {
 				
-				Cine cin = new Cine("", "", "", null);
+				arraySalas = new Sala[100];
+				Cine cin = new Cine();
 				
 				cin.setCodigoCine(registroCines.getString("Código_Cine"));
 				cin.setNombre(registroCines.getString("Nombre"));
 				cin.setDireccion(registroCines.getString("Direccion"));
-				cin.setArraySalas(null);
+				Statement comando2=(Statement) conexion.createStatement();
+				registroSalas2 = comando2.executeQuery("select * from salas where Código_Cine='"+registroCines.getString("Código_Cine")+"'");
+				int contSal=0;
+				while (registroSalas2.next()) {
+					arraySesiones = new Sesion[100];
+					Sala sal = new Sala();
+					sal.setCodigoSala(registroSalas2.getString("Código_Sala"));
+					sal.setNumero(registroSalas2.getInt("Numero"));
+					
+					Statement comando3=(Statement) conexion.createStatement();
+					registroSesiones2 = comando3.executeQuery("select * from sesión where Código_Sala='"+registroSalas2.getString("Código_Sala")+"'");
+					int contSes=0;
+					
+					while (registroSesiones2.next()) {
+					
+						Sesion ses = new Sesion();
+						ses.setCodigoSesion(registroSesiones2.getString("Código_Sesión"));
+						Calendar cal = Calendar.getInstance();
+						cal.set(Calendar.HOUR_OF_DAY, 0);
+						cal.set(Calendar.MINUTE, 30);
+						cal.set(Calendar.DAY_OF_MONTH, 20);
+						cal.set(Calendar.MONTH, 0);
+						cal.set(Calendar.YEAR, 2023);
+						ses.setFecha(registroSesiones2.getDate("Fecha_Inicio"));
+						
+						Statement comando4=(Statement) conexion.createStatement();
+						registroPelis2 = comando4.executeQuery("select * from películas where Código_Película=(select Código_Película from sesión where Código_Sesión='"+registroSesiones2.getString("Código_Sesión")+"')");
+						while (registroPelis2.next()) {
+							
+							pel = new Pelicula();
+							pel.setCodigoPelicula(registroPelis2.getString("Código_Película"));
+							pel.setDuracion(registroPelis2.getInt("Duración"));
+							pel.setNombre(registroPelis2.getString("Nombre"));
+							pel.setGenero(registroPelis2.getString("Género"));
+							
+						}
+					//	registroPelis2.close();
+						
+						ses.setxPeliculas(pel);
+						
+						arraySesiones[contSes]=ses;
+						contSes++;
+						
+					}
+				//	registroSesiones2.close();
+					sal.setArraySesiones(arraySesiones);
+					
+					arraySalas[contSal]=sal;
+					contSal++;
+				}
+			//	registroSalas2.close();
+				cin.setArraySalas(arraySalas);
 				
 				arrayCines[i]=cin;
 				i++;
 			}
-			
+	//		registroCines.close();
+		
 			registroClientes = comando.executeQuery("select * from clientes");
 			int i2=0;
 			while (registroClientes.next()) {
 				
 				
-				Cliente cli = new Cliente("", "", "", "", "");
+				Cliente cli = new Cliente();
 				cli.setDni(registroClientes.getString("DNI"));
 				cli.setNombre(registroClientes.getString("Nombre"));
 				cli.setApellidos(registroClientes.getString("Apellido"));
@@ -123,76 +183,35 @@ public class BienvenidaCines extends JFrame {
 				arrayClientes[i2]=cli;
 				i2++;
 			}
+			registroClientes.close();
 			
 			registroEntradas = comando.executeQuery("select * from entrada");
 			int i3=0;
 			while (registroEntradas.next()) {
 				
 				
-				Entrada ent = new Entrada("", 3, null, null);
+				Entrada ent = new Entrada();
 				ent.setCodigoEntrada(registroEntradas.getString("Código_Entrada"));
 				ent.setPrecio(registroEntradas.getFloat("Precio"));
-				ent.setxCliente(null);
-				ent.setArraySesiones(null);
+				ent.setxCliente(arrayClientes[i3]);
+				ent.setArraySesiones(arraySesiones);
 				
 				arrayEntradas[i3]=ent;
 				i3++;
 			}
-			
-			registroPelis = comando.executeQuery("select * from películas");
-			int i4=0;
-			while (registroPelis.next()) {
-				
-				
-				Pelicula pel = new Pelicula("", 134, "", "");
-				pel.setCodigoPelicula(registroPelis.getString("Código_Película"));
-				pel.setDuracion(registroPelis.getInt("Duración"));
-				pel.setNombre(registroPelis.getString("Nombre"));
-				pel.setGenero(registroPelis.getString("Género"));
-				
-				arrayPelis[i4]=pel;
-				i4++;
-			}
-			
-			
-			registroSalas = comando.executeQuery("select * from salas");
-			int i5=0;
-			while (registroSalas.next()) {
-				
-				
-				Sala sal = new Sala("", 23, null);
-				sal.setCodigoSala(registroSalas.getString("Código_Sala"));
-				sal.setNumero(registroSalas.getInt("Numero"));
-				sal.setArraySesiones(null);
-				
-				arraySalas[i5]=sal;
-				i5++;
-			}
-			
-			registroSesiones = comando.executeQuery("select * from sesión");
-			int i6=0;
-			while (registroSesiones.next()) {
-				
-				
-				Sesion ses = new Sesion("", null, null);
-				ses.setCodigoSesion(registroSesiones.getString("Código_Sesión"));
-				ses.setFecha(registroSesiones.getDate("Fecha_Inicio"));
-				ses.setArrayPeliculas(null);
-				
-				arraySesiones[i6]=ses;
-				i6++;
-			}
-			
+			registroEntradas.close();
+
 			
 			comando.close();
-			
-			registroCines.close();
 			conexion.close();
 		} catch(SQLException ex){
 				ex.printStackTrace();
 
 		}
 
+		System.out.println(arrayCines[0].getArraySalas()[0].getArraySesiones()[0].getxPeliculas().getNombre());
+		System.out.println(arrayCines[0].getArraySalas()[1].getArraySesiones()[0].getxPeliculas().getNombre());
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -210,23 +229,26 @@ public class BienvenidaCines extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(rdbtnNewRadioButton.isSelected()) {
-					vent = new CompraPeliculas(nombrePelis,horaPelis, 0);
-					vent.setVisible(true);
+					opcionCine= 0;
 				}
 				else if(rdbtnNewRadioButton_1.isSelected()) {
-					vent = new CompraPeliculas(nombrePelis,horaPelis, 1);
-					vent.setVisible(true);
+					opcionCine= 1;
 				}
 				else if(rdbtnNewRadioButton_2.isSelected()) {
-					vent = new CompraPeliculas(nombrePelis,horaPelis, 2);
-					vent.setVisible(true);
+					opcionCine= 2;
 				}
 				else if(rdbtnNewRadioButton_3.isSelected()) {
-					vent = new CompraPeliculas(nombrePelis,horaPelis, 3);
-					vent.setVisible(true);
+					opcionCine= 3;
 				}
-				else {
-					System.out.println("No has seleccionado ningún cine");
+				
+				
+				if(opcionCine==-1) {
+				
+				lblNewLabel_1.setVisible(true);
+				}else {
+				//vent = new SeleccionPeliculas(arrayCines, arrayClientes, arrayEntradas, arrayPelis, arraySalas, arraySesiones, opcionCine);
+					vent = new SeleccionPeliculas(arrayCines, arrayClientes, arrayEntradas, opcionCine);
+				vent.setVisible(true);
 				}
 			}
 		});
@@ -254,8 +276,7 @@ public class BienvenidaCines extends JFrame {
 		contentPane.add(rdbtnNewRadioButton_3);
 		
 		
-		registroCines.close();
-		conexion.close();
+
 		
 		JButton btnNewButton_1 = new JButton("Finalizar");
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -266,5 +287,11 @@ public class BienvenidaCines extends JFrame {
 		});
 		btnNewButton_1.setBounds(229, 227, 89, 23);
 		contentPane.add(btnNewButton_1);
+		
+		lblNewLabel_1 = new JLabel("*No has seleccionado ningún cine");
+		lblNewLabel_1.setForeground(new Color(255, 0, 0));
+		lblNewLabel_1.setBounds(37, 231, 182, 14);
+		contentPane.add(lblNewLabel_1);
+		lblNewLabel_1.setVisible(false);
 	}
 }

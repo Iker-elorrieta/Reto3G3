@@ -23,13 +23,13 @@ Entrada ent0 = new Entrada("FDG557", (float) 4.7, xCliente, arraySesiones);
 		Entrada ent = new Entrada("FDG557", (float) 4.7, xCliente, arraySesiones);
 		ent.setCodigoEntrada("FDG557");
 		ent.setPrecio((float) 4.7);
-		ent.setArrayCliente(xCliente);
+		ent.setxCliente(xCliente);
 		ent.setArraySesiones(arraySesiones);
 		
 		
 		assertEquals(ent.getCodigoEntrada(), "FDG557");
 		assertEquals(ent.getPrecio(), (float) 4.7);
-		assertEquals(ent.getArrayCliente(), xCliente);
+		assertEquals(ent.getxCliente(), xCliente);
 		assertEquals(ent.getArraySesiones(), arraySesiones);
 	}
 	

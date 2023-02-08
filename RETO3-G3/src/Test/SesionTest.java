@@ -2,15 +2,12 @@ package Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
 import Modelo.Pelicula;
-import Modelo.Sala;
 import Modelo.Sesion;
 
 class SesionTest {
@@ -33,11 +30,11 @@ Sesion ses0 = new Sesion("SES934", fecha, xPelicula);
 		Sesion ses = new Sesion("SES934", fecha, xPelicula);
 		ses.setCodigoSesion("SES934");
 		ses.setFecha(fecha);
-		ses.setArrayPeliculas(xPelicula);
+		ses.setxPeliculas(xPelicula);
 		
 		assertEquals(ses.getCodigoSesion(), "SES934");
 		assertEquals(ses.getFecha(), fecha);
-		assertEquals(ses.getArrayPeliculas(), xPelicula);
+		assertEquals(ses.getxPeliculas(), xPelicula);
 
 	}
 	

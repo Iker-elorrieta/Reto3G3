@@ -20,6 +20,12 @@ public class Cine {
 
 
 
+	public Cine() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "Cine [codigoCine=" + codigoCine + ", nombre=" + nombre + ", direccion=" + direccion + "]";

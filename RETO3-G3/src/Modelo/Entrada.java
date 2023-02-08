@@ -23,6 +23,11 @@ public class Entrada {
 	}
 
 
+	public Entrada() {
+		// TODO Auto-generated constructor stub
+	}
+
+
 	@Override
 	public String toString() {
 		return "Entrada [codigoEntrada=" + codigoEntrada + ", precio=" + precio + "]";

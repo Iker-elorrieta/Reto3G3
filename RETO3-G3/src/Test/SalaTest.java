@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import Modelo.Entrada;
 import Modelo.Sala;
 import Modelo.Sesion;
 

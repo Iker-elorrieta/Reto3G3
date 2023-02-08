@@ -18,6 +18,12 @@ public class Pelicula {
 
 
 
+	public Pelicula() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "Pelicula [codigoPelícula=" + codigoPelicula + ", duracion=" + duracion + ", nombre=" + nombre

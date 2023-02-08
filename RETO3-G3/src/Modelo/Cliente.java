@@ -23,6 +23,13 @@ public class Cliente {
 
 
 
+	public Cliente() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

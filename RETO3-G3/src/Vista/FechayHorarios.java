@@ -10,12 +10,20 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
+import Modelo.Cine;
+import Modelo.Cliente;
 import Modelo.DateLabelFormatter;
+import Modelo.Entrada;
+import Modelo.Pelicula;
+import Modelo.Sala;
+import Modelo.Sesion;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
 import java.awt.event.ActionEvent;
@@ -35,6 +43,22 @@ public class FechayHorarios extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param opcionPeli 
+	 * @param opcionCine 
+	 * @param arraySesiones 
+	 * @param arraySalas 
+	 * @param arrayPelis 
+	 * @param arrayEntradas 
+	 * @param arrayClientes 
+	 * @param arrayCines 
+	 * @param opcionPeli 
+	 * @param opcionCine 
+	 * @param arraySesiones 
+	 * @param arraySalas 
+	 * @param arrayPelis 
+	 * @param arrayEntradas 
+	 * @param arrayClientes 
+	 * @param arrayCines 
 	 * @param opcion2 
 	 * @param opcion 
 	 * @param horaPelis 
@@ -47,41 +71,52 @@ public class FechayHorarios extends JFrame {
 	 * @param peli2 
 	 * @param peli1 
 	 * @param horaPelis 
-	 * @param i 
-	 * @param i 
 	 * @param nombrePelis 
 	 */
-	public FechayHorarios(String peli1, String peli2, String peli3, String peli4, Time[] horaPelis, int opcion, int opcion2) {
-		if(opcion==0&opcion2==0) {
+	public FechayHorarios(Cine[] arrayCines, Cliente[] arrayClientes, Entrada[] arrayEntradas, Pelicula[] arrayPelis, Sala[] arraySalas, Sesion[] arraySesiones, int opcionCine, int opcionPeli) {
+		
+		for(int i=0;i<3;i++) {
+			for(int j=0;j<3;j++) {
+				if(opcionCine==i && opcionPeli==j) {
+					DateFormat dt2 = new SimpleDateFormat("hh:mm");
+					
+					sesion1=dt2.format(arrayCines[opcionCine].getArraySalas()[0].getArraySesiones()[opcionPeli].getFecha())+"-";
+					sesion2="";
+				}
+			}
+		}
+		
+		System.out.println();
+		/*if(opcionCine==0&opcion2==0) {
 			sesion1=horaPelis[0]+"-"+peli1;
 			sesion2=horaPelis[1]+"-"+peli1;
 		}
-		else if(opcion==0&opcion2==1) {
+		else if(opcionCine==0&opcion2==1) {
 			sesion1=horaPelis[2]+"-"+peli2;
 			sesion2=horaPelis[3]+"-"+peli2;
 		}
-		else if(opcion==0&opcion2==2) {
+		else if(opcionCine==0&opcion2==2) {
 			sesion1=horaPelis[4]+"-"+peli3;
 			sesion2=horaPelis[5]+"-"+peli3;
 		}
-		else if(opcion==0&opcion2==3) {
+		else if(opcionCine==0&opcion2==3) {
 			sesion1=horaPelis[6]+"-"+peli4;
 			sesion2=horaPelis[7]+"-"+peli4;
 		}
 		
-		else if(opcion==1&opcion2==0) {
+		else if(opcionCine==1&opcion2==0) {
 			sesion1=horaPelis[8]+"-"+peli1;
 			sesion2=horaPelis[9]+"-"+peli1;
 		}
-		else if(opcion==1&opcion2==1) {
+		else if(opcionCine==1&opcion2==1) {
 			sesion1=horaPelis[10]+"-"+peli2;
 			sesion2=horaPelis[11]+"-"+peli2;
 		}
-		else if(opcion==1&opcion2==2) {
+		else if(opcionCine==1&opcion2==2) {
 			sesion1=horaPelis[12]+"-"+peli3;
 			sesion2=horaPelis[13]+"-"+peli3;
 		}
-		else if(opcion==1&opcion2==3) {
+		else if(opcionCine==1&opcion2==3) {
 			sesion1=horaPelis[14]+"-"+peli4;
 			sesion2=horaPelis[15]+"-"+peli4;
 		}
@@ -118,7 +153,7 @@ public class FechayHorarios extends JFrame {
 		else if(opcion==3&opcion2==3) {
 			sesion1=horaPelis[30]+"-"+peli4;
 			sesion2=horaPelis[31]+"-"+peli4;
-		}
+		}*/
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
