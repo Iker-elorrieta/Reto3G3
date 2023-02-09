@@ -104,7 +104,7 @@ public class BienvenidaCines extends JFrame {
 			
 			while (registroCines.next()) {
 				
-				arraySalas = new Sala[100];
+				arraySalas = new Sala[4];
 				Cine cin = new Cine();
 				
 				cin.setCodigoCine(registroCines.getString("Código_Cine"));
@@ -114,7 +114,7 @@ public class BienvenidaCines extends JFrame {
 				registroSalas2 = comando2.executeQuery("select * from salas where Código_Cine='"+registroCines.getString("Código_Cine")+"'");
 				int contSal=0;
 				while (registroSalas2.next()) {
-					arraySesiones = new Sesion[100];
+					arraySesiones = new Sesion[2];
 					Sala sal = new Sala();
 					sal.setCodigoSala(registroSalas2.getString("Código_Sala"));
 					sal.setNumero(registroSalas2.getInt("Numero"));
@@ -128,12 +128,14 @@ public class BienvenidaCines extends JFrame {
 						Sesion ses = new Sesion();
 						ses.setCodigoSesion(registroSesiones2.getString("Código_Sesión"));
 						Calendar cal = Calendar.getInstance();
-						cal.set(Calendar.HOUR_OF_DAY, 0);
-						cal.set(Calendar.MINUTE, 30);
-						cal.set(Calendar.DAY_OF_MONTH, 20);
-						cal.set(Calendar.MONTH, 0);
-						cal.set(Calendar.YEAR, 2023);
-						ses.setFecha(registroSesiones2.getDate("Fecha_Inicio"));
+						System.out.println(registroSesiones2.getDate("Fecha_Inicio").toString().split("-")[0]);
+						cal.set(Calendar.HOUR_OF_DAY, Integer.valueOf(registroSesiones2.getTime("Hora").toString().split(":")[0]));
+						cal.set(Calendar.MINUTE, Integer.valueOf(registroSesiones2.getTime("Hora").toString().split(":")[1]));
+						cal.set(Calendar.DAY_OF_MONTH, Integer.valueOf(registroSesiones2.getDate("Fecha_Inicio").toString().split("-")[2]));
+						cal.set(Calendar.MONTH, Integer.valueOf(registroSesiones2.getDate("Fecha_Inicio").toString().split("-")[1]));
+						cal.set(Calendar.YEAR, Integer.valueOf(registroSesiones2.getDate("Fecha_Inicio").toString().split("-")[0]));
+						//ses.setFecha(registroSesiones2.getDate("Fecha_Inicio"));
+						ses.setFecha(cal.getTime());
 						
 						Statement comando4=(Statement) conexion.createStatement();
 						registroPelis2 = comando4.executeQuery("select * from películas where Código_Película=(select Código_Película from sesión where Código_Sesión='"+registroSesiones2.getString("Código_Sesión")+"')");
@@ -247,7 +249,7 @@ public class BienvenidaCines extends JFrame {
 				lblNewLabel_1.setVisible(true);
 				}else {
 				//vent = new SeleccionPeliculas(arrayCines, arrayClientes, arrayEntradas, arrayPelis, arraySalas, arraySesiones, opcionCine);
-					vent = new SeleccionPeliculas(arrayCines, arrayClientes, arrayEntradas, opcionCine);
+					vent = new SeleccionPeliculas(arrayCines, arraySalas, arraySesiones, pel, arrayClientes, arrayEntradas, opcionCine);
 				vent.setVisible(true);
 				}
 			}

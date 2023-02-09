@@ -43,6 +43,13 @@ public class FechayHorarios extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param opcionCine 
+	 * @param arrayEntradas 
+	 * @param arrayClientes 
+	 * @param pel 
+	 * @param arraySesiones 
+	 * @param arraySalas 
+	 * @param arrayCines 
 	 * @param opcionPeli 
 	 * @param opcionCine 
 	 * @param arraySesiones 
@@ -73,87 +80,29 @@ public class FechayHorarios extends JFrame {
 	 * @param horaPelis 
 	 * @param nombrePelis 
 	 */
-	public FechayHorarios(Cine[] arrayCines, Cliente[] arrayClientes, Entrada[] arrayEntradas, Pelicula[] arrayPelis, Sala[] arraySalas, Sesion[] arraySesiones, int opcionCine, int opcionPeli) {
+	public FechayHorarios(Cine[] arrayCines, Sala[] arraySalas, Sesion[] arraySesiones, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, int opcionCine, int[] nSala, int[] nSesion) {
 		
-		for(int i=0;i<3;i++) {
-			for(int j=0;j<3;j++) {
-				if(opcionCine==i && opcionPeli==j) {
-					DateFormat dt2 = new SimpleDateFormat("hh:mm");
-					
-					sesion1=dt2.format(arrayCines[opcionCine].getArraySalas()[0].getArraySesiones()[opcionPeli].getFecha())+"-";
-					sesion2="";
-				}
-			}
-		}
+		//sesiones
+		//como sacar la sala de una peli
+		//como sacar las sesiones de una peli
+		int w=0;
+//		arrayCines[opcionCine].getArraySalas()[nSala[0]].getArraySesiones()[nSesion[0]].getxPeliculas();
+//		System.out.println("FechayCosas");
+//		System.out.println(arrayCines[opcionCine].getArraySalas()[nSala[0]].getArraySesiones()[nSesion[0]].getxPeliculas());
+//		System.out.println(arrayCines[opcionCine].getArraySalas()[nSala[0]].getArraySesiones()[nSesion[0]].getFecha());
+		DateFormat dt2 = new SimpleDateFormat("hh:mm");
+		String hora1 = dt2.format(arrayCines[opcionCine].getArraySalas()[nSala[0]].getArraySesiones()[nSesion[0]].getFecha());
+		String nombrePeli1 = arrayCines[opcionCine].getArraySalas()[nSala[0]].getArraySesiones()[nSesion[0]].getxPeliculas().getNombre();
+		int nombreSala1 = arrayCines[opcionCine].getArraySalas()[nSala[0]].getNumero();
+		Float precioEntrada1 = arrayEntradas[0].getPrecio();
+		sesion1=hora1+"-"+nombrePeli1+"( Sala"+nombreSala1+")"+"-"+precioEntrada1+"€";
 		
-		System.out.println();
-		/*if(opcionCine==0&opcion2==0) {
-			sesion1=horaPelis[0]+"-"+peli1;
-			sesion2=horaPelis[1]+"-"+peli1;
-		}
-		else if(opcionCine==0&opcion2==1) {
-			sesion1=horaPelis[2]+"-"+peli2;
-			sesion2=horaPelis[3]+"-"+peli2;
-		}
-		else if(opcionCine==0&opcion2==2) {
-			sesion1=horaPelis[4]+"-"+peli3;
-			sesion2=horaPelis[5]+"-"+peli3;
-		}
-		else if(opcionCine==0&opcion2==3) {
-			sesion1=horaPelis[6]+"-"+peli4;
-			sesion2=horaPelis[7]+"-"+peli4;
-		}
 		
-		else if(opcionCine==1&opcion2==0) {
-			sesion1=horaPelis[8]+"-"+peli1;
-			sesion2=horaPelis[9]+"-"+peli1;
-		}
-		else if(opcionCine==1&opcion2==1) {
-			sesion1=horaPelis[10]+"-"+peli2;
-			sesion2=horaPelis[11]+"-"+peli2;
-		}
-		else if(opcionCine==1&opcion2==2) {
-			sesion1=horaPelis[12]+"-"+peli3;
-			sesion2=horaPelis[13]+"-"+peli3;
-		}
-		else if(opcionCine==1&opcion2==3) {
-			sesion1=horaPelis[14]+"-"+peli4;
-			sesion2=horaPelis[15]+"-"+peli4;
-		}
-		
-		else if(opcion==2&opcion2==0) {
-			sesion1=horaPelis[16]+"-"+peli1;
-			sesion2=horaPelis[17]+"-"+peli1;
-		}
-		else if(opcion==2&opcion2==1) {
-			sesion1=horaPelis[18]+"-"+peli2;
-			sesion2=horaPelis[19]+"-"+peli2;
-		}
-		else if(opcion==2&opcion2==2) {
-			sesion1=horaPelis[20]+"-"+peli3;
-			sesion2=horaPelis[21]+"-"+peli3;
-		}
-		else if(opcion==2&opcion2==3) {
-			sesion1=horaPelis[22]+"-"+peli4;
-			sesion2=horaPelis[23]+"-"+peli4;
-		}
-		
-		else if(opcion==3&opcion2==0) {
-			sesion1=horaPelis[24]+"-"+peli1;
-			sesion2=horaPelis[25]+"-"+peli1;
-		}
-		else if(opcion==3&opcion2==1) {
-			sesion1=horaPelis[26]+"-"+peli2;
-			sesion2=horaPelis[27]+"-"+peli2;
-		}
-		else if(opcion==3&opcion2==2) {
-			sesion1=horaPelis[28]+"-"+peli3;
-			sesion2=horaPelis[29]+"-"+peli3;
-		}
-		else if(opcion==3&opcion2==3) {
-			sesion1=horaPelis[30]+"-"+peli4;
-			sesion2=horaPelis[31]+"-"+peli4;
-		}*/
+		String hora2 = dt2.format(arrayCines[opcionCine].getArraySalas()[nSala[1]].getArraySesiones()[nSesion[1]].getFecha());
+		String nombrePeli2 = arrayCines[opcionCine].getArraySalas()[nSala[1]].getArraySesiones()[nSesion[1]].getxPeliculas().getNombre();
+		int nombreSala2 = arrayCines[opcionCine].getArraySalas()[nSala[1]].getNumero();
+		Float precioEntrada2 = arrayEntradas[1].getPrecio();
+		sesion2=hora2+"-"+nombrePeli2+"( Sala"+nombreSala2+")"+"-"+precioEntrada2+"€";
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

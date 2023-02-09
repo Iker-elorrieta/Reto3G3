@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Controlador.Metodos;
 import Modelo.Cine;
 import Modelo.Cliente;
 import Modelo.Entrada;
@@ -32,6 +33,11 @@ public class SeleccionPeliculas extends JFrame {
 	FechayHorarios vent;
 	JLabel lblNewLabel_1;
 	int opcionPeli=-1;
+	String nombrePelicula;
+	Metodos mts = new Metodos();
+	Pelicula[] nombresPelisCine;
+	int[] nSala;
+	int[] nSesion;
 
 	/**
 	 * Launch the application.
@@ -40,6 +46,13 @@ public class SeleccionPeliculas extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param opcionCine 
+	 * @param arrayEntradas 
+	 * @param arrayClientes 
+	 * @param pel 
+	 * @param arraySesiones 
+	 * @param arraySalas 
+	 * @param arrayCines 
 	 * @param opcionCine 
 	 * @param arrayEntradas 
 	 * @param arrayClientes 
@@ -55,36 +68,23 @@ public class SeleccionPeliculas extends JFrame {
 	 * @param nombrePelis 
 	 * @param horaPelis 
 	 */
-	public SeleccionPeliculas(Cine[] arrayCines, Cliente[] arrayClientes, Entrada[] arrayEntradas, int opcionCine) {
+	public SeleccionPeliculas(Cine[] arrayCines, Sala[] arraySalas, Sesion[] arraySesiones, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, int opcionCine) {
+		//sin mirar la tabla
+		//???pos pelis
 		
 		
 		
 		if(opcionCine==0) {
-			//sin mirar la tabla
-			//???pos pelis
-			System.out.println(arrayCines[0].getArraySalas()[0].getArraySesiones()[0].getxPeliculas().getNombre());
-			peli1=arrayCines[opcionCine].getArraySalas()[0].getArraySesiones()[0].getxPeliculas().getNombre();
-			peli2=arrayCines[opcionCine].getArraySalas()[1].getArraySesiones()[4].getxPeliculas().getNombre();
-			peli3=arrayCines[opcionCine].getArraySalas()[2].getArraySesiones()[8].getxPeliculas().getNombre();
-			peli4=arrayCines[opcionCine].getArraySalas()[3].getArraySesiones()[12].getxPeliculas().getNombre();
+			nombresPelisCine = mts.mostrarPeliculas(arrayCines, arraySalas, arraySesiones, pel, opcionCine);
 		}
 		else if(opcionCine==1) {
-			peli1=arrayCines[opcionCine].getArraySalas()[4].getArraySesiones()[1].getxPeliculas().getNombre();
-			peli2=arrayCines[opcionCine].getArraySalas()[5].getArraySesiones()[5].getxPeliculas().getNombre();
-			peli3=arrayCines[opcionCine].getArraySalas()[6].getArraySesiones()[9].getxPeliculas().getNombre();
-			peli4=arrayCines[opcionCine].getArraySalas()[7].getArraySesiones()[13].getxPeliculas().getNombre();
+			nombresPelisCine = mts.mostrarPeliculas(arrayCines, arraySalas, arraySesiones, pel, opcionCine);
 		}
 		else if(opcionCine==2) {
-			peli1=arrayCines[opcionCine].getArraySalas()[8].getArraySesiones()[2].getxPeliculas().getNombre();
-			peli2=arrayCines[opcionCine].getArraySalas()[9].getArraySesiones()[6].getxPeliculas().getNombre();
-			peli3=arrayCines[opcionCine].getArraySalas()[10].getArraySesiones()[10].getxPeliculas().getNombre();
-			peli4=arrayCines[opcionCine].getArraySalas()[11].getArraySesiones()[14].getxPeliculas().getNombre();
+			nombresPelisCine = mts.mostrarPeliculas(arrayCines, arraySalas, arraySesiones, pel, opcionCine);
 		}
 		else if(opcionCine==3) {
-			peli1=arrayCines[opcionCine].getArraySalas()[12].getArraySesiones()[3].getxPeliculas().getNombre();
-			peli2=arrayCines[opcionCine].getArraySalas()[13].getArraySesiones()[7].getxPeliculas().getNombre();
-			peli3=arrayCines[opcionCine].getArraySalas()[14].getArraySesiones()[11].getxPeliculas().getNombre();
-			peli4=arrayCines[opcionCine].getArraySalas()[15].getArraySesiones()[15].getxPeliculas().getNombre();
+			nombresPelisCine = mts.mostrarPeliculas(arrayCines, arraySalas, arraySesiones, pel, opcionCine);
 		}
 		
 		
@@ -103,22 +103,22 @@ public class SeleccionPeliculas extends JFrame {
 		
 		
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton(peli1);
+		JRadioButton rdbtnNewRadioButton = new JRadioButton(nombresPelisCine[0].getNombre());
 		buttonGroup.add(rdbtnNewRadioButton);
 		rdbtnNewRadioButton.setBounds(19, 64, 295, 23);
 		contentPane.add(rdbtnNewRadioButton);
 		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton(peli2);
+		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton(nombresPelisCine[1].getNombre());
 		buttonGroup.add(rdbtnNewRadioButton_1);
 		rdbtnNewRadioButton_1.setBounds(19, 101, 325, 23);
 		contentPane.add(rdbtnNewRadioButton_1);
 		
-		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton(peli3);
+		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton(nombresPelisCine[2].getNombre());
 		buttonGroup.add(rdbtnNewRadioButton_2);
 		rdbtnNewRadioButton_2.setBounds(19, 148, 310, 23);
 		contentPane.add(rdbtnNewRadioButton_2);
 		
-		JRadioButton rdbtnNewRadioButton_3 = new JRadioButton(peli4);
+		JRadioButton rdbtnNewRadioButton_3 = new JRadioButton(nombresPelisCine[3].getNombre());
 		buttonGroup.add(rdbtnNewRadioButton_3);
 		rdbtnNewRadioButton_3.setBounds(19, 189, 295, 23);
 		contentPane.add(rdbtnNewRadioButton_3);
@@ -144,9 +144,32 @@ public class SeleccionPeliculas extends JFrame {
 				
 				lblNewLabel_1.setVisible(true);
 				}else {
+					int contSesion=0;
+					nSala = new int[2];
+					nSesion = new int[2];
+					for(int w=0;w<arrayCines[opcionCine].getArraySalas().length;w++) {
+						for(int z=0;z<arrayCines[opcionCine].getArraySalas()[w].getArraySesiones().length;z++) {
+							
+							Pelicula datosPeli=arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getxPeliculas();
+							if(datosPeli.getCodigoPelicula().equals(nombresPelisCine[opcionPeli].getCodigoPelicula())) {
+								System.out.println(arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getxPeliculas());
+								nSala[contSesion] = w;
+								nSesion[contSesion] = z;
+								contSesion++;
+							}
+							
+						}
+					}
 				//vent = new FechayHorarios(arrayCines, arrayClientes, arrayEntradas, arrayPelis, arraySalas, arraySesiones, opcionCine, opcionPeli);
+					vent = new FechayHorarios(arrayCines, arraySalas, arraySesiones, pel, arrayClientes, arrayEntradas, opcionCine, nSala, nSesion);
 				vent.setVisible(true);
 				}
+				
+				
+				
+
+				
+				
 			}
 		});
 		btnNewButton.setBounds(269, 227, 155, 23);
@@ -161,6 +184,11 @@ public class SeleccionPeliculas extends JFrame {
 		lblNewLabel_1.setBounds(19, 236, 141, 14);
 		contentPane.add(lblNewLabel_1);
 		lblNewLabel_1.setVisible(false);
+		
+		
+	
+		
+		
 	}
 
 }
