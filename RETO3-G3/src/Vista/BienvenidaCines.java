@@ -84,10 +84,7 @@ public class BienvenidaCines extends JFrame {
 	 * @throws SQLException 
 	 */
 	public BienvenidaCines() throws SQLException {
-	/*	Entrada ent = new Entrada("", 3, cli, null);
-		Pelicula pel = new Pelicula("", 134, "", "");
-		Sala sal = new Sala("", 3, null);
-		Sesion ses = new Sesion("", null, pel);*/
+
 		
 		Cine[] arrayCines = new Cine[100];
 		Cliente[] arrayClientes = new Cliente[100];

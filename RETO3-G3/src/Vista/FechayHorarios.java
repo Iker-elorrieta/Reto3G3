@@ -1,7 +1,5 @@
 package Vista;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -23,7 +21,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -96,15 +93,7 @@ public class FechayHorarios extends JFrame {
 	 * @param nombrePelis 
 	 */
 	public FechayHorarios(Cine[] arrayCines, Sala[] arraySalas, Sesion[] arraySesiones, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, int opcionCine, int[] nSala, int[] nSesion) {
-		
-		//sesiones
-		//como sacar la sala de una peli
-		//como sacar las sesiones de una peli
-		int w=0;
-//		arrayCines[opcionCine].getArraySalas()[nSala[0]].getArraySesiones()[nSesion[0]].getxPeliculas();
-//		System.out.println("FechayCosas");
-//		System.out.println(arrayCines[opcionCine].getArraySalas()[nSala[0]].getArraySesiones()[nSesion[0]].getxPeliculas());
-//		System.out.println(arrayCines[opcionCine].getArraySalas()[nSala[0]].getArraySesiones()[nSesion[0]].getFecha());
+	
 		DateFormat dt2 = new SimpleDateFormat("hh:mm");
 		
 		hora = new String[2];
@@ -119,21 +108,8 @@ public class FechayHorarios extends JFrame {
 			nombrePeli[h] = arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getxPeliculas().getNombre();
 			nombreSala[h] = arrayCines[opcionCine].getArraySalas()[nSala[h]].getNumero();
 			precioEntrada[h] = arrayEntradas[h].getPrecio();
-			sesion[h]=hora[h]+"-"+nombrePeli[h]+"( Sala "+nombreSala[h]+")"+"-"+precioEntrada[h]+"€";
+			sesion[h]=hora[h]+" PM - "+nombrePeli[h]+"( Sala "+nombreSala[h]+")"+" - "+precioEntrada[h]+"€";
 		}
-		
-//		String hora1 = dt2.format(arrayCines[opcionCine].getArraySalas()[nSala[0]].getArraySesiones()[nSesion[0]].getFecha());
-//		String nombrePeli1 = arrayCines[opcionCine].getArraySalas()[nSala[0]].getArraySesiones()[nSesion[0]].getxPeliculas().getNombre();
-//		int nombreSala1 = arrayCines[opcionCine].getArraySalas()[nSala[0]].getNumero();
-//		Float precioEntrada1 = arrayEntradas[0].getPrecio();
-//		sesion1=hora1+"-"+nombrePeli1+"( Sala "+nombreSala1+")"+"-"+precioEntrada1+"€";
-//		
-//		
-//		String hora2 = dt2.format(arrayCines[opcionCine].getArraySalas()[nSala[1]].getArraySesiones()[nSesion[1]].getFecha());
-//		String nombrePeli2 = arrayCines[opcionCine].getArraySalas()[nSala[1]].getArraySesiones()[nSesion[1]].getxPeliculas().getNombre();
-//		int nombreSala2 = arrayCines[opcionCine].getArraySalas()[nSala[1]].getNumero();
-//		Float precioEntrada2 = arrayEntradas[1].getPrecio();
-//		sesion2=hora2+"-"+nombrePeli2+"( Sala "+nombreSala2+")"+"-"+precioEntrada2+"€";
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -157,13 +133,13 @@ public class FechayHorarios extends JFrame {
 		
 		rdbtnNewRadioButton = new JRadioButton("Sesion 1:  "+sesion[0]);
 		buttonGroup.add(rdbtnNewRadioButton);
-		rdbtnNewRadioButton.setBounds(10, 64, 342, 23);
+		rdbtnNewRadioButton.setBounds(10, 64, 420, 23);
 		contentPane.add(rdbtnNewRadioButton);
 		rdbtnNewRadioButton.setVisible(false);
 		
 		rdbtnNewRadioButton_1 = new JRadioButton("Sesion 2:  "+sesion[1]);
 		buttonGroup.add(rdbtnNewRadioButton_1);
-		rdbtnNewRadioButton_1.setBounds(10, 116, 322, 23);
+		rdbtnNewRadioButton_1.setBounds(10, 116, 420, 23);
 		contentPane.add(rdbtnNewRadioButton_1);
 		rdbtnNewRadioButton_1.setVisible(false);
 		
