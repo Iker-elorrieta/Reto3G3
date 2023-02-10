@@ -13,7 +13,7 @@ class EntradaTest {
 	Cliente xCliente = new Cliente("", "", "", "", "");
 	
 	private Sesion[] arraySesiones= new Sesion[1];
-	Sesion obj1_s = new Sesion(null, null, null);
+	Sesion obj1_s = new Sesion(null, null, null, null);
 	
 Entrada ent0 = new Entrada("FDG557", (float) 4.7, xCliente, arraySesiones);
 	

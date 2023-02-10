@@ -9,10 +9,7 @@ import Modelo.Sesion;
 
 public class Metodos {
 
-	private void textoGIT() {
-		// TODO Auto-generated method stub
-System.out.println("texhfaaaffdadddadggghhfsd ");
-	}
+
 	
 	public Pelicula[] mostrarPeliculas(Cine[] arrayCines, Sala[] arraySalas, Sesion[] arraySesiones, Pelicula pel, int opcionCine) {
 		// TODO Auto-generated method stub
@@ -22,7 +19,7 @@ System.out.println("texhfaaaffdadddadggghhfsd ");
 		int peliCont=0;
 		for(int w=0;w<arrayCines[opcionCine].getArraySalas().length;w++) {
 			for(int z=0;z<arrayCines[opcionCine].getArraySalas()[w].getArraySesiones().length;z++) {
-				eleccionTodasPelis[peliCont]=arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getxPeliculas();
+				eleccionTodasPelis[peliCont]=arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getxPelicula();
 				peliCont++;
 			}
 		}
@@ -49,4 +46,67 @@ System.out.println("texhfaaaffdadddadggghhfsd ");
 		}
 		return nombresPelisCine;
 	}
+	
+	
+	
+	
+	
+	public Cine[] reescribirArrayCines(Cine[] arrayViejo) {
+		// TODO Auto-generated method stub
+		Cine[] arrayNuevo = new Cine[arrayViejo.length+1];
+		for(int i =0;i<arrayViejo.length;i++)
+		{
+			arrayNuevo[i]=arrayViejo[i];
+		}
+		arrayViejo = arrayNuevo;
+		return arrayNuevo;
+	}
+	
+	public Sala[] reescribirArraySalas(Sala[] arrayViejo) {
+		// TODO Auto-generated method stub
+		Sala[] arrayNuevo = new Sala[arrayViejo.length+1];
+		for(int i =0;i<arrayViejo.length;i++)
+		{
+			arrayNuevo[i]=arrayViejo[i];
+		}
+		arrayViejo = arrayNuevo;
+		return arrayNuevo;
+	}
+	
+	public Sesion[] reescribirArraySesiones(Sesion[] arrayViejo) {
+		// TODO Auto-generated method stub
+		Sesion[] arrayNuevo = new Sesion[arrayViejo.length+1];
+		for(int i =0;i<arrayViejo.length;i++)
+		{
+			arrayNuevo[i]=arrayViejo[i];
+		}
+		arrayViejo = arrayNuevo;
+		return arrayNuevo;
+	}
+	
+	public Entrada[] reescribirArrayEntradas(Entrada[] arrayViejo) {
+		// TODO Auto-generated method stub
+		Entrada[] arrayNuevo = new Entrada[arrayViejo.length+1];
+		for(int i =0;i<arrayViejo.length;i++)
+		{
+			arrayNuevo[i]=arrayViejo[i];
+		}
+		arrayViejo = arrayNuevo;
+		return arrayNuevo;
+	}
+	
+	public Cliente[] reescribirArrayClientes(Cliente[] arrayViejo) {
+		// TODO Auto-generated method stub
+		Cliente[] arrayNuevo = new Cliente[arrayViejo.length+1];
+		for(int i =0;i<arrayViejo.length;i++)
+		{
+			arrayNuevo[i]=arrayViejo[i];
+		}
+		arrayViejo = arrayNuevo;
+		return arrayNuevo;
+	}
+	
+	
+	
+	
 }

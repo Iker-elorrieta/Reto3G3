@@ -32,6 +32,10 @@ import java.awt.Color;
 
 public class FechayHorarios extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	JDatePickerImpl datePicker;
 	String sesion1;
@@ -47,6 +51,9 @@ public class FechayHorarios extends JFrame {
 	String[] nombrePeli;
 	String[] hora;
 	JLabel lblNewLabel_1;
+	String[] fechaInicio;
+	String[] fechaFinal;
+	private JLabel lblNewLabel_2;
 	
 	/**
 	 * Launch the application.
@@ -94,6 +101,7 @@ public class FechayHorarios extends JFrame {
 	 */
 	public FechayHorarios(Cine[] arrayCines, Sala[] arraySalas, Sesion[] arraySesiones, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, int opcionCine, int[] nSala, int[] nSesion) {
 	
+		DateFormat dt = new SimpleDateFormat("dd-MM-yyyy");
 		DateFormat dt2 = new SimpleDateFormat("hh:mm");
 		
 		hora = new String[2];
@@ -102,13 +110,20 @@ public class FechayHorarios extends JFrame {
 		precioEntrada = new Float[2];
 		sesion = new String[2];
 		
+		fechaInicio = new String[2];
+		fechaFinal = new String[2];
+		
 		
 		for(int h=0;h<2;h++) {
 			hora[h] = dt2.format(arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getFecha());
-			nombrePeli[h] = arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getxPeliculas().getNombre();
+			nombrePeli[h] = arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getxPelicula().getNombre();
 			nombreSala[h] = arrayCines[opcionCine].getArraySalas()[nSala[h]].getNumero();
 			precioEntrada[h] = arrayEntradas[h].getPrecio();
+			
 			sesion[h]=hora[h]+" PM - "+nombrePeli[h]+"( Sala "+nombreSala[h]+")"+" - "+precioEntrada[h]+"€";
+			
+			fechaInicio[h] = dt.format(arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getFecha());
+			fechaFinal[h] = dt.format(arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getFechaFin());
 		}
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -149,8 +164,19 @@ public class FechayHorarios extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Date selectedDate = (Date) datePicker.getModel().getValue();
 				System.out.println(selectedDate);
+			//	String selectedDateDT = dt.format(String.valueOf(selectedDate));
+				System.out.println(selectedDate);
 				
-				if(rdbtnNewRadioButton.isSelected()) {
+				if(rdbtnNewRadioButton.isSelected() || rdbtnNewRadioButton_1.isSelected()) {
+					
+					
+						//&& Integer.valueOf(selectedDate.toString().split("-")[2])<=Integer.valueOf(fechaFinal[x].toString().split("-")[2])
+						if(!(Integer.valueOf(dt.format(selectedDate).split("-")[1])==03)) {
+							//JOptionPane.showMessageDialog(null, "No hay sesiones disponibles en esa fecha");
+							lblNewLabel_2.setVisible(true);
+						}else {
+							lblNewLabel_2.setVisible(false);
+					
 					JOptionPane.showMessageDialog(null, "Sesion seleccionada correctamente");
 					try {
 						vent = new BienvenidaCines();
@@ -159,16 +185,7 @@ public class FechayHorarios extends JFrame {
 						e1.printStackTrace();
 					}
 					vent.setVisible(true);
-				}
-				else if(rdbtnNewRadioButton_1.isSelected()) {
-					JOptionPane.showMessageDialog(null, "Sesion seleccionada correctamente");
-					try {
-						vent = new BienvenidaCines();
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					vent.setVisible(true);
+						}
 				}
 				else {
 					//label
@@ -215,5 +232,11 @@ public class FechayHorarios extends JFrame {
 		lblNewLabel_1.setBounds(240, 205, 173, 14);
 		contentPane.add(lblNewLabel_1);
 		lblNewLabel_1.setVisible(false);
+		
+		lblNewLabel_2 = new JLabel("*No hay sesiones disponibles en esa fecha (solo habrimos en marzo :D)");
+		lblNewLabel_2.setForeground(new Color(255, 0, 0));
+		lblNewLabel_2.setBounds(10, 43, 426, 14);
+		contentPane.add(lblNewLabel_2);
+		lblNewLabel_2.setVisible(false);
 	}
 }

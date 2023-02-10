@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
 
+import Controlador.Metodos;
 import Modelo.Cine;
 import Modelo.Cliente;
 import Modelo.Entrada;
@@ -62,6 +63,10 @@ public class BienvenidaCines extends JFrame {
 	Sala[] arraySalas;
 	Sesion[] arraySesiones;
 	Pelicula pel;
+	Metodos mts = new Metodos();
+	Cine[] arrayCines;
+	Cliente[] arrayClientes;
+	Entrada[] arrayEntradas;
 
 	/**
 	 * Launch the application.
@@ -86,9 +91,9 @@ public class BienvenidaCines extends JFrame {
 	public BienvenidaCines() throws SQLException {
 
 		
-		Cine[] arrayCines = new Cine[100];
-		Cliente[] arrayClientes = new Cliente[100];
-		Entrada[] arrayEntradas = new Entrada[100];
+		arrayCines = new Cine[0];
+		arrayClientes = new Cliente[100];
+		arrayEntradas = new Entrada[100];
 		
 
 		
@@ -101,7 +106,7 @@ public class BienvenidaCines extends JFrame {
 			
 			while (registroCines.next()) {
 				
-				arraySalas = new Sala[4];
+				arraySalas = new Sala[0];
 				Cine cin = new Cine();
 				
 				cin.setCodigoCine(registroCines.getString("Código_Cine"));
@@ -111,7 +116,7 @@ public class BienvenidaCines extends JFrame {
 				registroSalas2 = comando2.executeQuery("select * from salas where Código_Cine='"+registroCines.getString("Código_Cine")+"'");
 				int contSal=0;
 				while (registroSalas2.next()) {
-					arraySesiones = new Sesion[2];
+					arraySesiones = new Sesion[0];
 					Sala sal = new Sala();
 					sal.setCodigoSala(registroSalas2.getString("Código_Sala"));
 					sal.setNumero(registroSalas2.getInt("Numero"));
@@ -133,6 +138,7 @@ public class BienvenidaCines extends JFrame {
 						cal.set(Calendar.YEAR, Integer.valueOf(registroSesiones2.getDate("Fecha_Inicio").toString().split("-")[0]));
 						//ses.setFecha(registroSesiones2.getDate("Fecha_Inicio"));
 						ses.setFecha(cal.getTime());
+						ses.setFechaFin(registroSesiones2.getDate("Fecha_Fin"));
 						
 						Statement comando4=(Statement) conexion.createStatement();
 						registroPelis2 = comando4.executeQuery("select * from películas where Código_Película=(select Código_Película from sesión where Código_Sesión='"+registroSesiones2.getString("Código_Sesión")+"')");
@@ -147,8 +153,9 @@ public class BienvenidaCines extends JFrame {
 						}
 					//	registroPelis2.close();
 						
-						ses.setxPeliculas(pel);
+						ses.setxPelicula(pel);
 						
+						arraySesiones = mts.reescribirArraySesiones(arraySesiones);
 						arraySesiones[contSes]=ses;
 						contSes++;
 						
@@ -156,12 +163,14 @@ public class BienvenidaCines extends JFrame {
 				//	registroSesiones2.close();
 					sal.setArraySesiones(arraySesiones);
 					
+					arraySalas = mts.reescribirArraySalas(arraySalas);
 					arraySalas[contSal]=sal;
 					contSal++;
 				}
 			//	registroSalas2.close();
 				cin.setArraySalas(arraySalas);
 				
+				arrayCines = mts.reescribirArrayCines(arrayCines);
 				arrayCines[i]=cin;
 				i++;
 			}
@@ -179,6 +188,7 @@ public class BienvenidaCines extends JFrame {
 				cli.setSexo(registroClientes.getString("Sexo"));
 				cli.setContrasena(registroClientes.getString("Contra"));
 				
+				arrayClientes = mts.reescribirArrayClientes(arrayClientes);
 				arrayClientes[i2]=cli;
 				i2++;
 			}
@@ -195,6 +205,7 @@ public class BienvenidaCines extends JFrame {
 				ent.setxCliente(arrayClientes[i3]);
 				ent.setArraySesiones(arraySesiones);
 				
+				arrayEntradas = mts.reescribirArrayEntradas(arrayEntradas);
 				arrayEntradas[i3]=ent;
 				i3++;
 			}
@@ -208,8 +219,10 @@ public class BienvenidaCines extends JFrame {
 
 		}
 
-		System.out.println(arrayCines[0].getArraySalas()[0].getArraySesiones()[0].getxPeliculas().getNombre());
-		System.out.println(arrayCines[0].getArraySalas()[1].getArraySesiones()[0].getxPeliculas().getNombre());
+		//reescribir arrays
+				
+		System.out.println(arrayCines[0].getArraySalas()[0].getArraySesiones()[0].getxPelicula().getNombre());
+		System.out.println(arrayCines[0].getArraySalas()[1].getArraySesiones()[0].getxPelicula().getNombre());
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -251,6 +264,8 @@ public class BienvenidaCines extends JFrame {
 				}
 			}
 		});
+		
+		
 		btnNewButton.setBounds(328, 227, 89, 23);
 		contentPane.add(btnNewButton);
 		

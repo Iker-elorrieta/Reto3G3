@@ -24,6 +24,10 @@ import java.awt.Color;
 
 public class SeleccionPeliculas extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	String peli1;
 	String peli2;
@@ -151,9 +155,9 @@ public class SeleccionPeliculas extends JFrame {
 					for(int w=0;w<arrayCines[opcionCine].getArraySalas().length;w++) {
 						for(int z=0;z<arrayCines[opcionCine].getArraySalas()[w].getArraySesiones().length;z++) {
 							
-							Pelicula datosPeli=arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getxPeliculas();
+							Pelicula datosPeli=arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getxPelicula();
 							if(datosPeli.getCodigoPelicula().equals(nombresPelisCine[opcionPeli].getCodigoPelicula())) {
-								System.out.println(arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getxPeliculas());
+								System.out.println(arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getxPelicula());
 								nSala[contSesion] = w;
 								nSesion[contSesion] = z;
 								contSesion++;
