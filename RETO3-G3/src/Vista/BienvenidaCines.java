@@ -280,10 +280,10 @@ public class BienvenidaCines extends JFrame {
 		
 
 		
-		JButton btnNewButton_1 = new JButton("Finalizar");
+		JButton btnNewButton_1 = new JButton("Salir");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//if ningula peli selecionada se sale, si no al resumen
+				System.exit(0);
 				
 			}
 		});

@@ -18,6 +18,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JButton;
 import javax.swing.ButtonGroup;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.sql.Time;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
@@ -31,6 +32,7 @@ public class SeleccionPeliculas extends JFrame {
 	String peli4;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	FechayHorarios vent;
+	BienvenidaCines vent2;
 	JLabel lblNewLabel_1;
 	int opcionPeli=-1;
 	String nombrePelicula;
@@ -176,6 +178,19 @@ public class SeleccionPeliculas extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Volver");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					vent2 = new BienvenidaCines();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				vent2.setVisible(true);
+				
+				
+			}
+		});
 		btnNewButton_1.setBounds(170, 227, 89, 23);
 		contentPane.add(btnNewButton_1);
 		
