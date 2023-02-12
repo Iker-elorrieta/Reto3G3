@@ -1,5 +1,8 @@
 package Controlador;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import Modelo.Cine;
 import Modelo.Cliente;
 import Modelo.Entrada;
@@ -9,10 +12,13 @@ import Modelo.Sesion;
 
 public class Metodos {
 
-
+	public void mostrarCines() {
+		//??? radios?? array?? BDD??
+		
+	}
 	
+	//hacer radiobutons dinamicamente
 	public Pelicula[] mostrarPeliculas(Cine[] arrayCines, Sala[] arraySalas, Sesion[] arraySesiones, Pelicula pel, int opcionCine) {
-		// TODO Auto-generated method stub
 		//array de todas las pelis del cine
 		Pelicula[] eleccionTodasPelis = new Pelicula[8];
 		String nombrePelicula="";
@@ -46,6 +52,33 @@ public class Metodos {
 		}
 		return nombresPelisCine;
 	}
+	
+
+	public String[] mostrarSesiones(Cine[] arrayCines, Sala[] arraySalas, Sesion[] arraySesiones, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, int opcionCine, int[] nSala, int[] nSesion) {
+		DateFormat dt = new SimpleDateFormat("dd-MM-yyyy");
+		DateFormat dt2 = new SimpleDateFormat("hh:mm");
+		
+		String[] hora = new String[2];
+		String[] nombrePeli = new String[2];
+		int[] nombreSala = new int[2];
+		Float[] precioEntrada = new Float[2];
+		String[] sesion = new String[2];
+		
+		
+		for(int h=0;h<2;h++) {
+			hora[h] = dt2.format(arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getFecha());
+			nombrePeli[h] = arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getxPelicula().getNombre();
+			nombreSala[h] = arrayCines[opcionCine].getArraySalas()[nSala[h]].getNumero();
+			precioEntrada[h] = arrayEntradas[h].getPrecio();
+			
+			sesion[h]=hora[h]+" PM - "+nombrePeli[h]+"( Sala "+nombreSala[h]+")"+" - "+precioEntrada[h]+"€";
+		}
+		return sesion;
+	}
+	
+	
+	
+	
 	
 	
 	
