@@ -101,39 +101,19 @@ public class FechayHorarios extends JFrame {
 	 * @param horaPelis 
 	 * @param nombrePelis 
 	 */
-	public FechayHorarios(Cine[] arrayCines, Sala[] arraySalas, Sesion[] arraySesiones, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, int opcionCine, int[] nSala, int[] nSesion) {
+	public FechayHorarios(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, int opcionCine, int[] nSala, int[] nSesion) {
 	
 		DateFormat dt = new SimpleDateFormat("dd-MM-yyyy");
-//		DateFormat dt2 = new SimpleDateFormat("hh:mm");
-//		
-//		hora = new String[2];
-//		nombrePeli = new String[2];
-//		nombreSala = new int[2];
-//		precioEntrada = new Float[2];
-//		sesion = new String[2];
-//		
+	
 		fechaInicio = new String[2];
 		fechaFinal = new String[2];
-//		
-//		
-//		for(int h=0;h<2;h++) {
-//			hora[h] = dt2.format(arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getFecha());
-//			nombrePeli[h] = arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getxPelicula().getNombre();
-//			nombreSala[h] = arrayCines[opcionCine].getArraySalas()[nSala[h]].getNumero();
-//			precioEntrada[h] = arrayEntradas[h].getPrecio();
-//			
-//			sesion[h]=hora[h]+" PM - "+nombrePeli[h]+"( Sala "+nombreSala[h]+")"+" - "+precioEntrada[h]+"€";
-//			
-//			fechaInicio[h] = dt.format(arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getFecha());
-//			fechaFinal[h] = dt.format(arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getFechaFin());
-//		}
-//		
+	
 		for(int h=0;h<2;h++) {
 			fechaInicio[h] = dt.format(arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getFecha());
 			fechaFinal[h] = dt.format(arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getFechaFin());
 		}
 		
-		sesion=mts.mostrarSesiones(arrayCines, arraySalas, arraySesiones, pel, arrayClientes, arrayEntradas, opcionCine, nSala, nSesion);
+		sesion=mts.mostrarSesiones(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine, nSala, nSesion);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

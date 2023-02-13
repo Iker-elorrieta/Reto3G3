@@ -43,6 +43,11 @@ public class SeleccionPeliculas extends JFrame {
 	Pelicula[] nombresPelisCine;
 	int[] nSala;
 	int[] nSesion;
+	
+	int contR;
+	JRadioButton[] arraybotones;
+	JRadioButton button1;
+	
 
 	/**
 	 * Launch the application.
@@ -73,23 +78,23 @@ public class SeleccionPeliculas extends JFrame {
 	 * @param nombrePelis 
 	 * @param horaPelis 
 	 */
-	public SeleccionPeliculas(Cine[] arrayCines, Sala[] arraySalas, Sesion[] arraySesiones, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, int opcionCine) {
+	public SeleccionPeliculas(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, int opcionCine) {
 		//sin mirar la tabla
 		//???pos pelis
 		
 		
 		
 		if(opcionCine==0) {
-			nombresPelisCine = mts.mostrarPeliculas(arrayCines, arraySalas, arraySesiones, pel, opcionCine);
+			nombresPelisCine = mts.mostrarPeliculas(arrayCines, pel, opcionCine);
 		}
 		else if(opcionCine==1) {
-			nombresPelisCine = mts.mostrarPeliculas(arrayCines, arraySalas, arraySesiones, pel, opcionCine);
+			nombresPelisCine = mts.mostrarPeliculas(arrayCines, pel, opcionCine);
 		}
 		else if(opcionCine==2) {
-			nombresPelisCine = mts.mostrarPeliculas(arrayCines, arraySalas, arraySesiones, pel, opcionCine);
+			nombresPelisCine = mts.mostrarPeliculas(arrayCines, pel, opcionCine);
 		}
 		else if(opcionCine==3) {
-			nombresPelisCine = mts.mostrarPeliculas(arrayCines, arraySalas, arraySesiones, pel, opcionCine);
+			nombresPelisCine = mts.mostrarPeliculas(arrayCines, pel, opcionCine);
 		}
 		
 		
@@ -108,40 +113,56 @@ public class SeleccionPeliculas extends JFrame {
 		
 		
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton(nombresPelisCine[0].getNombre());
-		buttonGroup.add(rdbtnNewRadioButton);
-		rdbtnNewRadioButton.setBounds(19, 64, 295, 23);
-		contentPane.add(rdbtnNewRadioButton);
+//		JRadioButton rdbtnNewRadioButton = new JRadioButton(nombresPelisCine[0].getNombre());
+//		buttonGroup.add(rdbtnNewRadioButton);
+//		rdbtnNewRadioButton.setBounds(19, 64, 295, 23);
+//		contentPane.add(rdbtnNewRadioButton);
+//		
+//		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton(nombresPelisCine[1].getNombre());
+//		buttonGroup.add(rdbtnNewRadioButton_1);
+//		rdbtnNewRadioButton_1.setBounds(19, 101, 325, 23);
+//		contentPane.add(rdbtnNewRadioButton_1);
+//		
+//		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton(nombresPelisCine[2].getNombre());
+//		buttonGroup.add(rdbtnNewRadioButton_2);
+//		rdbtnNewRadioButton_2.setBounds(19, 148, 310, 23);
+//		contentPane.add(rdbtnNewRadioButton_2);
+//		
+//		JRadioButton rdbtnNewRadioButton_3 = new JRadioButton(nombresPelisCine[3].getNombre());
+//		buttonGroup.add(rdbtnNewRadioButton_3);
+//		rdbtnNewRadioButton_3.setBounds(19, 189, 295, 23);
+//		contentPane.add(rdbtnNewRadioButton_3);
+		//dynamic pelis
+		contR=0;
+		arraybotones = new JRadioButton[4];
+		for (int i = 0; i < arrayCines.length; i++) {
+
+            button1 = new JRadioButton(nombresPelisCine[i].getNombre());
+            contR=contR+30;
+            button1.setToolTipText(String.valueOf(i));
+            button1.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    System.err.println("Action Performed..************");
+                    System.out.println("This is action text.."+button1.getText()); 
+                    System.out.println("tool tip text"+button1.getToolTipText());
+                }
+            });
+            button1.setBounds(37, 31+contR, 227, 23);
+            buttonGroup.add(button1);
+            contentPane.add(button1);
+            arraybotones[i] = button1;
+        }
 		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton(nombresPelisCine[1].getNombre());
-		buttonGroup.add(rdbtnNewRadioButton_1);
-		rdbtnNewRadioButton_1.setBounds(19, 101, 325, 23);
-		contentPane.add(rdbtnNewRadioButton_1);
 		
-		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton(nombresPelisCine[2].getNombre());
-		buttonGroup.add(rdbtnNewRadioButton_2);
-		rdbtnNewRadioButton_2.setBounds(19, 148, 310, 23);
-		contentPane.add(rdbtnNewRadioButton_2);
-		
-		JRadioButton rdbtnNewRadioButton_3 = new JRadioButton(nombresPelisCine[3].getNombre());
-		buttonGroup.add(rdbtnNewRadioButton_3);
-		rdbtnNewRadioButton_3.setBounds(19, 189, 295, 23);
-		contentPane.add(rdbtnNewRadioButton_3);
 		
 		JButton btnNewButton = new JButton("ACEPTAR");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(rdbtnNewRadioButton.isSelected()) {
-					opcionPeli= 0;
-				}
-				else if(rdbtnNewRadioButton_1.isSelected()) {
-					opcionPeli= 1;
-				}
-				else if(rdbtnNewRadioButton_2.isSelected()) {
-					opcionPeli= 2;
-				}
-				else if(rdbtnNewRadioButton_3.isSelected()) {
-					opcionPeli= 3;
+				for(int h=0;h<arraybotones.length;h++) {
+					if(arraybotones[h].isSelected()) {
+						opcionPeli= h;
+					}
 				}
 				
 				
@@ -166,7 +187,7 @@ public class SeleccionPeliculas extends JFrame {
 						}
 					}
 				//vent = new FechayHorarios(arrayCines, arrayClientes, arrayEntradas, arrayPelis, arraySalas, arraySesiones, opcionCine, opcionPeli);
-					vent = new FechayHorarios(arrayCines, arraySalas, arraySesiones, pel, arrayClientes, arrayEntradas, opcionCine, nSala, nSesion);
+					vent = new FechayHorarios(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine, nSala, nSesion);
 				vent.setVisible(true);
 				}
 				

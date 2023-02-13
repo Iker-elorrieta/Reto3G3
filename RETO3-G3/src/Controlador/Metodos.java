@@ -1,11 +1,17 @@
 package Controlador;
 
+import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JRadioButton;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
@@ -109,8 +115,44 @@ public class Metodos {
 		
 	}
 	
+	public void radiosDynamicos(Cine[] arrayCines, ButtonGroup buttonGroup, Container contentPane) {
+		int contR = 0;
+		for (int i = 0; i < arrayCines.length; i++) {
+
+            JRadioButton button1 = new JRadioButton(arrayCines[i].getNombre());
+            button1.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					System.out.println("");
+					System.out.println("");
+				}
+            	
+            	
+            });
+            contR=contR+30;
+            button1.setBounds(37, 31+contR, 227, 23);
+            buttonGroup.add(button1);
+            contentPane.add(button1);
+            button1.setVisible(false);
+            
+
+            button1.addActionListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    System.err.println("Action Performed..************");
+                    System.out.println("This is action text.."+button1.getText()); 
+
+                }
+            });
+
+        }
+	}
+	
+	
 	//hacer radiobutons dinamicamente
-	public Pelicula[] mostrarPeliculas(Cine[] arrayCines, Sala[] arraySalas, Sesion[] arraySesiones, Pelicula pel, int opcionCine) {
+	public Pelicula[] mostrarPeliculas(Cine[] arrayCines, Pelicula pel, int opcionCine) {
 		//array de todas las pelis del cine
 		Pelicula[] eleccionTodasPelis = new Pelicula[8];
 		String nombrePelicula="";
@@ -146,7 +188,7 @@ public class Metodos {
 	}
 	
 
-	public String[] mostrarSesiones(Cine[] arrayCines, Sala[] arraySalas, Sesion[] arraySesiones, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, int opcionCine, int[] nSala, int[] nSesion) {
+	public String[] mostrarSesiones(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, int opcionCine, int[] nSala, int[] nSesion) {
 		DateFormat dt = new SimpleDateFormat("dd-MM-yyyy");
 		DateFormat dt2 = new SimpleDateFormat("hh:mm");
 		

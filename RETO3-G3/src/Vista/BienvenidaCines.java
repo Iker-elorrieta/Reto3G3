@@ -30,6 +30,9 @@ import java.util.Calendar;
 import java.awt.event.ActionEvent;
 import javax.swing.ButtonGroup;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.SwingConstants;
 
 public class BienvenidaCines extends JFrame {
 
@@ -67,6 +70,15 @@ public class BienvenidaCines extends JFrame {
 	Cine[] arrayCines;
 	Cliente[] arrayClientes;
 	Entrada[] arrayEntradas;
+	private JPanel panel;
+	JButton btnNewButton_1;
+	JButton btnNewButton;
+	private JLabel lblNewLabel_2;
+	private JLabel lblNewLabel_2_2;
+	int contR;
+	
+	JRadioButton button1;
+	JRadioButton[] arraybotones;
 
 	/**
 	 * Launch the application.
@@ -90,7 +102,6 @@ public class BienvenidaCines extends JFrame {
 	 */
 	public BienvenidaCines() throws SQLException {
 
-		
 		arrayCines = new Cine[0];
 		arrayClientes = new Cliente[100];
 		arrayEntradas = new Entrada[100];
@@ -100,81 +111,9 @@ public class BienvenidaCines extends JFrame {
 		
 		try {
 			conexion=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/reto3_grupo3","root","");
-			comando=(Statement) conexion.createStatement();
-			registroCines = comando.executeQuery("select * from cine");
-			int i=0;
+			Statement comando=(Statement) conexion.createStatement();
 			
-			while (registroCines.next()) {
-				
-				arraySalas = new Sala[0];
-				Cine cin = new Cine();
-				
-				cin.setCodigoCine(registroCines.getString("Código_Cine"));
-				cin.setNombre(registroCines.getString("Nombre"));
-				cin.setDireccion(registroCines.getString("Direccion"));
-				Statement comando2=(Statement) conexion.createStatement();
-				registroSalas2 = comando2.executeQuery("select * from salas where Código_Cine='"+registroCines.getString("Código_Cine")+"'");
-				int contSal=0;
-				while (registroSalas2.next()) {
-					arraySesiones = new Sesion[0];
-					Sala sal = new Sala();
-					sal.setCodigoSala(registroSalas2.getString("Código_Sala"));
-					sal.setNumero(registroSalas2.getInt("Numero"));
-					
-					Statement comando3=(Statement) conexion.createStatement();
-					registroSesiones2 = comando3.executeQuery("select * from sesión where Código_Sala='"+registroSalas2.getString("Código_Sala")+"'");
-					int contSes=0;
-					
-					while (registroSesiones2.next()) {
-					
-						Sesion ses = new Sesion();
-						ses.setCodigoSesion(registroSesiones2.getString("Código_Sesión"));
-						Calendar cal = Calendar.getInstance();
-						System.out.println(registroSesiones2.getDate("Fecha_Inicio").toString().split("-")[0]);
-						cal.set(Calendar.HOUR_OF_DAY, Integer.valueOf(registroSesiones2.getTime("Hora").toString().split(":")[0]));
-						cal.set(Calendar.MINUTE, Integer.valueOf(registroSesiones2.getTime("Hora").toString().split(":")[1]));
-						cal.set(Calendar.DAY_OF_MONTH, Integer.valueOf(registroSesiones2.getDate("Fecha_Inicio").toString().split("-")[2]));
-						cal.set(Calendar.MONTH, Integer.valueOf(registroSesiones2.getDate("Fecha_Inicio").toString().split("-")[1]));
-						cal.set(Calendar.YEAR, Integer.valueOf(registroSesiones2.getDate("Fecha_Inicio").toString().split("-")[0]));
-						//ses.setFecha(registroSesiones2.getDate("Fecha_Inicio"));
-						ses.setFecha(cal.getTime());
-						ses.setFechaFin(registroSesiones2.getDate("Fecha_Fin"));
-						
-						Statement comando4=(Statement) conexion.createStatement();
-						registroPelis2 = comando4.executeQuery("select * from películas where Código_Película=(select Código_Película from sesión where Código_Sesión='"+registroSesiones2.getString("Código_Sesión")+"')");
-						while (registroPelis2.next()) {
-							
-							pel = new Pelicula();
-							pel.setCodigoPelicula(registroPelis2.getString("Código_Película"));
-							pel.setDuracion(registroPelis2.getInt("Duración"));
-							pel.setNombre(registroPelis2.getString("Nombre"));
-							pel.setGenero(registroPelis2.getString("Género"));
-							
-						}
-					//	registroPelis2.close();
-						
-						ses.setxPelicula(pel);
-						
-						arraySesiones = mts.reescribirArraySesiones(arraySesiones);
-						arraySesiones[contSes]=ses;
-						contSes++;
-						
-					}
-				//	registroSesiones2.close();
-					sal.setArraySesiones(arraySesiones);
-					
-					arraySalas = mts.reescribirArraySalas(arraySalas);
-					arraySalas[contSal]=sal;
-					contSal++;
-				}
-			//	registroSalas2.close();
-				cin.setArraySalas(arraySalas);
-				
-				arrayCines = mts.reescribirArrayCines(arrayCines);
-				arrayCines[i]=cin;
-				i++;
-			}
-	//		registroCines.close();
+			arrayCines=mts.mostrarCines();
 		
 			registroClientes = comando.executeQuery("select * from clientes");
 			int i2=0;
@@ -232,34 +171,104 @@ public class BienvenidaCines extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		panel = new JPanel();
+		panel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				panel.setVisible(false);
+//				rdbtnNewRadioButton.setVisible(true);
+//				rdbtnNewRadioButton_1.setVisible(true);
+//				rdbtnNewRadioButton_2.setVisible(true);
+//				rdbtnNewRadioButton_3.setVisible(true);
+				contR=0;
+				arraybotones = new JRadioButton[4];
+				for (int i = 0; i < arrayCines.length; i++) {
+
+		            button1 = new JRadioButton(arrayCines[i].getNombre());
+		            contR=contR+30;
+		            button1.setToolTipText(String.valueOf(i));
+		            button1.addActionListener(new ActionListener() {
+		                @Override
+		                public void actionPerformed(ActionEvent e) {
+		                    System.err.println("Action Performed..************");
+		                    System.out.println("This is action text.."+button1.getText()); 
+		                    System.out.println("tool tip text"+button1.getToolTipText());
+		                }
+		            });
+		            button1.setBounds(37, 31+contR, 227, 23);
+		            buttonGroup.add(button1);
+		            contentPane.add(button1);
+		            arraybotones[i] = button1;
+		        }
+				
+				btnNewButton.setVisible(true);
+				btnNewButton_1.setVisible(true);
+			}
+		});
+		panel.setBackground(new Color(128, 128, 255));
+		panel.setBounds(0, 0, 434, 261);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		//radios dynamicos
+	
+		
+		lblNewLabel_2 = new JLabel("Bienvenido A");
+		lblNewLabel_2.setVerticalAlignment(SwingConstants.TOP);
+		lblNewLabel_2.setBounds(60, 45, 335, 73);
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 45));
+		panel.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_2_1 = new JLabel("\nNuestro Cine");
+		lblNewLabel_2_1.setVerticalAlignment(SwingConstants.TOP);
+		lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 45));
+		lblNewLabel_2_1.setBounds(60, 130, 335, 73);
+		panel.add(lblNewLabel_2_1);
+		
+		lblNewLabel_2_2 = new JLabel(":)");
+		lblNewLabel_2_2.setVerticalAlignment(SwingConstants.TOP);
+		lblNewLabel_2_2.setFont(new Font("Tahoma", Font.PLAIN, 45));
+		lblNewLabel_2_2.setBounds(140, 188, 126, 73);
+		panel.add(lblNewLabel_2_2);
+		
+		
 		JLabel lblNewLabel = new JLabel("Elija un Cine");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel.setBounds(153, 27, 128, 28);
 		contentPane.add(lblNewLabel);
 		
-		JButton btnNewButton = new JButton("ACEPTAR");
+		btnNewButton = new JButton("ACEPTAR");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(rdbtnNewRadioButton.isSelected()) {
-					opcionCine= 0;
+				//for
+				//System.out.println(buttonGroup.getSelection());
+				for(int h=0;h<arraybotones.length;h++) {
+					//buttonGroup.getSelection();
+					//buttonGroup.;
+					if(arraybotones[h].isSelected()) {
+						opcionCine= h;
+					}
 				}
-				else if(rdbtnNewRadioButton_1.isSelected()) {
-					opcionCine= 1;
-				}
-				else if(rdbtnNewRadioButton_2.isSelected()) {
-					opcionCine= 2;
-				}
-				else if(rdbtnNewRadioButton_3.isSelected()) {
-					opcionCine= 3;
-				}
+//				if(rdbtnNewRadioButton.isSelected()) {
+//					opcionCine= 0;
+//				}
+//				else if(rdbtnNewRadioButton_1.isSelected()) {
+//					opcionCine= 1;
+//				}
+//				else if(rdbtnNewRadioButton_2.isSelected()) {
+//					opcionCine= 2;
+//				}
+//				else if(rdbtnNewRadioButton_3.isSelected()) {
+//					opcionCine= 3;
+//				}
 				
 				
 				if(opcionCine==-1) {
 				
 				lblNewLabel_1.setVisible(true);
 				}else {
-				//vent = new SeleccionPeliculas(arrayCines, arrayClientes, arrayEntradas, arrayPelis, arraySalas, arraySesiones, opcionCine);
-					vent = new SeleccionPeliculas(arrayCines, arraySalas, arraySesiones, pel, arrayClientes, arrayEntradas, opcionCine);
+					//cerrar this ventana
+					vent = new SeleccionPeliculas(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine);
 				vent.setVisible(true);
 				}
 			}
@@ -268,44 +277,61 @@ public class BienvenidaCines extends JFrame {
 		
 		btnNewButton.setBounds(328, 227, 89, 23);
 		contentPane.add(btnNewButton);
-		
-		rdbtnNewRadioButton = new JRadioButton(arrayCines[0].getNombre());
-		buttonGroup.add(rdbtnNewRadioButton);
-		rdbtnNewRadioButton.setBounds(37, 61, 227, 23);
-		contentPane.add(rdbtnNewRadioButton);
-		
-		rdbtnNewRadioButton_1 = new JRadioButton(arrayCines[1].getNombre());
-		buttonGroup.add(rdbtnNewRadioButton_1);
-		rdbtnNewRadioButton_1.setBounds(37, 106, 244, 23);
-		contentPane.add(rdbtnNewRadioButton_1);
-		
-		rdbtnNewRadioButton_2 = new JRadioButton(arrayCines[2].getNombre());
-		buttonGroup.add(rdbtnNewRadioButton_2);
-		rdbtnNewRadioButton_2.setBounds(37, 156, 262, 23);
-		contentPane.add(rdbtnNewRadioButton_2);
-		
-		rdbtnNewRadioButton_3 = new JRadioButton(arrayCines[3].getNombre());
-		buttonGroup.add(rdbtnNewRadioButton_3);
-		rdbtnNewRadioButton_3.setBounds(37, 199, 262, 23);
-		contentPane.add(rdbtnNewRadioButton_3);
-		
-		
+		btnNewButton.setVisible(false);
+
+		//dynamic
+	
 
 		
-		JButton btnNewButton_1 = new JButton("Salir");
+		btnNewButton_1 = new JButton("Salir");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				
+
+				//System.exit(0);
 				
 			}
 		});
 		btnNewButton_1.setBounds(229, 227, 89, 23);
 		contentPane.add(btnNewButton_1);
+		btnNewButton_1.setVisible(false);
 		
 		lblNewLabel_1 = new JLabel("*No has seleccionado ningún cine");
 		lblNewLabel_1.setForeground(new Color(255, 0, 0));
 		lblNewLabel_1.setBounds(37, 231, 182, 14);
 		contentPane.add(lblNewLabel_1);
+		
+//		rdbtnNewRadioButton = new JRadioButton(arrayCines[0].getNombre());
+//		buttonGroup.add(rdbtnNewRadioButton);
+//		rdbtnNewRadioButton.setBounds(37, 61, 227, 23);
+//		contentPane.add(rdbtnNewRadioButton);
+//		
+//		rdbtnNewRadioButton_1 = new JRadioButton(arrayCines[1].getNombre());
+//		buttonGroup.add(rdbtnNewRadioButton_1);
+//		rdbtnNewRadioButton_1.setBounds(37, 106, 244, 23);
+//		contentPane.add(rdbtnNewRadioButton_1);
+//		
+//		rdbtnNewRadioButton_2 = new JRadioButton(arrayCines[2].getNombre());
+//		buttonGroup.add(rdbtnNewRadioButton_2);
+//		rdbtnNewRadioButton_2.setBounds(37, 156, 262, 23);
+//		contentPane.add(rdbtnNewRadioButton_2);
+//		
+//		rdbtnNewRadioButton_3 = new JRadioButton(arrayCines[3].getNombre());
+//		buttonGroup.add(rdbtnNewRadioButton_3);
+//		rdbtnNewRadioButton_3.setBounds(37, 199, 262, 23);
+//		contentPane.add(rdbtnNewRadioButton_3);
+		
+//		rdbtnNewRadioButton_3.setVisible(false);
+//		rdbtnNewRadioButton_2.setVisible(false);
+//		rdbtnNewRadioButton_1.setVisible(false);
+//		rdbtnNewRadioButton.setVisible(false);
 		lblNewLabel_1.setVisible(false);
+		
+
+		
+
+		
+
+		
 	}
 }
