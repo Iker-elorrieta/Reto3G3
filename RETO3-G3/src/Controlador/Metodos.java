@@ -1,7 +1,14 @@
 package Controlador;
 
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.Statement;
 
 import Modelo.Cine;
 import Modelo.Cliente;
@@ -12,8 +19,93 @@ import Modelo.Sesion;
 
 public class Metodos {
 
-	public void mostrarCines() {
+	public Cine[] mostrarCines() {
 		//??? radios?? array?? BDD??
+		Cine[] arrayCines = new Cine[0];
+		Connection conexion;
+		try {
+			conexion = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/reto3_grupo3","root","");
+	
+		Statement comando=(Statement) conexion.createStatement();
+		ResultSet registroCines = comando.executeQuery("select * from cine");
+		int i=0;
+		
+		while (registroCines.next()) {
+			
+			Sala[] arraySalas = new Sala[0];
+			Cine cin = new Cine();
+			
+			cin.setCodigoCine(registroCines.getString("Código_Cine"));
+			cin.setNombre(registroCines.getString("Nombre"));
+			cin.setDireccion(registroCines.getString("Direccion"));
+			Statement comando2=(Statement) conexion.createStatement();
+			ResultSet registroSalas2 = comando2.executeQuery("select * from salas where Código_Cine='"+registroCines.getString("Código_Cine")+"'");
+			int contSal=0;
+			while (registroSalas2.next()) {
+				Sesion[] arraySesiones = new Sesion[0];
+				Sala sal = new Sala();
+				sal.setCodigoSala(registroSalas2.getString("Código_Sala"));
+				sal.setNumero(registroSalas2.getInt("Numero"));
+				
+				Statement comando3=(Statement) conexion.createStatement();
+				ResultSet registroSesiones2 = comando3.executeQuery("select * from sesión where Código_Sala='"+registroSalas2.getString("Código_Sala")+"'");
+				int contSes=0;
+				
+				while (registroSesiones2.next()) {
+				
+					Sesion ses = new Sesion();
+					ses.setCodigoSesion(registroSesiones2.getString("Código_Sesión"));
+					Calendar cal = Calendar.getInstance();
+					System.out.println(registroSesiones2.getDate("Fecha_Inicio").toString().split("-")[0]);
+					cal.set(Calendar.HOUR_OF_DAY, Integer.valueOf(registroSesiones2.getTime("Hora").toString().split(":")[0]));
+					cal.set(Calendar.MINUTE, Integer.valueOf(registroSesiones2.getTime("Hora").toString().split(":")[1]));
+					cal.set(Calendar.DAY_OF_MONTH, Integer.valueOf(registroSesiones2.getDate("Fecha_Inicio").toString().split("-")[2]));
+					cal.set(Calendar.MONTH, Integer.valueOf(registroSesiones2.getDate("Fecha_Inicio").toString().split("-")[1]));
+					cal.set(Calendar.YEAR, Integer.valueOf(registroSesiones2.getDate("Fecha_Inicio").toString().split("-")[0]));
+					//ses.setFecha(registroSesiones2.getDate("Fecha_Inicio"));
+					ses.setFecha(cal.getTime());
+					ses.setFechaFin(registroSesiones2.getDate("Fecha_Fin"));
+					
+					Statement comando4=(Statement) conexion.createStatement();
+					ResultSet registroPelis2 = comando4.executeQuery("select * from películas where Código_Película=(select Código_Película from sesión where Código_Sesión='"+registroSesiones2.getString("Código_Sesión")+"')");
+					Pelicula pel = null;
+					while (registroPelis2.next()) {
+						
+						pel = new Pelicula();
+						pel.setCodigoPelicula(registroPelis2.getString("Código_Película"));
+						pel.setDuracion(registroPelis2.getInt("Duración"));
+						pel.setNombre(registroPelis2.getString("Nombre"));
+						pel.setGenero(registroPelis2.getString("Género"));
+						
+					}
+				//	registroPelis2.close();
+					
+					ses.setxPelicula(pel);
+					
+					arraySesiones = reescribirArraySesiones(arraySesiones);
+					arraySesiones[contSes]=ses;
+					contSes++;
+					
+				}
+			//	registroSesiones2.close();
+				sal.setArraySesiones(arraySesiones);
+				
+				arraySalas = reescribirArraySalas(arraySalas);
+				arraySalas[contSal]=sal;
+				contSal++;
+			}
+		//	registroSalas2.close();
+			cin.setArraySalas(arraySalas);
+			
+			arrayCines = reescribirArrayCines(arrayCines);
+			arrayCines[i]=cin;
+			i++;
+		}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return arrayCines;
 		
 	}
 	
