@@ -11,15 +11,17 @@ public class Sesion {
 	private Date fecha;
 	private Date fechaFin;
 	private Pelicula xPelicula;
+	private float precio;
 	
 	
 
-	public Sesion(String codigoSesion, Date fecha, Date fechaFin, Pelicula xPelicula) {
+	public Sesion(String codigoSesion, Date fecha, Date fechaFin, Pelicula xPelicula, float precio) {
 		super();
 		this.codigoSesion = codigoSesion;
 		this.fecha = fecha;
 		this.fechaFin = fechaFin;
 		this.xPelicula = xPelicula;
+		this.precio = precio;
 	}
 
 	public Sesion() {
@@ -83,6 +85,14 @@ public class Sesion {
 
 	public void setxPelicula(Pelicula xPelicula) {
 		this.xPelicula = xPelicula;
+	}
+
+	public float getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(float precio) {
+		this.precio = precio;
 	}
 	
 	

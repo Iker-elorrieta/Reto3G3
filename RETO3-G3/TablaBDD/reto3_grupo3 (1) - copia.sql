@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generaciÃ³n: 13-02-2023 a las 13:56:28
--- VersiÃ³n del servidor: 10.4.27-MariaDB
--- VersiÃ³n de PHP: 8.2.0
+-- Tiempo de generación: 13-02-2023 a las 14:17:27
+-- Versión del servidor: 10.4.27-MariaDB
+-- Versión de PHP: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `cine` (
-  `CÃ³digo_Cine` varchar(6) NOT NULL,
+  `Código_Cine` varchar(6) NOT NULL,
   `Nombre` varchar(100) NOT NULL,
   `Direccion` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -37,10 +37,10 @@ CREATE TABLE `cine` (
 -- Volcado de datos para la tabla `cine`
 --
 
-INSERT INTO `cine` (`CÃ³digo_Cine`, `Nombre`, `Direccion`) VALUES
+INSERT INTO `cine` (`Código_Cine`, `Nombre`, `Direccion`) VALUES
 ('C001', 'Cine Elorrieta', 'Agirre Lehendakariaren Etorb., 184, 48015 Bilbo, Bizkaia'),
-('C002', 'Roxy Valladolid', 'C. MarÃ­a de Molina, 20, 47001 Valladolid'),
-('C003', 'Cinesa ZaratÃ¡n Valladolid', 'AutovÃ­a Valladolid-LeÃ³n, N-601, km 3, 47610 ZaratÃ¡n, Valladolid'),
+('C002', 'Roxy Valladolid', 'C. María de Molina, 20, 47001 Valladolid'),
+('C003', 'Cinesa Zaratán Valladolid', 'Autovía Valladolid-León, N-601, km 3, 47610 Zaratán, Valladolid'),
 ('C004', 'Cinesa Max Ocio Barakaldo Vizcaya', 'Barrio, Kareaga Kalea, S/N, 48903 Barakaldo, Biscay');
 
 -- --------------------------------------------------------
@@ -73,9 +73,9 @@ INSERT INTO `clientes` (`DNI`, `Nombre`, `Apellido`, `Sexo`, `Contra`) VALUES
 --
 
 CREATE TABLE `entrada` (
-  `CÃ³digo_Entrada` varchar(6) NOT NULL,
+  `Código_Entrada` varchar(6) NOT NULL,
   `Precio` float NOT NULL,
-  `CÃ³digo_SesiÃ³n` varchar(6) NOT NULL
+  `Código_Sesión` varchar(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -85,46 +85,46 @@ CREATE TABLE `entrada` (
 --
 
 CREATE TABLE `pedido` (
-  `CÃ³digo_Pedido` varchar(6) NOT NULL,
+  `Código_Pedido` varchar(6) NOT NULL,
   `Importe` float NOT NULL,
   `Fecha_Compra` date NOT NULL,
   `DNI` varchar(9) NOT NULL,
-  `CÃ³digo_Entrada` varchar(6) NOT NULL
+  `Código_Entrada` varchar(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `pelÃ­culas`
+-- Estructura de tabla para la tabla `películas`
 --
 
-CREATE TABLE `pelÃ­culas` (
-  `CÃ³digo_PelÃ­cula` varchar(6) NOT NULL,
-  `DuraciÃ³n` int(11) NOT NULL,
+CREATE TABLE `películas` (
+  `Código_Película` varchar(6) NOT NULL,
+  `Duración` int(11) NOT NULL,
   `Nombre` varchar(50) NOT NULL,
-  `GÃ©nero` varchar(20) NOT NULL
+  `Género` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `pelÃ­culas`
+-- Volcado de datos para la tabla `películas`
 --
 
-INSERT INTO `pelÃ­culas` (`CÃ³digo_PelÃ­cula`, `DuraciÃ³n`, `Nombre`, `GÃ©nero`) VALUES
+INSERT INTO `películas` (`Código_Película`, `Duración`, `Nombre`, `Género`) VALUES
 ('C001', 90, 'Scary movie', 'Comedia'),
 ('C002', 119, 'El gran Lebowsky', 'Comedia'),
 ('C003', 94, 'La vida de Brian', 'Comedia'),
 ('C004', 88, 'Aterriza como puedas', 'Comedia'),
-('CF001', 142, '2001: Odisea en el espacio', 'Ciencia ficciÃ³n'),
-('CF002', 75, 'La novia de Frankenstein', 'Ciencia ficciÃ³n'),
-('CF003', 115, 'El planeta de los simios', 'Ciencia ficciÃ³n'),
-('CF004', 117, 'Alien, el octavo pasajero', 'Ciencia ficciÃ³n'),
+('CF001', 142, '2001: Odisea en el espacio', 'Ciencia ficción'),
+('CF002', 75, 'La novia de Frankenstein', 'Ciencia ficción'),
+('CF003', 115, 'El planeta de los simios', 'Ciencia ficción'),
+('CF004', 117, 'Alien, el octavo pasajero', 'Ciencia ficción'),
 ('D001', 116, 'Handia', 'Drama'),
 ('D002', 197, 'La lista de Schindler', 'Drama'),
 ('D003', 142, 'Cadena Perpetua', 'Drama'),
 ('D004', 133, 'Million Dollar Baby', 'Drama'),
 ('T001', 109, 'Psicosis', 'Terror'),
 ('T002', 146, 'El resplandor', 'Terror'),
-('T003', 155, 'DrÃ¡cula', 'Terror'),
+('T003', 155, 'Drácula', 'Terror'),
 ('T004', 110, 'Cisne negro', 'Terror');
 
 -- --------------------------------------------------------
@@ -134,16 +134,16 @@ INSERT INTO `pelÃ­culas` (`CÃ³digo_PelÃ­cula`, `DuraciÃ³n`, `Nombre`, `G
 --
 
 CREATE TABLE `salas` (
-  `CÃ³digo_Sala` varchar(6) NOT NULL,
+  `Código_Sala` varchar(6) NOT NULL,
   `Numero` tinyint(4) NOT NULL,
-  `CÃ³digo_Cine` varchar(6) NOT NULL
+  `Código_Cine` varchar(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `salas`
 --
 
-INSERT INTO `salas` (`CÃ³digo_Sala`, `Numero`, `CÃ³digo_Cine`) VALUES
+INSERT INTO `salas` (`Código_Sala`, `Numero`, `Código_Cine`) VALUES
 ('S001', 1, 'C001'),
 ('S002', 2, 'C001'),
 ('S003', 3, 'C001'),
@@ -164,25 +164,25 @@ INSERT INTO `salas` (`CÃ³digo_Sala`, `Numero`, `CÃ³digo_Cine`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `sesiÃ³n`
+-- Estructura de tabla para la tabla `sesión`
 --
 
-CREATE TABLE `sesiÃ³n` (
-  `CÃ³digo_SesiÃ³n` varchar(6) NOT NULL,
+CREATE TABLE `sesión` (
+  `Código_Sesión` varchar(6) NOT NULL,
   `Hora` time NOT NULL,
   `Precio` float NOT NULL DEFAULT 6.5,
   `Fecha_Inicio` date NOT NULL,
   `Fecha_Fin` date NOT NULL,
   `Fecha` date DEFAULT NULL,
-  `CÃ³digo_PelÃ­cula` varchar(6) NOT NULL,
-  `CÃ³digo_Sala` varchar(6) NOT NULL
+  `Código_Película` varchar(6) NOT NULL,
+  `Código_Sala` varchar(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `sesiÃ³n`
+-- Volcado de datos para la tabla `sesión`
 --
 
-INSERT INTO `sesiÃ³n` (`CÃ³digo_SesiÃ³n`, `Hora`, `Precio`, `Fecha_Inicio`, `Fecha_Fin`, `Fecha`, `CÃ³digo_PelÃ­cula`, `CÃ³digo_Sala`) VALUES
+INSERT INTO `sesión` (`Código_Sesión`, `Hora`, `Precio`, `Fecha_Inicio`, `Fecha_Fin`, `Fecha`, `Código_Película`, `Código_Sala`) VALUES
 ('SE001', '16:00:00', 6.5, '2023-03-01', '2023-03-31', '2023-03-02', 'D001', 'S001'),
 ('SE002', '20:00:00', 6.5, '2023-03-01', '2023-03-31', '2023-03-02', 'D001', 'S001'),
 ('SE003', '16:00:00', 6.5, '2023-03-01', '2023-03-31', '2023-03-02', 'C001', 'S002'),
@@ -761,14 +761,14 @@ INSERT INTO `sesiÃ³n` (`CÃ³digo_SesiÃ³n`, `Hora`, `Precio`, `Fecha_Inicio`
 ('SE576', '20:00:00', 6.5, '2023-03-01', '2023-03-31', '2023-03-31', 'T004', 'S016');
 
 --
--- Ãndices para tablas volcadas
+-- Índices para tablas volcadas
 --
 
 --
 -- Indices de la tabla `cine`
 --
 ALTER TABLE `cine`
-  ADD PRIMARY KEY (`CÃ³digo_Cine`);
+  ADD PRIMARY KEY (`Código_Cine`);
 
 --
 -- Indices de la tabla `clientes`
@@ -780,36 +780,36 @@ ALTER TABLE `clientes`
 -- Indices de la tabla `entrada`
 --
 ALTER TABLE `entrada`
-  ADD PRIMARY KEY (`CÃ³digo_Entrada`),
-  ADD KEY `fk_Cod_SesiÃ³n` (`CÃ³digo_SesiÃ³n`);
+  ADD PRIMARY KEY (`Código_Entrada`),
+  ADD KEY `fk_Cod_Sesión` (`Código_Sesión`);
 
 --
 -- Indices de la tabla `pedido`
 --
 ALTER TABLE `pedido`
   ADD KEY `fk_DNI` (`DNI`),
-  ADD KEY `fk_CÃ³digo_Entrada` (`CÃ³digo_Entrada`);
+  ADD KEY `fk_Código_Entrada` (`Código_Entrada`);
 
 --
--- Indices de la tabla `pelÃ­culas`
+-- Indices de la tabla `películas`
 --
-ALTER TABLE `pelÃ­culas`
-  ADD PRIMARY KEY (`CÃ³digo_PelÃ­cula`);
+ALTER TABLE `películas`
+  ADD PRIMARY KEY (`Código_Película`);
 
 --
 -- Indices de la tabla `salas`
 --
 ALTER TABLE `salas`
-  ADD PRIMARY KEY (`CÃ³digo_Sala`),
-  ADD KEY `fk_Cod_Cine` (`CÃ³digo_Cine`);
+  ADD PRIMARY KEY (`Código_Sala`),
+  ADD KEY `fk_Cod_Cine` (`Código_Cine`);
 
 --
--- Indices de la tabla `sesiÃ³n`
+-- Indices de la tabla `sesión`
 --
-ALTER TABLE `sesiÃ³n`
-  ADD PRIMARY KEY (`CÃ³digo_SesiÃ³n`),
-  ADD KEY `fk_Cod_PelÃ­cula` (`CÃ³digo_PelÃ­cula`),
-  ADD KEY `fk_Cod_Sala` (`CÃ³digo_Sala`);
+ALTER TABLE `sesión`
+  ADD PRIMARY KEY (`Código_Sesión`),
+  ADD KEY `fk_Cod_Película` (`Código_Película`),
+  ADD KEY `fk_Cod_Sala` (`Código_Sala`);
 
 --
 -- Restricciones para tablas volcadas
@@ -819,27 +819,27 @@ ALTER TABLE `sesiÃ³n`
 -- Filtros para la tabla `entrada`
 --
 ALTER TABLE `entrada`
-  ADD CONSTRAINT `fk_Cod_SesiÃ³n` FOREIGN KEY (`CÃ³digo_SesiÃ³n`) REFERENCES `sesiÃ³n` (`CÃ³digo_SesiÃ³n`);
+  ADD CONSTRAINT `fk_Cod_Sesión` FOREIGN KEY (`Código_Sesión`) REFERENCES `sesión` (`Código_Sesión`);
 
 --
 -- Filtros para la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  ADD CONSTRAINT `fk_CÃ³digo_Entrada` FOREIGN KEY (`CÃ³digo_Entrada`) REFERENCES `entrada` (`CÃ³digo_Entrada`),
+  ADD CONSTRAINT `fk_Código_Entrada` FOREIGN KEY (`Código_Entrada`) REFERENCES `entrada` (`Código_Entrada`),
   ADD CONSTRAINT `fk_DNI` FOREIGN KEY (`DNI`) REFERENCES `clientes` (`DNI`);
 
 --
 -- Filtros para la tabla `salas`
 --
 ALTER TABLE `salas`
-  ADD CONSTRAINT `fk_Cod_Cine` FOREIGN KEY (`CÃ³digo_Cine`) REFERENCES `cine` (`CÃ³digo_Cine`);
+  ADD CONSTRAINT `fk_Cod_Cine` FOREIGN KEY (`Código_Cine`) REFERENCES `cine` (`Código_Cine`);
 
 --
--- Filtros para la tabla `sesiÃ³n`
+-- Filtros para la tabla `sesión`
 --
-ALTER TABLE `sesiÃ³n`
-  ADD CONSTRAINT `fk_Cod_PelÃ­cula` FOREIGN KEY (`CÃ³digo_PelÃ­cula`) REFERENCES `pelÃ­culas` (`CÃ³digo_PelÃ­cula`),
-  ADD CONSTRAINT `fk_Cod_Sala` FOREIGN KEY (`CÃ³digo_Sala`) REFERENCES `salas` (`CÃ³digo_Sala`);
+ALTER TABLE `sesión`
+  ADD CONSTRAINT `fk_Cod_Película` FOREIGN KEY (`Código_Película`) REFERENCES `películas` (`Código_Película`),
+  ADD CONSTRAINT `fk_Cod_Sala` FOREIGN KEY (`Código_Sala`) REFERENCES `salas` (`Código_Sala`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

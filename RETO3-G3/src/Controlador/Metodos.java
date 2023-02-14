@@ -8,7 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
@@ -62,7 +64,7 @@ public class Metodos {
 					Sesion ses = new Sesion();
 					ses.setCodigoSesion(registroSesiones2.getString("Código_Sesión"));
 					Calendar cal = Calendar.getInstance();
-					System.out.println(registroSesiones2.getDate("Fecha_Inicio").toString().split("-")[0]);
+					//System.out.println(registroSesiones2.getDate("Fecha_Inicio").toString().split("-")[0]);
 					cal.set(Calendar.HOUR_OF_DAY, Integer.valueOf(registroSesiones2.getTime("Hora").toString().split(":")[0]));
 					cal.set(Calendar.MINUTE, Integer.valueOf(registroSesiones2.getTime("Hora").toString().split(":")[1]));
 					cal.set(Calendar.DAY_OF_MONTH, Integer.valueOf(registroSesiones2.getDate("Fecha_Inicio").toString().split("-")[2]));
@@ -70,7 +72,13 @@ public class Metodos {
 					cal.set(Calendar.YEAR, Integer.valueOf(registroSesiones2.getDate("Fecha_Inicio").toString().split("-")[0]));
 					//ses.setFecha(registroSesiones2.getDate("Fecha_Inicio"));
 					ses.setFecha(cal.getTime());
-					ses.setFechaFin(registroSesiones2.getDate("Fecha_Fin"));
+					
+					Calendar cal2 = Calendar.getInstance();
+					cal2.set(Calendar.DAY_OF_MONTH, Integer.valueOf(registroSesiones2.getDate("Fecha_Inicio").toString().split("-")[2]));
+					cal2.set(Calendar.MONTH, Integer.valueOf(registroSesiones2.getDate("Fecha_Inicio").toString().split("-")[1]));
+					cal2.set(Calendar.YEAR, Integer.valueOf(registroSesiones2.getDate("Fecha_Inicio").toString().split("-")[0]));
+					ses.setFechaFin(cal2.getTime());
+					ses.setPrecio(registroSesiones2.getFloat("Precio"));
 					
 					Statement comando4=(Statement) conexion.createStatement();
 					ResultSet registroPelis2 = comando4.executeQuery("select * from películas where Código_Película=(select Código_Película from sesión where Código_Sesión='"+registroSesiones2.getString("Código_Sesión")+"')");
@@ -154,8 +162,7 @@ public class Metodos {
 	//hacer radiobutons dinamicamente
 	public Pelicula[] mostrarPeliculas(Cine[] arrayCines, Pelicula pel, int opcionCine) {
 		//array de todas las pelis del cine
-		Pelicula[] eleccionTodasPelis = new Pelicula[8];
-		String nombrePelicula="";
+		Pelicula[] eleccionTodasPelis = new Pelicula[144];
 		int peliCont=0;
 		for(int w=0;w<arrayCines[opcionCine].getArraySalas().length;w++) {
 			for(int z=0;z<arrayCines[opcionCine].getArraySalas()[w].getArraySesiones().length;z++) {
@@ -163,32 +170,67 @@ public class Metodos {
 				peliCont++;
 			}
 		}
+		
+		for(int s=0;s<eleccionTodasPelis.length-1;s++)
+		{
+		    for(int m=s + 1;m<eleccionTodasPelis.length;m++)
+		    {
+
+		                if(eleccionTodasPelis[s] != null && eleccionTodasPelis[s].equals(eleccionTodasPelis[m]))
+		                {
+		                  // array = ArrayUtils.removeElement(array, array[s]); --m;??
+		                	eleccionTodasPelis[m] = null; // Mark for deletion later on
+		                }
+		    } 
+		}
+		
+		int posNombre =0;
+		Pelicula[] nombresPelisCine = new Pelicula[100];
+		for(int x=0;x<eleccionTodasPelis.length;x++){
+			if(eleccionTodasPelis[x]!=null) {
+				nombresPelisCine[posNombre]=eleccionTodasPelis[x];
+				System.out.println(eleccionTodasPelis[x]);
+				posNombre++;
+			}
+			
+	    } 
 
 		//array de todas las pelis del cine sin repetir peliculas
 		System.out.println("***Pelis cine "+opcionCine+" (sin repes)***");
-		Pelicula[] nombresPelisCine = new Pelicula[4];
-		int posNombre =0;
-		int cont=0;
-		int repe=0;
-		for(int sys2=0;sys2<eleccionTodasPelis.length;sys2++) {
-			if(eleccionTodasPelis[sys2].getCodigoPelicula().equals(eleccionTodasPelis[cont].getCodigoPelicula())) {
-				repe++;
-				if(repe==0 || repe==1) {
-					nombresPelisCine[posNombre]=eleccionTodasPelis[sys2];
-					//System.out.println(eleccionTodasPelis[sys2].getNombre());
-					posNombre++;
-				}else {
-					repe=0;
-				}
-				
-				cont++;
-			}
-		}
+		
+//		int posNombre =0;
+//		int cont=0;
+//		int repe=0;
+//		for(int sys2=0;sys2<eleccionTodasPelis.length;sys2++) {
+//			if(eleccionTodasPelis[sys2].getCodigoPelicula().equals(eleccionTodasPelis[cont].getCodigoPelicula())) {
+//				repe++;
+//				if(repe==0 || repe==1) {
+//					nombresPelisCine[posNombre]=eleccionTodasPelis[sys2];
+//					System.out.println(eleccionTodasPelis[sys2].getNombre());
+//					posNombre++;
+//				}else {
+//					repe=0;
+//				}
+//				
+//				cont++;
+//			}
+		
 		return nombresPelisCine;
 	}
 	
+//	   public static Pelicula[] removeDuplicates(Pelicula[] arr) {
+//		   Pelicula[] arraySinDup = new Pelicula[4];
+//	        int k = 0;
+//	        for (int i = 0; i < arr.length; i++) {
+//	            if (i == 0 || arr[i].getCodigoPelicula() != arr[i - 1].getCodigoPelicula()) {
+//	            	arraySinDup[k++] = arr[i];
+//	                System.out.println(arr[i].getCodigoPelicula());
+//	            }
+//	        }
+//	        return arraySinDup;
+//	    }
 
-	public String[] mostrarSesiones(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, int opcionCine, int[] nSala, int[] nSesion) {
+	public String[] mostrarSesiones(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, int opcionCine, int[] nSala, int[] nSesion, Pelicula[] nombresPelisCine, int opcionPeli) {
 		DateFormat dt = new SimpleDateFormat("dd-MM-yyyy");
 		DateFormat dt2 = new SimpleDateFormat("hh:mm");
 		
@@ -198,12 +240,13 @@ public class Metodos {
 		Float[] precioEntrada = new Float[2];
 		String[] sesion = new String[2];
 		
+
 		
 		for(int h=0;h<2;h++) {
-			hora[h] = dt2.format(arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getFecha());
+			hora[h] = dt.format(arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getFecha());
 			nombrePeli[h] = arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getxPelicula().getNombre();
 			nombreSala[h] = arrayCines[opcionCine].getArraySalas()[nSala[h]].getNumero();
-			precioEntrada[h] = arrayEntradas[h].getPrecio();
+			precioEntrada[h] = arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getPrecio();
 			
 			sesion[h]=hora[h]+" PM - "+nombrePeli[h]+"( Sala "+nombreSala[h]+")"+" - "+precioEntrada[h]+"€";
 		}

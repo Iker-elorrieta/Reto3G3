@@ -33,6 +33,7 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingConstants;
+import java.util.Date;
 
 public class BienvenidaCines extends JFrame {
 

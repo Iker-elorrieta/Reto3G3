@@ -170,24 +170,26 @@ public class SeleccionPeliculas extends JFrame {
 				
 				lblNewLabel_1.setVisible(true);
 				}else {
-					int contSesion=0;
-					nSala = new int[2];
-					nSesion = new int[2];
-					for(int w=0;w<arrayCines[opcionCine].getArraySalas().length;w++) {
-						for(int z=0;z<arrayCines[opcionCine].getArraySalas()[w].getArraySesiones().length;z++) {
-							
-							Pelicula datosPeli=arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getxPelicula();
-							if(datosPeli.getCodigoPelicula().equals(nombresPelisCine[opcionPeli].getCodigoPelicula())) {
-								System.out.println(arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getxPelicula());
-								nSala[contSesion] = w;
-								nSesion[contSesion] = z;
-								contSesion++;
-							}
-							
-						}
-					}
+//					int contSesion=0;
+//					nSala = new int[arrayCines[opcionCine].getArraySalas().length];
+//					System.out.println("salas??");
+//					System.out.println(arrayCines[opcionCine].getArraySalas().length);
+//					nSesion = new int[144];
+//					for(int w=0;w<arrayCines[opcionCine].getArraySalas().length;w++) {
+//						for(int z=0;z<arrayCines[opcionCine].getArraySalas()[w].getArraySesiones().length;z++) {
+//							
+//							Pelicula datosPeli=arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getxPelicula();
+//							if(datosPeli.getCodigoPelicula().equals(nombresPelisCine[opcionPeli].getCodigoPelicula())) {
+//								System.out.println(arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getxPelicula());
+//								nSala[arrayCines[opcionCine].getArraySalas()[w].getNumero()-1] = w;
+//								nSesion[contSesion] = z;
+//								contSesion++;
+//							}
+//							
+//						}
+//					}
 				//vent = new FechayHorarios(arrayCines, arrayClientes, arrayEntradas, arrayPelis, arraySalas, arraySesiones, opcionCine, opcionPeli);
-					vent = new FechayHorarios(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine, nSala, nSesion);
+					vent = new FechayHorarios(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine, nombresPelisCine, opcionPeli);
 				vent.setVisible(true);
 				}
 				

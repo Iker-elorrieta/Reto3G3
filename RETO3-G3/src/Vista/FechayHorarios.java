@@ -56,6 +56,8 @@ public class FechayHorarios extends JFrame {
 	String[] fechaFinal;
 	private JLabel lblNewLabel_2;
 	Metodos mts = new Metodos();
+	int[] nSala;
+	int[] nSesion;
 	
 	/**
 	 * Launch the application.
@@ -64,6 +66,15 @@ public class FechayHorarios extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param opcionPeli 
+	 * @param nombresPelisCine 
+	 * @param nSesion 
+	 * @param nSala 
+	 * @param opcionCine 
+	 * @param arrayEntradas 
+	 * @param arrayClientes 
+	 * @param pel 
+	 * @param arrayCines 
 	 * @param opcionCine 
 	 * @param arrayEntradas 
 	 * @param arrayClientes 
@@ -101,8 +112,31 @@ public class FechayHorarios extends JFrame {
 	 * @param horaPelis 
 	 * @param nombrePelis 
 	 */
-	public FechayHorarios(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, int opcionCine, int[] nSala, int[] nSesion) {
+	public FechayHorarios(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, int opcionCine, Pelicula[] nombresPelisCine, int opcionPeli) {
 	
+		
+		int contSesion=0;
+		nSala = new int[arrayCines[opcionCine].getArraySalas().length];
+		System.out.println("salas??");
+		System.out.println(arrayCines[opcionCine].getArraySalas().length);
+		nSesion = new int[144];//2
+		for(int w=0;w<arrayCines[opcionCine].getArraySalas().length;w++) {
+			for(int z=0;z<arrayCines[opcionCine].getArraySalas()[w].getArraySesiones().length;z++) {
+				
+				Pelicula datosPeli=arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getxPelicula();
+				if(datosPeli.getCodigoPelicula().equals(nombresPelisCine[opcionPeli].getCodigoPelicula())) {
+					//y el datepicker equals lo de bdd
+					System.out.println(arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getxPelicula());
+					nSala[arrayCines[opcionCine].getArraySalas()[w].getNumero()-1] = w;
+					nSesion[contSesion] = z;
+					contSesion++;
+				}
+				
+			}
+		}
+		
+		
+		
 		DateFormat dt = new SimpleDateFormat("dd-MM-yyyy");
 	
 		fechaInicio = new String[2];
@@ -113,7 +147,7 @@ public class FechayHorarios extends JFrame {
 			fechaFinal[h] = dt.format(arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getFechaFin());
 		}
 		
-		sesion=mts.mostrarSesiones(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine, nSala, nSesion);
+		sesion=mts.mostrarSesiones(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine, nSala, nSesion, nombresPelisCine, opcionPeli);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
