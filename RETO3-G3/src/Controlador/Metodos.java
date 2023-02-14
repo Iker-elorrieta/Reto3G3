@@ -234,20 +234,28 @@ public class Metodos {
 		DateFormat dt = new SimpleDateFormat("dd-MM-yyyy");
 		DateFormat dt2 = new SimpleDateFormat("hh:mm");
 		
-		String[] hora = new String[2];
-		String[] nombrePeli = new String[2];
-		int[] nombreSala = new int[2];
-		Float[] precioEntrada = new Float[2];
-		String[] sesion = new String[2];
 		
+		
+		String[] hora = new String[0];
+		String[] nombrePeli = new String[0];
+		int[] nombreSala = new int[0];
+		Float[] precioEntrada = new Float[0];
+		
+		String[] sesion = new String[0];
 
 		
 		for(int h=0;h<2;h++) {
-			hora[h] = dt.format(arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getFecha());
+			hora = reescribirArrayStrings(hora);
+			nombrePeli = reescribirArrayStrings(nombrePeli);
+			nombreSala = reescribirArrayInts(nombreSala);
+			precioEntrada = reescribirArrayFloats(precioEntrada);
+			
+			hora[h] = dt2.format(arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getFecha());
 			nombrePeli[h] = arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getxPelicula().getNombre();
 			nombreSala[h] = arrayCines[opcionCine].getArraySalas()[nSala[h]].getNumero();
 			precioEntrada[h] = arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getPrecio();
 			
+			sesion = reescribirArrayStrings(sesion);
 			sesion[h]=hora[h]+" PM - "+nombrePeli[h]+"( Sala "+nombreSala[h]+")"+" - "+precioEntrada[h]+"€";
 		}
 		return sesion;
@@ -316,7 +324,47 @@ public class Metodos {
 		return arrayNuevo;
 	}
 	
+	public String[] reescribirArrayStrings(String[] arrayViejo) {
+		// TODO Auto-generated method stub
+		String[] arrayNuevo = new String[arrayViejo.length+1];
+		for(int i =0;i<arrayViejo.length;i++)
+		{
+			arrayNuevo[i]=arrayViejo[i];
+		}
+		arrayViejo = arrayNuevo;
+		return arrayNuevo;
+	}
 	
+	public int[] reescribirArrayInts(int[] arrayViejo) {
+		// TODO Auto-generated method stub
+		int[] arrayNuevo = new int[arrayViejo.length+1];
+		for(int i =0;i<arrayViejo.length;i++)
+		{
+			arrayNuevo[i]=arrayViejo[i];
+		}
+		arrayViejo = arrayNuevo;
+		return arrayNuevo;
+	}
 	
+	public Float[] reescribirArrayFloats(Float[] arrayViejo) {
+		// TODO Auto-generated method stub
+		Float[] arrayNuevo = new Float[arrayViejo.length+1];
+		for(int i =0;i<arrayViejo.length;i++)
+		{
+			arrayNuevo[i]=arrayViejo[i];
+		}
+		arrayViejo = arrayNuevo;
+		return arrayNuevo;
+	}
 	
+	public JRadioButton[] reescribirArrayButtons(JRadioButton[] arrayViejo) {
+		// TODO Auto-generated method stub
+		JRadioButton[] arrayNuevo = new JRadioButton[arrayViejo.length+1];
+		for(int i =0;i<arrayViejo.length;i++)
+		{
+			arrayNuevo[i]=arrayViejo[i];
+		}
+		arrayViejo = arrayNuevo;
+		return arrayNuevo;
+	}
 }

@@ -84,18 +84,10 @@ public class SeleccionPeliculas extends JFrame {
 		
 		
 		
-		if(opcionCine==0) {
+		
 			nombresPelisCine = mts.mostrarPeliculas(arrayCines, pel, opcionCine);
-		}
-		else if(opcionCine==1) {
-			nombresPelisCine = mts.mostrarPeliculas(arrayCines, pel, opcionCine);
-		}
-		else if(opcionCine==2) {
-			nombresPelisCine = mts.mostrarPeliculas(arrayCines, pel, opcionCine);
-		}
-		else if(opcionCine==3) {
-			nombresPelisCine = mts.mostrarPeliculas(arrayCines, pel, opcionCine);
-		}
+		
+	
 		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -134,7 +126,7 @@ public class SeleccionPeliculas extends JFrame {
 //		contentPane.add(rdbtnNewRadioButton_3);
 		//dynamic pelis
 		contR=0;
-		arraybotones = new JRadioButton[4];
+		arraybotones = new JRadioButton[0];
 		for (int i = 0; i < arrayCines.length; i++) {
 
             button1 = new JRadioButton(nombresPelisCine[i].getNombre());
@@ -151,6 +143,7 @@ public class SeleccionPeliculas extends JFrame {
             button1.setBounds(37, 31+contR, 227, 23);
             buttonGroup.add(button1);
             contentPane.add(button1);
+            arraybotones = mts.reescribirArrayButtons(arraybotones);
             arraybotones[i] = button1;
         }
 		

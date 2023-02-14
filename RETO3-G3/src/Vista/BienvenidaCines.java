@@ -104,8 +104,8 @@ public class BienvenidaCines extends JFrame {
 	public BienvenidaCines() throws SQLException {
 
 		arrayCines = new Cine[0];
-		arrayClientes = new Cliente[100];
-		arrayEntradas = new Entrada[100];
+		arrayClientes = new Cliente[0];
+		arrayEntradas = new Entrada[0];
 		
 
 		
@@ -182,7 +182,7 @@ public class BienvenidaCines extends JFrame {
 //				rdbtnNewRadioButton_2.setVisible(true);
 //				rdbtnNewRadioButton_3.setVisible(true);
 				contR=0;
-				arraybotones = new JRadioButton[4];
+				arraybotones = new JRadioButton[0];
 				for (int i = 0; i < arrayCines.length; i++) {
 
 		            button1 = new JRadioButton(arrayCines[i].getNombre());
@@ -199,6 +199,7 @@ public class BienvenidaCines extends JFrame {
 		            button1.setBounds(37, 31+contR, 227, 23);
 		            buttonGroup.add(button1);
 		            contentPane.add(button1);
+		            arraybotones = mts.reescribirArrayButtons(arraybotones);
 		            arraybotones[i] = button1;
 		        }
 				

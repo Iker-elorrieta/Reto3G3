@@ -157,6 +157,9 @@ public class FechayHorarios extends JFrame {
 		JButton btnNewButton = new JButton("ACEPTAR");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(cambioDia>0) {
+					
+				
 				Date selectedDate = (Date) datePicker.getModel().getValue();
 				System.out.println(selectedDate);
 			//	String selectedDateDT = dt.format(String.valueOf(selectedDate));
@@ -188,6 +191,9 @@ public class FechayHorarios extends JFrame {
 					lblNewLabel_1.setVisible(true);
 					}
 				}
+			}else {
+				lblNewLabel_1.setVisible(true);
+			}
 			}
 		});
 		btnNewButton.setBounds(324, 227, 89, 23);
@@ -214,10 +220,10 @@ public class FechayHorarios extends JFrame {
 				System.out.println(bd.format(selectedDate));
 				
 				int contSesion=0;
-				nSala = new int[arrayCines[opcionCine].getArraySalas().length];
+				nSala = new int[0];
 				System.out.println("salas??");
 				System.out.println(arrayCines[opcionCine].getArraySalas().length);
-				nSesion = new int[2];//2
+				nSesion = new int[0];//2
 				System.out.println("For de sla y ses");
 				lblNewLabel_2.setVisible(true);
 				for(int w=0;w<arrayCines[opcionCine].getArraySalas().length;w++) {
@@ -233,7 +239,9 @@ public class FechayHorarios extends JFrame {
 							lblNewLabel_2.setVisible(false);
 							System.out.println("PeliculaSesiones");
 							System.out.println(arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getxPelicula());
+							nSala = mts.reescribirArrayInts(nSala);
 							nSala[contSesion] = w;
+							nSesion = mts.reescribirArrayInts(nSesion);
 							nSesion[contSesion] = z;
 							contSesion++;
 						}
@@ -247,7 +255,7 @@ public class FechayHorarios extends JFrame {
 				if(!(lblNewLabel_2.isVisible())) {
 				
 					contR=0;
-					arraybotones = new JRadioButton[2];
+					arraybotones = new JRadioButton[0];
 					for (int i = 0; i < sesion.length; i++) {
 
 			            button1 = new JRadioButton(sesion[i]);
@@ -267,6 +275,7 @@ public class FechayHorarios extends JFrame {
 			            //lo hago visible false y true porque sino como que tarda en cargar
 			            button1.setVisible(false);
 			            button1.setVisible(true);
+			            arraybotones = mts.reescribirArrayButtons(arraybotones);
 			            arraybotones[i] = button1;
 			        }
 					for(int b=0; b<arraybotones.length;b++) {
