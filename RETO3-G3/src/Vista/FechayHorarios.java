@@ -58,6 +58,13 @@ public class FechayHorarios extends JFrame {
 	Metodos mts = new Metodos();
 	int[] nSala;
 	int[] nSesion;
+	int cambioDia;
+	
+	int contR;
+	JRadioButton[] arraybotones;
+	JRadioButton button1;
+	
+	
 	
 	/**
 	 * Launch the application.
@@ -155,8 +162,12 @@ public class FechayHorarios extends JFrame {
 			//	String selectedDateDT = dt.format(String.valueOf(selectedDate));
 				System.out.println(selectedDate);
 				
-				if(rdbtnNewRadioButton.isSelected() || rdbtnNewRadioButton_1.isSelected()) {
-					
+				boolean seleccion=false;
+				for(int b=0; b<arraybotones.length;b++) {
+	
+				if(arraybotones[b].isSelected()) {
+					seleccion=true;
+					lblNewLabel_1.setVisible(false);
 					
 						//&& Integer.valueOf(selectedDate.toString().split("-")[2])<=Integer.valueOf(fechaFinal[x].toString().split("-")[2])
 
@@ -171,20 +182,27 @@ public class FechayHorarios extends JFrame {
 					vent.setVisible(true);
 						
 				}
-				else {
+				else if(seleccion==false){
 					//label
 					//JOptionPane.showMessageDialog(null, "Sesion no seleccionada");
 					lblNewLabel_1.setVisible(true);
+					}
 				}
 			}
 		});
 		btnNewButton.setBounds(324, 227, 89, 23);
 		contentPane.add(btnNewButton);
 		
+		cambioDia = 0;
 		JButton btnNewButton_1 = new JButton("Confirmar");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				//si se selecciona una sesion disponible y luego otra se tiene que poner invisible la anterior
+				if(cambioDia>0) {
+					for(int b=0; b<arraybotones.length;b++) {
+						arraybotones[b].setVisible(false);
+					} 
+				}
 //				if() {
 //					lblNewLabel_2.setVisible(true);
 //				}else {
@@ -227,24 +245,45 @@ public class FechayHorarios extends JFrame {
 				
 				
 				if(!(lblNewLabel_2.isVisible())) {
-					
 				
-				rdbtnNewRadioButton = new JRadioButton("Sesion 1:  "+sesion[0]);
-				buttonGroup.add(rdbtnNewRadioButton);
-				rdbtnNewRadioButton.setBounds(10, 64, 420, 23);
-				contentPane.add(rdbtnNewRadioButton);
-				rdbtnNewRadioButton.setVisible(false);
-				
-				rdbtnNewRadioButton_1 = new JRadioButton("Sesion 2:  "+sesion[1]);
-				buttonGroup.add(rdbtnNewRadioButton_1);
-				rdbtnNewRadioButton_1.setBounds(10, 116, 420, 23);
-				contentPane.add(rdbtnNewRadioButton_1);
-				rdbtnNewRadioButton_1.setVisible(false);
+					contR=0;
+					arraybotones = new JRadioButton[2];
+					for (int i = 0; i < sesion.length; i++) {
+
+			            button1 = new JRadioButton(sesion[i]);
+			            contR=contR+30;
+			            button1.setToolTipText(String.valueOf(i));
+			            button1.addActionListener(new ActionListener() {
+			                @Override
+			                public void actionPerformed(ActionEvent e) {
+			                    System.err.println("Action Performed..************");
+			                    System.out.println("This is action text.."+button1.getText()); 
+			                    System.out.println("tool tip text"+button1.getToolTipText());
+			                }
+			            });
+			            button1.setBounds(37, 31+contR, 420, 23);
+			            buttonGroup.add(button1);
+			            contentPane.add(button1);
+			            //lo hago visible false y true porque sino como que tarda en cargar
+			            button1.setVisible(false);
+			            button1.setVisible(true);
+			            arraybotones[i] = button1;
+			        }
+					for(int b=0; b<arraybotones.length;b++) {
+						arraybotones[b].setVisible(true);
+					}
+					cambioDia++;
 				}
-//				rdbtnNewRadioButton.setText("Sesion 1: "+sesion[0]);
-//				rdbtnNewRadioButton_1.setText("Sesion 2: "+sesion[1]);
-				rdbtnNewRadioButton.setVisible(true);
-				rdbtnNewRadioButton_1.setVisible(true);
+				if(lblNewLabel_2.isVisible()) {
+					if(arraybotones!=null) {
+						for(int b=0; b<arraybotones.length;b++) {
+							arraybotones[b].setVisible(false);
+						} 
+					}
+				}
+
+//				rdbtnNewRadioButton.setVisible(true);
+//				rdbtnNewRadioButton_1.setVisible(true);
 				
 			}
 		});
