@@ -115,39 +115,14 @@ public class FechayHorarios extends JFrame {
 	public FechayHorarios(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, int opcionCine, Pelicula[] nombresPelisCine, int opcionPeli) {
 	
 		
-		int contSesion=0;
-		nSala = new int[arrayCines[opcionCine].getArraySalas().length];
-		System.out.println("salas??");
-		System.out.println(arrayCines[opcionCine].getArraySalas().length);
-		nSesion = new int[144];//2
-		for(int w=0;w<arrayCines[opcionCine].getArraySalas().length;w++) {
-			for(int z=0;z<arrayCines[opcionCine].getArraySalas()[w].getArraySesiones().length;z++) {
-				
-				Pelicula datosPeli=arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getxPelicula();
-				if(datosPeli.getCodigoPelicula().equals(nombresPelisCine[opcionPeli].getCodigoPelicula())) {
-					//y el datepicker equals lo de bdd
-					System.out.println(arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getxPelicula());
-					nSala[arrayCines[opcionCine].getArraySalas()[w].getNumero()-1] = w;
-					nSesion[contSesion] = z;
-					contSesion++;
-				}
-				
-			}
-		}
-		
 		
 		
 		DateFormat dt = new SimpleDateFormat("dd-MM-yyyy");
+		DateFormat bd = new SimpleDateFormat("yyyy-MM-dd");
 	
-		fechaInicio = new String[2];
-		fechaFinal = new String[2];
-	
-		for(int h=0;h<2;h++) {
-			fechaInicio[h] = dt.format(arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getFecha());
-			fechaFinal[h] = dt.format(arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getFechaFin());
-		}
+
 		
-		sesion=mts.mostrarSesiones(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine, nSala, nSesion, nombresPelisCine, opcionPeli);
+		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -169,17 +144,7 @@ public class FechayHorarios extends JFrame {
 		lblNewLabel.setBounds(10, 21, 46, 14);
 		contentPane.add(lblNewLabel);
 		
-		rdbtnNewRadioButton = new JRadioButton("Sesion 1:  "+sesion[0]);
-		buttonGroup.add(rdbtnNewRadioButton);
-		rdbtnNewRadioButton.setBounds(10, 64, 420, 23);
-		contentPane.add(rdbtnNewRadioButton);
-		rdbtnNewRadioButton.setVisible(false);
 		
-		rdbtnNewRadioButton_1 = new JRadioButton("Sesion 2:  "+sesion[1]);
-		buttonGroup.add(rdbtnNewRadioButton_1);
-		rdbtnNewRadioButton_1.setBounds(10, 116, 420, 23);
-		contentPane.add(rdbtnNewRadioButton_1);
-		rdbtnNewRadioButton_1.setVisible(false);
 		
 		
 		JButton btnNewButton = new JButton("ACEPTAR");
@@ -194,11 +159,7 @@ public class FechayHorarios extends JFrame {
 					
 					
 						//&& Integer.valueOf(selectedDate.toString().split("-")[2])<=Integer.valueOf(fechaFinal[x].toString().split("-")[2])
-						if(!(Integer.valueOf(dt.format(selectedDate).split("-")[1])==03)) {
-							//JOptionPane.showMessageDialog(null, "No hay sesiones disponibles en esa fecha");
-							lblNewLabel_2.setVisible(true);
-						}else {
-							lblNewLabel_2.setVisible(false);
+
 					
 					JOptionPane.showMessageDialog(null, "Sesion seleccionada correctamente");
 					try {
@@ -208,7 +169,7 @@ public class FechayHorarios extends JFrame {
 						e1.printStackTrace();
 					}
 					vent.setVisible(true);
-						}
+						
 				}
 				else {
 					//label
@@ -223,6 +184,63 @@ public class FechayHorarios extends JFrame {
 		JButton btnNewButton_1 = new JButton("Confirmar");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+//				if() {
+//					lblNewLabel_2.setVisible(true);
+//				}else {
+//					lblNewLabel_2.setVisible(false);
+//				}
+				
+				Date selectedDate = (Date) datePicker.getModel().getValue();
+				System.out.println("**selected date**");
+				System.out.println(bd.format(selectedDate));
+				
+				int contSesion=0;
+				nSala = new int[arrayCines[opcionCine].getArraySalas().length];
+				System.out.println("salas??");
+				System.out.println(arrayCines[opcionCine].getArraySalas().length);
+				nSesion = new int[2];//2
+				System.out.println("For de sla y ses");
+				lblNewLabel_2.setVisible(true);
+				for(int w=0;w<arrayCines[opcionCine].getArraySalas().length;w++) {
+					for(int z=0;z<arrayCines[opcionCine].getArraySalas()[w].getArraySesiones().length;z++) {
+						
+						Pelicula datosPeli=arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getxPelicula();
+						//System.out.println(datosPeli.getNombre());
+						//System.out.println(nombresPelisCine[opcionPeli].getNombre());
+						System.out.println(bd.format(arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getFecha()));
+						//System.out.println(bd.format(selectedDate));
+						if(datosPeli.getCodigoPelicula().equals(nombresPelisCine[opcionPeli].getCodigoPelicula()) && bd.format(arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getFecha()).equals(bd.format(selectedDate))) {
+							//y el datepicker equals lo de bdd
+							lblNewLabel_2.setVisible(false);
+							System.out.println("PeliculaSesiones");
+							System.out.println(arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getxPelicula());
+							nSala[contSesion] = w;
+							nSesion[contSesion] = z;
+							contSesion++;
+						}
+						
+					}
+				}
+				
+				sesion=mts.mostrarSesiones(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine, nSala, nSesion, nombresPelisCine, opcionPeli);
+				
+				
+				if(!(lblNewLabel_2.isVisible())) {
+					
+				
+				rdbtnNewRadioButton = new JRadioButton("Sesion 1:  "+sesion[0]);
+				buttonGroup.add(rdbtnNewRadioButton);
+				rdbtnNewRadioButton.setBounds(10, 64, 420, 23);
+				contentPane.add(rdbtnNewRadioButton);
+				rdbtnNewRadioButton.setVisible(false);
+				
+				rdbtnNewRadioButton_1 = new JRadioButton("Sesion 2:  "+sesion[1]);
+				buttonGroup.add(rdbtnNewRadioButton_1);
+				rdbtnNewRadioButton_1.setBounds(10, 116, 420, 23);
+				contentPane.add(rdbtnNewRadioButton_1);
+				rdbtnNewRadioButton_1.setVisible(false);
+				}
 //				rdbtnNewRadioButton.setText("Sesion 1: "+sesion[0]);
 //				rdbtnNewRadioButton_1.setText("Sesion 2: "+sesion[1]);
 				rdbtnNewRadioButton.setVisible(true);
@@ -256,7 +274,7 @@ public class FechayHorarios extends JFrame {
 		contentPane.add(lblNewLabel_1);
 		lblNewLabel_1.setVisible(false);
 		
-		lblNewLabel_2 = new JLabel("*No hay sesiones disponibles en esa fecha (solo habrimos en marzo :D)");
+		lblNewLabel_2 = new JLabel("*No hay sesiones en esa fecha (abrimos en abril de domingo a miercoles)");
 		lblNewLabel_2.setForeground(new Color(255, 0, 0));
 		lblNewLabel_2.setBounds(10, 43, 426, 14);
 		contentPane.add(lblNewLabel_2);

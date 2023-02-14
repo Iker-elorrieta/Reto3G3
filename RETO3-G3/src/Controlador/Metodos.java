@@ -67,9 +67,9 @@ public class Metodos {
 					//System.out.println(registroSesiones2.getDate("Fecha_Inicio").toString().split("-")[0]);
 					cal.set(Calendar.HOUR_OF_DAY, Integer.valueOf(registroSesiones2.getTime("Hora").toString().split(":")[0]));
 					cal.set(Calendar.MINUTE, Integer.valueOf(registroSesiones2.getTime("Hora").toString().split(":")[1]));
-					cal.set(Calendar.DAY_OF_MONTH, Integer.valueOf(registroSesiones2.getDate("Fecha_Inicio").toString().split("-")[2]));
-					cal.set(Calendar.MONTH, Integer.valueOf(registroSesiones2.getDate("Fecha_Inicio").toString().split("-")[1]));
-					cal.set(Calendar.YEAR, Integer.valueOf(registroSesiones2.getDate("Fecha_Inicio").toString().split("-")[0]));
+					cal.set(Calendar.DAY_OF_MONTH, Integer.valueOf(registroSesiones2.getDate("Fecha").toString().split("-")[2]));
+					cal.set(Calendar.MONTH, Integer.valueOf(registroSesiones2.getDate("Fecha").toString().split("-")[1]));
+					cal.set(Calendar.YEAR, Integer.valueOf(registroSesiones2.getDate("Fecha").toString().split("-")[0]));
 					//ses.setFecha(registroSesiones2.getDate("Fecha_Inicio"));
 					ses.setFecha(cal.getTime());
 					
@@ -243,7 +243,7 @@ public class Metodos {
 
 		
 		for(int h=0;h<2;h++) {
-			hora[h] = dt.format(arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getFecha());
+			hora[h] = dt2.format(arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getFecha());
 			nombrePeli[h] = arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getxPelicula().getNombre();
 			nombreSala[h] = arrayCines[opcionCine].getArraySalas()[nSala[h]].getNumero();
 			precioEntrada[h] = arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getPrecio();
