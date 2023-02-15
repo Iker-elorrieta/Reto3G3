@@ -189,7 +189,7 @@ public class Metodos {
 			precioEntrada = reescribirArrayFloats(precioEntrada);
 			
 			hora = reescribirArrayStrings(hora);
-			hora[h] = dt2.format(arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getFecha());
+			hora[h] = dt.format(arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getFecha()) +" "+ dt2.format(arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getFecha());
 			nombrePeli[h] = arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getxPelicula().getNombre();
 			nombreSala[h] = arrayCines[opcionCine].getArraySalas()[nSala[h]].getNumero();
 			precioEntrada[h] = arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getPrecio();
@@ -200,10 +200,45 @@ public class Metodos {
 		return sesion;
 	}
 	
+	public String[] fechasPelicula(Cine[] arrayCines, int opcionCine, int[] nSala, int[] nSesion) {
+		DateFormat dt = new SimpleDateFormat("dd-MM-yyyy");
+		String[] fechas = new String[0];
+		for(int h=0;h<nSesion.length;h++) {
+			fechas = reescribirArrayStrings(fechas);
+			fechas[h] = dt.format(arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getFecha());
+		}
+		return fechas;
+	}
+	
+	public Float[] preciosPelicula(Cine[] arrayCines, int opcionCine, int[] nSala, int[] nSesion) {
+		Float[] preciosPelicula = new Float[0];
+		for(int h=0;h<nSesion.length;h++) {
+			preciosPelicula = reescribirArrayFloats(preciosPelicula);
+			preciosPelicula[h] = arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getPrecio();
+		}
+		return preciosPelicula;
+	}
+	
+	public Sala[] salasPelicula(Cine[] arrayCines, int opcionCine, int[] nSala, int[] nSesion) {
+		Sala[] salasPelicula = new Sala[0];
+		for(int h=0;h<nSesion.length;h++) {
+			salasPelicula = reescribirArraySalas(salasPelicula);
+			salasPelicula[h] = arrayCines[opcionCine].getArraySalas()[nSala[h]];
+		}
+		return salasPelicula;
+	}
 	
 	
 	
+public Cliente[] selectArrayClientes(Pelicula[] arrayViejo) {
+	return null;
+		
+	}
 	
+public Entrada[] selectArrayEntradas(Pelicula[] arrayViejo) {
+	return null;
+	
+}
 	
 	
 	
@@ -317,4 +352,5 @@ public class Metodos {
 		arrayViejo = arrayNuevo;
 		return arrayNuevo;
 	}
+	
 }

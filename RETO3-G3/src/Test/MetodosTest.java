@@ -93,7 +93,7 @@ class MetodosTest {
 		
 		System.out.println("hgsdgd");
 		System.out.println(mts.mostrarPeliculas(arrayCines, opcionCine)[0]);
-		assertEquals(mts.mostrarPeliculas(arrayCines, opcionCine)[0], "Pelicula [codigoPelícula=, duracion=120, nombre=, genero=]");
+		assertEquals(mts.mostrarPeliculas(arrayCines, opcionCine)[0].toString(), "Pelicula [codigoPelícula=, duracion=120, nombre=, genero=]");
 	}
 	
 	
@@ -151,7 +151,15 @@ class MetodosTest {
 		nSesion[0]= 0;
 		System.out.println(mts.mostrarSesiones(arrayCines, opcionCine, nSala, nSesion)[0]);
 		//mts.mostrarSesiones(arrayCines, opcionCine, nSala, nSesion)[0]
-		assertEquals(mts.mostrarSesiones(arrayCines, opcionCine, nSala, nSesion)[0], "04:05 PM - ( Sala 3) - 7.0€");
+		assertEquals(mts.mostrarSesiones(arrayCines, opcionCine, nSala, nSesion)[0], "20-05-2023 04:05 PM - ( Sala 3) - 7.0€");
+		System.out.println(mts.fechasPelicula(arrayCines, opcionCine, nSala, nSesion)[0]);
+		System.out.println(mts.preciosPelicula(arrayCines, opcionCine, nSala, nSesion)[0]);
+		System.out.println(mts.salasPelicula(arrayCines, opcionCine, nSala, nSesion)[0]);
+		
+		assertEquals(mts.fechasPelicula(arrayCines, opcionCine, nSala, nSesion)[0], "20-05-2023");
+		assertEquals(mts.salasPelicula(arrayCines, opcionCine, nSala, nSesion)[0].toString(), "Sala [codigoSala=, numero=3]");
+		assertEquals(mts.preciosPelicula(arrayCines, opcionCine, nSala, nSesion)[0].toString(), "7.0");
+		
 		
 	}
 	

@@ -32,6 +32,8 @@ import javax.swing.ButtonGroup;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import javax.swing.SwingConstants;
 import java.util.Date;
 
@@ -40,6 +42,14 @@ public class BienvenidaCines extends JFrame {
 	/**
 	 * 
 	 */
+	final String cine1 = "cinesa";
+	final String cine2 = "cinesa";
+	final String cine3 = "cinesa";
+	final String cine4 = "cinesa";
+	final String cine5 = "cinesa";
+	final String cine6 = "cinesa";
+	final String cine7 = "cinesa";
+	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	String[] nombreCines=new String[4];
@@ -105,7 +115,6 @@ public class BienvenidaCines extends JFrame {
 		arrayEntradas = new Entrada[0];
 		
 
-		
 		
 		try {
 			conexion=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/reto3_grupo3","root","");
@@ -277,5 +286,9 @@ public class BienvenidaCines extends JFrame {
 		
 
 		
+	}
+
+	public BienvenidaCines(int click) {
+		// TODO Auto-generated constructor stub
 	}
 }
