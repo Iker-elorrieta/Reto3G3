@@ -110,60 +110,10 @@ public class BienvenidaCines extends JFrame {
 	 */
 	public BienvenidaCines() throws SQLException {
 
-		arrayCines = new Cine[0];
-		arrayClientes = new Cliente[0];
-		arrayEntradas = new Entrada[0];
+		arrayCines = mts.mostrarCines();
+		arrayClientes = mts.selectArrayClientes();
+		arrayEntradas = mts.selectArrayEntradas();
 		
-
-		
-		try {
-			conexion=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/reto3_grupo3","root","");
-			Statement comando=(Statement) conexion.createStatement();
-			
-			arrayCines=mts.mostrarCines();
-		
-			registroClientes = comando.executeQuery("select * from clientes");
-			int i2=0;
-			while (registroClientes.next()) {
-				
-				
-				Cliente cli = new Cliente();
-				cli.setDni(registroClientes.getString("DNI"));
-				cli.setNombre(registroClientes.getString("Nombre"));
-				cli.setApellidos(registroClientes.getString("Apellido"));
-				cli.setSexo(registroClientes.getString("Sexo"));
-				cli.setContrasena(registroClientes.getString("Contra"));
-				
-				arrayClientes = mts.reescribirArrayClientes(arrayClientes);
-				arrayClientes[i2]=cli;
-				i2++;
-			}
-			registroClientes.close();
-			
-			registroEntradas = comando.executeQuery("select * from entrada");
-			int i3=0;
-			while (registroEntradas.next()) {
-				
-				
-				Entrada ent = new Entrada();
-				ent.setCodigoEntrada(registroEntradas.getString("Código_Entrada"));
-				ent.setPrecio(registroEntradas.getFloat("Precio"));
-				ent.setxCliente(arrayClientes[i3]);
-				ent.setArraySesiones(arraySesiones);
-				
-				arrayEntradas = mts.reescribirArrayEntradas(arrayEntradas);
-				arrayEntradas[i3]=ent;
-				i3++;
-			}
-			registroEntradas.close();
-
-			
-			comando.close();
-			conexion.close();
-		} catch(SQLException ex){
-				ex.printStackTrace();
-
-		}
 				
 		System.out.println(arrayCines[0].getArraySalas()[0].getArraySesiones()[0].getxPelicula().getNombre());
 		System.out.println(arrayCines[0].getArraySalas()[1].getArraySesiones()[0].getxPelicula().getNombre());

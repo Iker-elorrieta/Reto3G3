@@ -23,6 +23,8 @@ import Modelo.Pelicula;
 import Modelo.Sala;
 import Modelo.Sesion;
 
+
+
 class MetodosTest {
 	Metodos mts = new Metodos();
 	
@@ -194,6 +196,16 @@ class MetodosTest {
 		
 		Pelicula[] arrayViejo10 = new Pelicula[0];
 		assertEquals(mts.reescribirArrayPeliculas(arrayViejo10).length, arrayViejo10.length+1);
+	}
+	
+	@Test
+	void test_selectArrayClientes() {
+		mts.selectArrayClientes();
+	}
+	
+	@Test
+	void test_selectArrayEntradas() {
+		mts.selectArrayEntradas();
 	}
 
 }

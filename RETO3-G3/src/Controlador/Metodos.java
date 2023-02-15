@@ -26,6 +26,31 @@ import Modelo.Sala;
 import Modelo.Sesion;
 
 public class Metodos {
+	Sesion[] arraySesiones;
+	
+	private final String cine1 = "Código_Cine";
+	private final String cine2 = "Nombre";
+	private final String cine3 = "Direccion";
+	
+	private final String sala1 = "Código_Sala";
+	private final String sala2 = "Numero";
+	
+	private final String sesion1 = "Código_Sesión";
+	private final String sesion2 = "Hora";
+	private final String sesion3 = "Fecha";
+	private final String sesion4 = "Fecha_Inicio";
+	private final String sesion5 = "Precio";
+
+	private final String pelicula1 = "Código_Película";
+	private final String pelicula2 = "Duración";
+	private final String pelicula3 = "Nombre";
+	private final String pelicula4 = "Género";
+	
+	private final String tabla1 = "cine";
+	private final String tabla2 = "salas";
+	private final String tabla3 = "sesión";
+	private final String tabla4 = "películas";
+	//"+tabla1+"
 
 	public Cine[] mostrarCines() {
 		Cine[] arrayCines = new Cine[0];
@@ -34,7 +59,7 @@ public class Metodos {
 			conexion = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/reto3_grupo3","root","");
 	
 		Statement comando=(Statement) conexion.createStatement();
-		ResultSet registroCines = comando.executeQuery("select * from cine");
+		ResultSet registroCines = comando.executeQuery("select * from "+tabla1+"");
 		int i=0;
 		
 		while (registroCines.next()) {
@@ -42,52 +67,52 @@ public class Metodos {
 			Sala[] arraySalas = new Sala[0];
 			Cine cin = new Cine();
 			
-			cin.setCodigoCine(registroCines.getString("Código_Cine"));
-			cin.setNombre(registroCines.getString("Nombre"));
-			cin.setDireccion(registroCines.getString("Direccion"));
+			cin.setCodigoCine(registroCines.getString(cine1));
+			cin.setNombre(registroCines.getString(cine2));
+			cin.setDireccion(registroCines.getString(cine3));
 			Statement comando2=(Statement) conexion.createStatement();
-			ResultSet registroSalas2 = comando2.executeQuery("select * from salas where Código_Cine='"+registroCines.getString("Código_Cine")+"'");
+			ResultSet registroSalas2 = comando2.executeQuery("select * from "+tabla2+" where "+cine1+"='"+registroCines.getString(cine1)+"'");
 			int contSal=0;
 			while (registroSalas2.next()) {
-				Sesion[] arraySesiones = new Sesion[0];
+				arraySesiones = new Sesion[0];
 				Sala sal = new Sala();
-				sal.setCodigoSala(registroSalas2.getString("Código_Sala"));
-				sal.setNumero(registroSalas2.getInt("Numero"));
+				sal.setCodigoSala(registroSalas2.getString(sala1));
+				sal.setNumero(registroSalas2.getInt(sala2));
 				
 				Statement comando3=(Statement) conexion.createStatement();
-				ResultSet registroSesiones2 = comando3.executeQuery("select * from sesión where Código_Sala='"+registroSalas2.getString("Código_Sala")+"'");
+				ResultSet registroSesiones2 = comando3.executeQuery("select * from "+tabla3+" where "+sala1+"='"+registroSalas2.getString(sala1)+"'");
 				int contSes=0;
 				
 				while (registroSesiones2.next()) {
 				
 					Sesion ses = new Sesion();
-					ses.setCodigoSesion(registroSesiones2.getString("Código_Sesión"));
+					ses.setCodigoSesion(registroSesiones2.getString(sesion1));
 					Calendar cal = Calendar.getInstance();
-					cal.set(Calendar.HOUR_OF_DAY, Integer.valueOf(registroSesiones2.getTime("Hora").toString().split(":")[0]));
-					cal.set(Calendar.MINUTE, Integer.valueOf(registroSesiones2.getTime("Hora").toString().split(":")[1]));
-					cal.set(Calendar.DAY_OF_MONTH, Integer.valueOf(registroSesiones2.getDate("Fecha").toString().split("-")[2]));
-					cal.set(Calendar.MONTH, Integer.valueOf(registroSesiones2.getDate("Fecha").toString().split("-")[1]));
-					cal.set(Calendar.YEAR, Integer.valueOf(registroSesiones2.getDate("Fecha").toString().split("-")[0]));
+					cal.set(Calendar.HOUR_OF_DAY, Integer.valueOf(registroSesiones2.getTime(sesion2).toString().split(":")[0]));
+					cal.set(Calendar.MINUTE, Integer.valueOf(registroSesiones2.getTime(sesion2).toString().split(":")[1]));
+					cal.set(Calendar.DAY_OF_MONTH, Integer.valueOf(registroSesiones2.getDate(sesion3).toString().split("-")[2]));
+					cal.set(Calendar.MONTH, Integer.valueOf(registroSesiones2.getDate(sesion3).toString().split("-")[1]));
+					cal.set(Calendar.YEAR, Integer.valueOf(registroSesiones2.getDate(sesion3).toString().split("-")[0]));
 					//ses.setFecha(registroSesiones2.getDate("Fecha_Inicio"));
 					ses.setFecha(cal.getTime());
 					
 					Calendar cal2 = Calendar.getInstance();
-					cal2.set(Calendar.DAY_OF_MONTH, Integer.valueOf(registroSesiones2.getDate("Fecha_Inicio").toString().split("-")[2]));
-					cal2.set(Calendar.MONTH, Integer.valueOf(registroSesiones2.getDate("Fecha_Inicio").toString().split("-")[1]));
-					cal2.set(Calendar.YEAR, Integer.valueOf(registroSesiones2.getDate("Fecha_Inicio").toString().split("-")[0]));
+					cal2.set(Calendar.DAY_OF_MONTH, Integer.valueOf(registroSesiones2.getDate(sesion4).toString().split("-")[2]));
+					cal2.set(Calendar.MONTH, Integer.valueOf(registroSesiones2.getDate(sesion4).toString().split("-")[1]));
+					cal2.set(Calendar.YEAR, Integer.valueOf(registroSesiones2.getDate(sesion4).toString().split("-")[0]));
 					ses.setFechaFin(cal2.getTime());
-					ses.setPrecio(registroSesiones2.getFloat("Precio"));
+					ses.setPrecio(registroSesiones2.getFloat(sesion5));
 					
 					Statement comando4=(Statement) conexion.createStatement();
-					ResultSet registroPelis2 = comando4.executeQuery("select * from películas where Código_Película=(select Código_Película from sesión where Código_Sesión='"+registroSesiones2.getString("Código_Sesión")+"')");
+					ResultSet registroPelis2 = comando4.executeQuery("select * from "+tabla4+" where "+pelicula1+"=(select "+pelicula1+" from sesión where "+sesion1+"='"+registroSesiones2.getString(sesion1)+"')");
 					Pelicula pel = null;
 					while (registroPelis2.next()) {
 						
 						pel = new Pelicula();
-						pel.setCodigoPelicula(registroPelis2.getString("Código_Película"));
-						pel.setDuracion(registroPelis2.getInt("Duración"));
-						pel.setNombre(registroPelis2.getString("Nombre"));
-						pel.setGenero(registroPelis2.getString("Género"));
+						pel.setCodigoPelicula(registroPelis2.getString(pelicula1));
+						pel.setDuracion(registroPelis2.getInt(pelicula2));
+						pel.setNombre(registroPelis2.getString(pelicula3));
+						pel.setGenero(registroPelis2.getString(pelicula4));
 						
 					}
 				//	registroPelis2.close();
@@ -229,14 +254,91 @@ public class Metodos {
 	}
 	
 	
+	Cliente[] arrayClientes;
+	private final String cliente1 = "DNI";
+	private final String cliente2 = "Nombre";
+	private final String cliente3 = "Apellido";
+	private final String cliente4 = "Sexo";
+	private final String cliente5 = "Contra";
 	
-public Cliente[] selectArrayClientes(Pelicula[] arrayViejo) {
-	return null;
+	private final String tablaC = "clientes";
+public Cliente[] selectArrayClientes() {
+	arrayClientes = new Cliente[0];
+	Connection conexion;
+	
+	try {
+		conexion=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/reto3_grupo3","root","");
+		Statement comando=(Statement) conexion.createStatement();
+	
+		ResultSet registroClientes = comando.executeQuery("select * from "+tablaC+"");
+		int i2=0;
+		while (registroClientes.next()) {
+			
+			
+			Cliente cli = new Cliente();
+			cli.setDni(registroClientes.getString(cliente1));
+			cli.setNombre(registroClientes.getString(cliente2));
+			cli.setApellidos(registroClientes.getString(cliente3));
+			cli.setSexo(registroClientes.getString(cliente4));
+			cli.setContrasena(registroClientes.getString(cliente5));
+			
+			arrayClientes = reescribirArrayClientes(arrayClientes);
+			arrayClientes[i2]=cli;
+			i2++;
+		}
+		registroClientes.close();
+		
+		comando.close();
+		conexion.close();
+	} catch(SQLException ex){
+			ex.printStackTrace();
+
+	}
+	
+	
+	
+	return arrayClientes;
 		
 	}
 	
-public Entrada[] selectArrayEntradas(Pelicula[] arrayViejo) {
-	return null;
+private final String entrada1 = "Código_Entrada";
+private final String entrada2 = "Precio";
+
+private final String tablaE = "entrada";
+public Entrada[] selectArrayEntradas() {
+	Entrada[] arrayEntradas = new Entrada[0];
+	Connection conexion;
+	
+	try {
+		conexion=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/reto3_grupo3","root","");
+		Statement comando=(Statement) conexion.createStatement();
+		
+		ResultSet registroEntradas = comando.executeQuery("select * from "+tablaE+"");
+		int i3=0;
+		while (registroEntradas.next()) {
+			
+			
+			Entrada ent = new Entrada();
+			ent.setCodigoEntrada(registroEntradas.getString(entrada1));
+			ent.setPrecio(registroEntradas.getFloat(entrada2));
+			ent.setxCliente(arrayClientes[i3]);
+			ent.setArraySesiones(arraySesiones);
+			
+			arrayEntradas = reescribirArrayEntradas(arrayEntradas);
+			arrayEntradas[i3]=ent;
+			i3++;
+		}
+		registroEntradas.close();
+
+		
+		comando.close();
+		conexion.close();
+	} catch(SQLException ex){
+			ex.printStackTrace();
+
+	}
+	
+	return arrayEntradas;
 	
 }
 	

@@ -210,32 +210,23 @@ public class FechayHorarios extends JFrame {
 				System.out.println("**selected date**");
 				System.out.println(bd.format(selectedDate));
 				
+				//sacar numero de sala y de sesion de la pelicula elegida
+				//no se puede poner en metodos porque tendria que devolber dos cosas y porque tambien se usa para poner un label si las peliculas no son correctas o hacer el label invisible si si lo son 
 				int contSesion=0;
 				nSala = new int[0];
-				System.out.println("salas??");
-				System.out.println(arrayCines[opcionCine].getArraySalas().length);
 				nSesion = new int[0];//2
-				System.out.println("For de sla y ses");
 				lblNewLabel_2.setVisible(true);
 				for(int w=0;w<arrayCines[opcionCine].getArraySalas().length;w++) {
 					for(int z=0;z<arrayCines[opcionCine].getArraySalas()[w].getArraySesiones().length;z++) {
-						
 						Pelicula datosPeli=arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getxPelicula();
-						//System.out.println(datosPeli.getNombre());
-						//System.out.println(nombresPelisCine[opcionPeli].getNombre());
-						System.out.println(bd.format(arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getFecha()));
-						//System.out.println(bd.format(selectedDate));
 						if(datosPeli.getCodigoPelicula().equals(nombresPelisCine[opcionPeli].getCodigoPelicula()) && bd.format(arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getFecha()).equals(bd.format(selectedDate))) {
 							lblNewLabel_2.setVisible(false);
-							System.out.println("PeliculaSesiones");
-							System.out.println(arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getxPelicula());
 							nSala = mts.reescribirArrayInts(nSala);
 							nSala[contSesion] = w;
 							nSesion = mts.reescribirArrayInts(nSesion);
 							nSesion[contSesion] = z;
 							contSesion++;
 						}
-						
 					}
 				}
 				
