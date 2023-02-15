@@ -249,11 +249,12 @@ public class FechayHorarios extends JFrame {
 					}
 				}
 				
-				sesion=mts.mostrarSesiones(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine, nSala, nSesion, nombresPelisCine, opcionPeli);
+				
 				
 				
 				if(!(lblNewLabel_2.isVisible())) {
-				
+					sesion=mts.mostrarSesiones(arrayCines, opcionCine, nSala, nSesion);
+					
 					contR=0;
 					arraybotones = new JRadioButton[0];
 					for (int i = 0; i < sesion.length; i++) {

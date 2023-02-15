@@ -85,7 +85,7 @@ public class SeleccionPeliculas extends JFrame {
 		
 		
 		
-			nombresPelisCine = mts.mostrarPeliculas(arrayCines, pel, opcionCine);
+			nombresPelisCine = mts.mostrarPeliculas(arrayCines, opcionCine);
 		
 	
 		
