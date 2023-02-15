@@ -171,8 +171,6 @@ public class FechayHorarios extends JFrame {
 				if(arraybotones[b].isSelected()) {
 					seleccion=true;
 					lblNewLabel_1.setVisible(false);
-					
-						//&& Integer.valueOf(selectedDate.toString().split("-")[2])<=Integer.valueOf(fechaFinal[x].toString().split("-")[2])
 
 					
 					JOptionPane.showMessageDialog(null, "Sesion seleccionada correctamente");
@@ -186,8 +184,6 @@ public class FechayHorarios extends JFrame {
 						
 				}
 				else if(seleccion==false){
-					//label
-					//JOptionPane.showMessageDialog(null, "Sesion no seleccionada");
 					lblNewLabel_1.setVisible(true);
 					}
 				}
@@ -209,11 +205,6 @@ public class FechayHorarios extends JFrame {
 						arraybotones[b].setVisible(false);
 					} 
 				}
-//				if() {
-//					lblNewLabel_2.setVisible(true);
-//				}else {
-//					lblNewLabel_2.setVisible(false);
-//				}
 				
 				Date selectedDate = (Date) datePicker.getModel().getValue();
 				System.out.println("**selected date**");
@@ -235,7 +226,6 @@ public class FechayHorarios extends JFrame {
 						System.out.println(bd.format(arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getFecha()));
 						//System.out.println(bd.format(selectedDate));
 						if(datosPeli.getCodigoPelicula().equals(nombresPelisCine[opcionPeli].getCodigoPelicula()) && bd.format(arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getFecha()).equals(bd.format(selectedDate))) {
-							//y el datepicker equals lo de bdd
 							lblNewLabel_2.setVisible(false);
 							System.out.println("PeliculaSesiones");
 							System.out.println(arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getxPelicula());
@@ -291,9 +281,6 @@ public class FechayHorarios extends JFrame {
 						} 
 					}
 				}
-
-//				rdbtnNewRadioButton.setVisible(true);
-//				rdbtnNewRadioButton_1.setVisible(true);
 				
 			}
 		});

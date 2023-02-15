@@ -57,9 +57,6 @@ public class BienvenidaCines extends JFrame {
 	ResultSet registroPelis2;
 	ResultSet registroClientes;
 	ResultSet registroEntradas;
-	//ResultSet registroPelis;
-	//ResultSet registroSalas;
-	//ResultSet registroSesiones;
 	Statement comando;
 	SeleccionPeliculas vent;
 	int opcionCine = -1;
@@ -158,8 +155,6 @@ public class BienvenidaCines extends JFrame {
 				ex.printStackTrace();
 
 		}
-
-		//reescribir arrays
 				
 		System.out.println(arrayCines[0].getArraySalas()[0].getArraySesiones()[0].getxPelicula().getNombre());
 		System.out.println(arrayCines[0].getArraySalas()[1].getArraySesiones()[0].getxPelicula().getNombre());
@@ -177,10 +172,6 @@ public class BienvenidaCines extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				panel.setVisible(false);
-//				rdbtnNewRadioButton.setVisible(true);
-//				rdbtnNewRadioButton_1.setVisible(true);
-//				rdbtnNewRadioButton_2.setVisible(true);
-//				rdbtnNewRadioButton_3.setVisible(true);
 				contR=0;
 				arraybotones = new JRadioButton[0];
 				for (int i = 0; i < arrayCines.length; i++) {
@@ -212,9 +203,6 @@ public class BienvenidaCines extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		//radios dynamicos
-	
-		
 		lblNewLabel_2 = new JLabel("Bienvenido A");
 		lblNewLabel_2.setVerticalAlignment(SwingConstants.TOP);
 		lblNewLabel_2.setBounds(60, 45, 335, 73);
@@ -242,29 +230,12 @@ public class BienvenidaCines extends JFrame {
 		btnNewButton = new JButton("ACEPTAR");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//for
-				//System.out.println(buttonGroup.getSelection());
 				for(int h=0;h<arraybotones.length;h++) {
-					//buttonGroup.getSelection();
-					//buttonGroup.;
 					if(arraybotones[h].isSelected()) {
 						opcionCine= h;
 					}
 				}
-//				if(rdbtnNewRadioButton.isSelected()) {
-//					opcionCine= 0;
-//				}
-//				else if(rdbtnNewRadioButton_1.isSelected()) {
-//					opcionCine= 1;
-//				}
-//				else if(rdbtnNewRadioButton_2.isSelected()) {
-//					opcionCine= 2;
-//				}
-//				else if(rdbtnNewRadioButton_3.isSelected()) {
-//					opcionCine= 3;
-//				}
-				
-				
+
 				if(opcionCine==-1) {
 				
 				lblNewLabel_1.setVisible(true);
@@ -290,7 +261,7 @@ public class BienvenidaCines extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 
-				//System.exit(0);
+				System.exit(0);
 				
 			}
 		});
@@ -302,36 +273,7 @@ public class BienvenidaCines extends JFrame {
 		lblNewLabel_1.setForeground(new Color(255, 0, 0));
 		lblNewLabel_1.setBounds(37, 231, 182, 14);
 		contentPane.add(lblNewLabel_1);
-		
-//		rdbtnNewRadioButton = new JRadioButton(arrayCines[0].getNombre());
-//		buttonGroup.add(rdbtnNewRadioButton);
-//		rdbtnNewRadioButton.setBounds(37, 61, 227, 23);
-//		contentPane.add(rdbtnNewRadioButton);
-//		
-//		rdbtnNewRadioButton_1 = new JRadioButton(arrayCines[1].getNombre());
-//		buttonGroup.add(rdbtnNewRadioButton_1);
-//		rdbtnNewRadioButton_1.setBounds(37, 106, 244, 23);
-//		contentPane.add(rdbtnNewRadioButton_1);
-//		
-//		rdbtnNewRadioButton_2 = new JRadioButton(arrayCines[2].getNombre());
-//		buttonGroup.add(rdbtnNewRadioButton_2);
-//		rdbtnNewRadioButton_2.setBounds(37, 156, 262, 23);
-//		contentPane.add(rdbtnNewRadioButton_2);
-//		
-//		rdbtnNewRadioButton_3 = new JRadioButton(arrayCines[3].getNombre());
-//		buttonGroup.add(rdbtnNewRadioButton_3);
-//		rdbtnNewRadioButton_3.setBounds(37, 199, 262, 23);
-//		contentPane.add(rdbtnNewRadioButton_3);
-		
-//		rdbtnNewRadioButton_3.setVisible(false);
-//		rdbtnNewRadioButton_2.setVisible(false);
-//		rdbtnNewRadioButton_1.setVisible(false);
-//		rdbtnNewRadioButton.setVisible(false);
 		lblNewLabel_1.setVisible(false);
-		
-
-		
-
 		
 
 		

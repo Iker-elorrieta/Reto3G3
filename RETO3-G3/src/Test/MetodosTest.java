@@ -36,13 +36,11 @@ class MetodosTest {
 	
 	@Test
 	void test_mostrarCines() {
-		//??? selects??
 		mts.mostrarCines();
 	}
 	
 	@Test
 	void test_mostrarPeliculas() {
-		//???
 		Cine[] arrayCines = new Cine[1];
 		Cine cin = new Cine();
 		cin.setCodigoCine("342d");
@@ -185,6 +183,9 @@ class MetodosTest {
 		
 		String[] arrayViejo9 = new String[0];
 		assertEquals(mts.reescribirArrayStrings(arrayViejo9).length, arrayViejo9.length+1);
+		
+		Pelicula[] arrayViejo10 = new Pelicula[0];
+		assertEquals(mts.reescribirArrayPeliculas(arrayViejo10).length, arrayViejo10.length+1);
 	}
 
 }

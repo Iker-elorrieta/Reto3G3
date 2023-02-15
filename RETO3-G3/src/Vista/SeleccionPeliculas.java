@@ -79,16 +79,11 @@ public class SeleccionPeliculas extends JFrame {
 	 * @param horaPelis 
 	 */
 	public SeleccionPeliculas(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, int opcionCine) {
-		//sin mirar la tabla
-		//???pos pelis
-		
-		
 		
 		
 			nombresPelisCine = mts.mostrarPeliculas(arrayCines, opcionCine);
 		
 	
-		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -104,27 +99,6 @@ public class SeleccionPeliculas extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		
-		
-//		JRadioButton rdbtnNewRadioButton = new JRadioButton(nombresPelisCine[0].getNombre());
-//		buttonGroup.add(rdbtnNewRadioButton);
-//		rdbtnNewRadioButton.setBounds(19, 64, 295, 23);
-//		contentPane.add(rdbtnNewRadioButton);
-//		
-//		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton(nombresPelisCine[1].getNombre());
-//		buttonGroup.add(rdbtnNewRadioButton_1);
-//		rdbtnNewRadioButton_1.setBounds(19, 101, 325, 23);
-//		contentPane.add(rdbtnNewRadioButton_1);
-//		
-//		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton(nombresPelisCine[2].getNombre());
-//		buttonGroup.add(rdbtnNewRadioButton_2);
-//		rdbtnNewRadioButton_2.setBounds(19, 148, 310, 23);
-//		contentPane.add(rdbtnNewRadioButton_2);
-//		
-//		JRadioButton rdbtnNewRadioButton_3 = new JRadioButton(nombresPelisCine[3].getNombre());
-//		buttonGroup.add(rdbtnNewRadioButton_3);
-//		rdbtnNewRadioButton_3.setBounds(19, 189, 295, 23);
-//		contentPane.add(rdbtnNewRadioButton_3);
-		//dynamic pelis
 		contR=0;
 		arraybotones = new JRadioButton[0];
 		for (int i = 0; i < arrayCines.length; i++) {
@@ -163,25 +137,7 @@ public class SeleccionPeliculas extends JFrame {
 				
 				lblNewLabel_1.setVisible(true);
 				}else {
-//					int contSesion=0;
-//					nSala = new int[arrayCines[opcionCine].getArraySalas().length];
-//					System.out.println("salas??");
-//					System.out.println(arrayCines[opcionCine].getArraySalas().length);
-//					nSesion = new int[144];
-//					for(int w=0;w<arrayCines[opcionCine].getArraySalas().length;w++) {
-//						for(int z=0;z<arrayCines[opcionCine].getArraySalas()[w].getArraySesiones().length;z++) {
-//							
-//							Pelicula datosPeli=arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getxPelicula();
-//							if(datosPeli.getCodigoPelicula().equals(nombresPelisCine[opcionPeli].getCodigoPelicula())) {
-//								System.out.println(arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getxPelicula());
-//								nSala[arrayCines[opcionCine].getArraySalas()[w].getNumero()-1] = w;
-//								nSesion[contSesion] = z;
-//								contSesion++;
-//							}
-//							
-//						}
-//					}
-				//vent = new FechayHorarios(arrayCines, arrayClientes, arrayEntradas, arrayPelis, arraySalas, arraySesiones, opcionCine, opcionPeli);
+					
 					vent = new FechayHorarios(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine, nombresPelisCine, opcionPeli);
 				vent.setVisible(true);
 				}
@@ -219,8 +175,6 @@ public class SeleccionPeliculas extends JFrame {
 		contentPane.add(lblNewLabel_1);
 		lblNewLabel_1.setVisible(false);
 		
-		
-	
 		
 		
 	}

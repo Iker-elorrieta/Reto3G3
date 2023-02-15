@@ -28,7 +28,6 @@ import Modelo.Sesion;
 public class Metodos {
 
 	public Cine[] mostrarCines() {
-		//??? radios?? array?? BDD??
 		Cine[] arrayCines = new Cine[0];
 		Connection conexion;
 		try {
@@ -64,7 +63,6 @@ public class Metodos {
 					Sesion ses = new Sesion();
 					ses.setCodigoSesion(registroSesiones2.getString("Código_Sesión"));
 					Calendar cal = Calendar.getInstance();
-					//System.out.println(registroSesiones2.getDate("Fecha_Inicio").toString().split("-")[0]);
 					cal.set(Calendar.HOUR_OF_DAY, Integer.valueOf(registroSesiones2.getTime("Hora").toString().split(":")[0]));
 					cal.set(Calendar.MINUTE, Integer.valueOf(registroSesiones2.getTime("Hora").toString().split(":")[1]));
 					cal.set(Calendar.DAY_OF_MONTH, Integer.valueOf(registroSesiones2.getDate("Fecha").toString().split("-")[2]));
@@ -123,54 +121,19 @@ public class Metodos {
 		
 	}
 	
-//	public void radiosDynamicos(Cine[] arrayCines, ButtonGroup buttonGroup, Container contentPane) {
-//		int contR = 0;
-//		for (int i = 0; i < arrayCines.length; i++) {
-//
-//            JRadioButton button1 = new JRadioButton(arrayCines[i].getNombre());
-//            button1.addActionListener(new ActionListener() {
-//				@Override
-//				public void actionPerformed(ActionEvent e) {
-//					// TODO Auto-generated method stub
-//					System.out.println("");
-//					System.out.println("");
-//				}
-//            	
-//            	
-//            });
-//            contR=contR+30;
-//            button1.setBounds(37, 31+contR, 227, 23);
-//            buttonGroup.add(button1);
-//            contentPane.add(button1);
-//            button1.setVisible(false);
-//            
-//
-//            button1.addActionListener(new ActionListener() {
-//
-//                @Override
-//                public void actionPerformed(ActionEvent e) {
-//                    System.err.println("Action Performed..************");
-//                    System.out.println("This is action text.."+button1.getText()); 
-//
-//                }
-//            });
-//
-//        }
-//	}
-	
-	
-	//hacer radiobutons dinamicamente
 	public Pelicula[] mostrarPeliculas(Cine[] arrayCines, int opcionCine) {
 		//array de todas las pelis del cine
-		Pelicula[] eleccionTodasPelis = new Pelicula[144];
+		Pelicula[] eleccionTodasPelis = new Pelicula[0];
 		int peliCont=0;
 		for(int w=0;w<arrayCines[opcionCine].getArraySalas().length;w++) {
 			for(int z=0;z<arrayCines[opcionCine].getArraySalas()[w].getArraySesiones().length;z++) {
+				eleccionTodasPelis = reescribirArrayPeliculas(eleccionTodasPelis);
 				eleccionTodasPelis[peliCont]=arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getxPelicula();
 				peliCont++;
 			}
 		}
 		
+		//hacer null los repetidos
 		for(int s=0;s<eleccionTodasPelis.length-1;s++)
 		{
 		    for(int m=s + 1;m<eleccionTodasPelis.length;m++)
@@ -178,16 +141,18 @@ public class Metodos {
 
 		                if(eleccionTodasPelis[s] != null && eleccionTodasPelis[s].equals(eleccionTodasPelis[m]))
 		                {
-		                  // array = ArrayUtils.removeElement(array, array[s]); --m;??
-		                	eleccionTodasPelis[m] = null; // Mark for deletion later on
+		                	eleccionTodasPelis[m] = null; // para eliminar luego
 		                }
 		    } 
 		}
 		
+		//array de todas las pelis del cine sin repetir peliculas
+		
 		int posNombre =0;
-		Pelicula[] nombresPelisCine = new Pelicula[100];
+		Pelicula[] nombresPelisCine = new Pelicula[0];
 		for(int x=0;x<eleccionTodasPelis.length;x++){
 			if(eleccionTodasPelis[x]!=null) {
+				nombresPelisCine = reescribirArrayPeliculas(nombresPelisCine);
 				nombresPelisCine[posNombre]=eleccionTodasPelis[x];
 				System.out.println(eleccionTodasPelis[x]);
 				posNombre++;
@@ -198,37 +163,8 @@ public class Metodos {
 		//array de todas las pelis del cine sin repetir peliculas
 		System.out.println("***Pelis cine "+opcionCine+" (sin repes)***");
 		
-//		int posNombre =0;
-//		int cont=0;
-//		int repe=0;
-//		for(int sys2=0;sys2<eleccionTodasPelis.length;sys2++) {
-//			if(eleccionTodasPelis[sys2].getCodigoPelicula().equals(eleccionTodasPelis[cont].getCodigoPelicula())) {
-//				repe++;
-//				if(repe==0 || repe==1) {
-//					nombresPelisCine[posNombre]=eleccionTodasPelis[sys2];
-//					System.out.println(eleccionTodasPelis[sys2].getNombre());
-//					posNombre++;
-//				}else {
-//					repe=0;
-//				}
-//				
-//				cont++;
-//			}
-		
 		return nombresPelisCine;
 	}
-	
-//	   public static Pelicula[] removeDuplicates(Pelicula[] arr) {
-//		   Pelicula[] arraySinDup = new Pelicula[4];
-//	        int k = 0;
-//	        for (int i = 0; i < arr.length; i++) {
-//	            if (i == 0 || arr[i].getCodigoPelicula() != arr[i - 1].getCodigoPelicula()) {
-//	            	arraySinDup[k++] = arr[i];
-//	                System.out.println(arr[i].getCodigoPelicula());
-//	            }
-//	        }
-//	        return arraySinDup;
-//	    }
 
 	String[] hora;
 	
@@ -363,6 +299,17 @@ public class Metodos {
 	public JRadioButton[] reescribirArrayButtons(JRadioButton[] arrayViejo) {
 		// TODO Auto-generated method stub
 		JRadioButton[] arrayNuevo = new JRadioButton[arrayViejo.length+1];
+		for(int i =0;i<arrayViejo.length;i++)
+		{
+			arrayNuevo[i]=arrayViejo[i];
+		}
+		arrayViejo = arrayNuevo;
+		return arrayNuevo;
+	}
+	
+	public Pelicula[] reescribirArrayPeliculas(Pelicula[] arrayViejo) {
+		// TODO Auto-generated method stub
+		Pelicula[] arrayNuevo = new Pelicula[arrayViejo.length+1];
 		for(int i =0;i<arrayViejo.length;i++)
 		{
 			arrayNuevo[i]=arrayViejo[i];
