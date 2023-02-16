@@ -18,6 +18,11 @@ public class Sala {
 	}
 
 
+	public Sala() {
+		// TODO Auto-generated constructor stub
+	}
+
+
 	@Override
 	public String toString() {
 		return "Sala [codigoSala=" + codigoSala + ", numero=" + numero + "]";

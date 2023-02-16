@@ -53,20 +53,18 @@ public class Resumen extends JFrame {
 		textArea.setBounds(22, 36, 383, 187);
 		contentPane.add(textArea);
 		
-		JButton btnNewButton = new JButton("Guardar en BDD");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton.setBounds(10, 234, 119, 23);
-		contentPane.add(btnNewButton);
+		textArea.setText("sdsdh\n\nsddf\n\nsddf\n\nsddf\n\nsddf\n\nsddf\n\nsddf\n\nsddf\n\nsdd77f");
 		
-		JButton btnNewButton_1 = new JButton("Guardar en txt");
+		JButton btnNewButton_1 = new JButton("Comprar");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		btnNewButton_1.setBounds(286, 234, 119, 23);
 		contentPane.add(btnNewButton_1);
+		
+		JButton btnNewButton = new JButton("Volver al inicio");
+		btnNewButton.setBounds(22, 234, 127, 23);
+		contentPane.add(btnNewButton);
 	}
 }

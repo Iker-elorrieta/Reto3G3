@@ -4,14 +4,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import Modelo.Entrada;
 import Modelo.Sala;
 import Modelo.Sesion;
 
 class SalaTest {
 	
 	private Sesion[] arraySesiones= new Sesion[1];
-	Sesion obj1 = new Sesion(null, null, null);
+	Sesion obj1 = new Sesion(null, null, null, null, 0);
 	
 Sala sal0 = new Sala("L454G", 4, arraySesiones);
 	
