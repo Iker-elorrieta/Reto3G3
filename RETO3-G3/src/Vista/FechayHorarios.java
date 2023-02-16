@@ -175,7 +175,9 @@ public class FechayHorarios extends JFrame {
 					
 					JOptionPane.showMessageDialog(null, "Sesion seleccionada correctamente");
 					try {
+						//vent = new BienvenidaCines();
 						vent = new BienvenidaCines();
+						
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -212,24 +214,21 @@ public class FechayHorarios extends JFrame {
 				
 				//sacar numero de sala y de sesion de la pelicula elegida
 				//no se puede poner en metodos porque tendria que devolber dos cosas y porque tambien se usa para poner un label si las peliculas no son correctas o hacer el label invisible si si lo son 
-				int contSesion=0;
+				
 				nSala = new int[0];
 				nSesion = new int[0];//2
 				lblNewLabel_2.setVisible(true);
-				for(int w=0;w<arrayCines[opcionCine].getArraySalas().length;w++) {
-					for(int z=0;z<arrayCines[opcionCine].getArraySalas()[w].getArraySesiones().length;z++) {
-						Pelicula datosPeli=arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getxPelicula();
-						if(datosPeli.getCodigoPelicula().equals(nombresPelisCine[opcionPeli].getCodigoPelicula()) && bd.format(arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getFecha()).equals(bd.format(selectedDate))) {
-							lblNewLabel_2.setVisible(false);
-							nSala = mts.reescribirArrayInts(nSala);
-							nSala[contSesion] = w;
-							nSesion = mts.reescribirArrayInts(nSesion);
-							nSesion[contSesion] = z;
-							contSesion++;
-						}
-					}
-				}
+			
+				nSala = mts.reescribirArrayInts(nSala);
+				nSala = mts.nSalaPelicula(arrayCines, opcionCine, nSala, nSesion, selectedDate, nombresPelisCine, opcionPeli);
+				nSesion = mts.reescribirArrayInts(nSesion);
+				nSesion = mts.nSesionPelicula(arrayCines, opcionCine, nSala, nSesion, selectedDate, nombresPelisCine, opcionPeli);
 				
+				for(int v=0; v<nSesion.length;v++) {
+					if(nSesion!=null) {
+						lblNewLabel_2.setVisible(false);
+					}	
+				}
 				
 				
 				
@@ -281,13 +280,15 @@ public class FechayHorarios extends JFrame {
 		JButton btnNewButton_2 = new JButton("Volver al inicio");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					vent = new BienvenidaCines();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				//vent = new BienvenidaCines(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine, nombresPelisCine, opcionPeli);
+				
+					
+					//vent = new BienvenidaCines(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine, nombresPelisCine, opcionPeli);
+					try {
+						vent = new BienvenidaCines();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				vent.setVisible(true);
 				
 				

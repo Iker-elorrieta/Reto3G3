@@ -53,6 +53,8 @@ public class Resumen extends JFrame {
 		textArea.setBounds(22, 36, 383, 187);
 		contentPane.add(textArea);
 		
+		textArea.setText("sdsdh\n\nsddf\n\nsddf\n\nsddf\n\nsddf\n\nsddf\n\nsddf\n\nsddf\n\nsdd77f");
+		
 		JButton btnNewButton_1 = new JButton("Comprar");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

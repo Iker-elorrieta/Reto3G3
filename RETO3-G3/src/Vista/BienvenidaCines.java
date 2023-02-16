@@ -101,10 +101,19 @@ public class BienvenidaCines extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param opcionPeli 
+	 * @param nombresPelisCine 
+	 * @param opcionCine2 
+	 * @param arrayEntradas2 
+	 * @param arrayClientes2 
+	 * @param pel2 
+	 * @param arrayCines2 
 	 * @throws SQLException 
 	 */
 	public BienvenidaCines() throws SQLException {
-
+//hay que hacer una array de sisiones y que si x valor es null no te lo sume (al volver es todo null)
+		
+		
 		arrayCines = mts.mostrarCines();
 		arrayClientes = mts.selectArrayClientes();
 		arrayEntradas = mts.selectArrayEntradas();
@@ -209,7 +218,4 @@ public class BienvenidaCines extends JFrame {
 		
 	}
 
-	public BienvenidaCines(int click) {
-		// TODO Auto-generated constructor stub
-	}
 }

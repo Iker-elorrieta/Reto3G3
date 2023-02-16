@@ -210,14 +210,15 @@ public class Metodos {
 		for(int h=0;h<nSesion.length;h++) {
 			
 			nombrePeli = reescribirArrayStrings(nombrePeli);
+			
 			nombreSala = reescribirArrayInts(nombreSala);
 			precioEntrada = reescribirArrayFloats(precioEntrada);
-			
 			hora = reescribirArrayStrings(hora);
-			hora[h] = dt.format(arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getFecha()) +" "+ dt2.format(arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getFecha());
+			
+			hora[h] = fechasPelicula(arrayCines, opcionCine, nSala, nSesion)[h];
 			nombrePeli[h] = arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getxPelicula().getNombre();
-			nombreSala[h] = arrayCines[opcionCine].getArraySalas()[nSala[h]].getNumero();
-			precioEntrada[h] = arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getPrecio();
+			nombreSala[h] = salasPelicula(arrayCines, opcionCine, nSala, nSesion)[h].getNumero();
+			precioEntrada[h] = preciosPelicula(arrayCines, opcionCine, nSala, nSesion)[h];
 			
 			sesion = reescribirArrayStrings(sesion);
 			sesion[h]=hora[h]+" PM - "+nombrePeli[h]+"( Sala "+nombreSala[h]+")"+" - "+precioEntrada[h]+"€";
@@ -227,10 +228,12 @@ public class Metodos {
 	
 	public String[] fechasPelicula(Cine[] arrayCines, int opcionCine, int[] nSala, int[] nSesion) {
 		DateFormat dt = new SimpleDateFormat("dd-MM-yyyy");
+		DateFormat dt2 = new SimpleDateFormat("hh:mm");
+		
 		String[] fechas = new String[0];
 		for(int h=0;h<nSesion.length;h++) {
 			fechas = reescribirArrayStrings(fechas);
-			fechas[h] = dt.format(arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getFecha());
+			fechas[h] = dt.format(arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getFecha()) +" "+ dt2.format(arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getFecha());
 		}
 		return fechas;
 	}
@@ -244,6 +247,7 @@ public class Metodos {
 		return preciosPelicula;
 	}
 	
+	//
 	public Sala[] salasPelicula(Cine[] arrayCines, int opcionCine, int[] nSala, int[] nSesion) {
 		Sala[] salasPelicula = new Sala[0];
 		for(int h=0;h<nSesion.length;h++) {
@@ -251,6 +255,49 @@ public class Metodos {
 			salasPelicula[h] = arrayCines[opcionCine].getArraySalas()[nSala[h]];
 		}
 		return salasPelicula;
+	}
+	
+	
+	public int[] nSesionPelicula(Cine[] arrayCines, int opcionCine, int[] nSala, int[] nSesion, Date selectedDate, Pelicula[] nombresPelisCine, int opcionPeli) {
+		DateFormat bd = new SimpleDateFormat("yyyy-MM-dd");
+		
+		int contSesion=0;
+		nSala = new int[0];
+		nSesion = new int[0];//2
+		for(int w=0;w<arrayCines[opcionCine].getArraySalas().length;w++) {
+			for(int z=0;z<arrayCines[opcionCine].getArraySalas()[w].getArraySesiones().length;z++) {
+				Pelicula datosPeli=arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getxPelicula();
+				if(datosPeli.getCodigoPelicula().equals(nombresPelisCine[opcionPeli].getCodigoPelicula()) && bd.format(arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getFecha()).equals(bd.format(selectedDate))) {
+					nSala = reescribirArrayInts(nSala);
+					nSala[contSesion] = w;
+					nSesion = reescribirArrayInts(nSesion);
+					nSesion[contSesion] = z;
+					contSesion++;
+				}
+			}
+		}
+		return nSesion;
+	}
+	
+	public int[] nSalaPelicula(Cine[] arrayCines, int opcionCine, int[] nSala, int[] nSesion, Date selectedDate, Pelicula[] nombresPelisCine, int opcionPeli) {
+		DateFormat bd = new SimpleDateFormat("yyyy-MM-dd");
+		
+		int contSesion=0;
+		nSala = new int[0];
+		nSesion = new int[0];//2
+		for(int w=0;w<arrayCines[opcionCine].getArraySalas().length;w++) {
+			for(int z=0;z<arrayCines[opcionCine].getArraySalas()[w].getArraySesiones().length;z++) {
+				Pelicula datosPeli=arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getxPelicula();
+				if(datosPeli.getCodigoPelicula().equals(nombresPelisCine[opcionPeli].getCodigoPelicula()) && bd.format(arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getFecha()).equals(bd.format(selectedDate))) {
+					nSala = reescribirArrayInts(nSala);
+					nSala[contSesion] = w;
+					nSesion = reescribirArrayInts(nSesion);
+					nSesion[contSesion] = z;
+					contSesion++;
+				}
+			}
+		}
+		return nSala;
 	}
 	
 	
