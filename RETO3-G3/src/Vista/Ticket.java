@@ -7,12 +7,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JTextArea;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
-public class Resumen extends JFrame {
+public class Ticket extends JFrame {
 
 	private JPanel contentPane;
 
@@ -23,7 +20,7 @@ public class Resumen extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Resumen frame = new Resumen();
+					Ticket frame = new Ticket();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -35,7 +32,7 @@ public class Resumen extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Resumen() {
+	public Ticket() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -44,25 +41,18 @@ public class Resumen extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Resumen");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel.setBounds(164, 11, 91, 25);
+		JLabel lblNewLabel = new JLabel("Su Compra a sido efectuada");
+		lblNewLabel.setFont(new Font("Trebuchet MS", Font.PLAIN, 29));
+		lblNewLabel.setBounds(10, 70, 414, 50);
 		contentPane.add(lblNewLabel);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(22, 36, 383, 187);
-		contentPane.add(textArea);
+		JLabel lblConExitod = new JLabel("con exito :D");
+		lblConExitod.setFont(new Font("Trebuchet MS", Font.PLAIN, 29));
+		lblConExitod.setBounds(10, 126, 414, 50);
+		contentPane.add(lblConExitod);
 		
-		JButton btnNewButton_1 = new JButton("Comprar");
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton_1.setBounds(286, 234, 119, 23);
-		contentPane.add(btnNewButton_1);
-		
-		JButton btnNewButton = new JButton("Volver al inicio");
-		btnNewButton.setBounds(22, 234, 127, 23);
+		JButton btnNewButton = new JButton("Guardar Ticket");
+		btnNewButton.setBounds(164, 210, 139, 40);
 		contentPane.add(btnNewButton);
 	}
 }

@@ -42,13 +42,7 @@ public class BienvenidaCines extends JFrame {
 	/**
 	 * 
 	 */
-	final String cine1 = "cinesa";
-	final String cine2 = "cinesa";
-	final String cine3 = "cinesa";
-	final String cine4 = "cinesa";
-	final String cine5 = "cinesa";
-	final String cine6 = "cinesa";
-	final String cine7 = "cinesa";
+	
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -91,6 +85,7 @@ public class BienvenidaCines extends JFrame {
 	/**
 	 * Launch the application.
 	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -126,11 +121,7 @@ public class BienvenidaCines extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		panel = new JPanel();
-		panel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				panel.setVisible(false);
+		
 				contR=0;
 				arraybotones = new JRadioButton[0];
 				for (int i = 0; i < arrayCines.length; i++) {
@@ -153,32 +144,10 @@ public class BienvenidaCines extends JFrame {
 		            arraybotones[i] = button1;
 		        }
 				
-				btnNewButton.setVisible(true);
-				btnNewButton_1.setVisible(true);
-			}
-		});
-		panel.setBackground(new Color(128, 128, 255));
-		panel.setBounds(0, 0, 434, 261);
-		contentPane.add(panel);
-		panel.setLayout(null);
+				
+	
+	
 		
-		lblNewLabel_2 = new JLabel("Bienvenido A");
-		lblNewLabel_2.setVerticalAlignment(SwingConstants.TOP);
-		lblNewLabel_2.setBounds(60, 45, 335, 73);
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 45));
-		panel.add(lblNewLabel_2);
-		
-		JLabel lblNewLabel_2_1 = new JLabel("\nNuestro Cine");
-		lblNewLabel_2_1.setVerticalAlignment(SwingConstants.TOP);
-		lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 45));
-		lblNewLabel_2_1.setBounds(60, 130, 335, 73);
-		panel.add(lblNewLabel_2_1);
-		
-		lblNewLabel_2_2 = new JLabel(":)");
-		lblNewLabel_2_2.setVerticalAlignment(SwingConstants.TOP);
-		lblNewLabel_2_2.setFont(new Font("Tahoma", Font.PLAIN, 45));
-		lblNewLabel_2_2.setBounds(140, 188, 126, 73);
-		panel.add(lblNewLabel_2_2);
 		
 		
 		JLabel lblNewLabel = new JLabel("Elija un Cine");
@@ -209,24 +178,26 @@ public class BienvenidaCines extends JFrame {
 		
 		btnNewButton.setBounds(328, 227, 89, 23);
 		contentPane.add(btnNewButton);
-		btnNewButton.setVisible(false);
+		
 
 		//dynamic
 	
 
 		
-		btnNewButton_1 = new JButton("Salir");
+		btnNewButton_1 = new JButton("Finalizar");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 
 				System.exit(0);
 				
+				
 			}
 		});
 		btnNewButton_1.setBounds(229, 227, 89, 23);
 		contentPane.add(btnNewButton_1);
-		btnNewButton_1.setVisible(false);
+		
+		
 		
 		lblNewLabel_1 = new JLabel("*No has seleccionado ningún cine");
 		lblNewLabel_1.setForeground(new Color(255, 0, 0));

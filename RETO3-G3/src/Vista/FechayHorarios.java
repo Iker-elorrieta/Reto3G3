@@ -287,6 +287,7 @@ public class FechayHorarios extends JFrame {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				//vent = new BienvenidaCines(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine, nombresPelisCine, opcionPeli);
 				vent.setVisible(true);
 				
 				
