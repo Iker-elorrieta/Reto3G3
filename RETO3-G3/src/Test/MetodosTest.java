@@ -110,6 +110,9 @@ class MetodosTest {
 		System.out.println("hgsdgd222222");
 		System.out.println(mts.mostrarPeliculas(arrayCines, opcionCine)[0]);
 		assertEquals(mts.mostrarPeliculas(arrayCines, opcionCine)[0].toString(), "Pelicula [codigoPelícula=XXF, duracion=120, nombre=, genero=]");
+		
+		mts.nSalaPelicula(arrayCines, opcionCine, nSala, nSesion, cal.getTime(), mts.mostrarPeliculas(arrayCines, opcionCine), 0);
+		mts.nSesionPelicula(arrayCines, opcionCine, nSala, nSesion, cal.getTime(), mts.mostrarPeliculas(arrayCines, opcionCine), 0);
 	}
 	
 	
@@ -178,6 +181,16 @@ class MetodosTest {
 		assertEquals(mts.preciosPelicula(arrayCines, opcionCine, nSala, nSesion)[0].toString(), "7.0");
 		
 		
+	}
+	
+	@Test
+	void test_nSala() {
+		mts.nSalaPelicula(null, 0, null, null, null, null, 0);
+	}
+	
+	@Test
+	void test_nSesion() {
+		mts.nSesionPelicula(null, 0, null, null, null, null, 0);
 	}
 	
 	@Test
