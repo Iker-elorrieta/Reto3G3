@@ -27,7 +27,8 @@ public class Resumen extends JFrame {
 	Metodos mts = new Metodos();
 	int[] nSala;
 	int[] nSesion;
-
+	LogIn vent;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -81,6 +82,8 @@ public class Resumen extends JFrame {
 		JButton btnNewButton_1 = new JButton("Comprar");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				vent = new LogIn(arrayClientes2);
+				vent.setVisible(true);
 			}
 		});
 		btnNewButton_1.setBounds(286, 234, 119, 23);

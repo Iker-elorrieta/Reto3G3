@@ -5,22 +5,40 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Modelo.Cliente;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Color;
+import javax.swing.JPasswordField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class LogIn extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField txtDNI;
+	private JPasswordField txtContrasenya;
 
+	JButton btnCrearusuario;
+	JButton btnVolverInicio;
+	JLabel lblError;
+	JButton btnAceptar;
+	JLabel lblDNI;
+	JLabel lblContrasenya;
+	JLabel lblTitulo;
+	Ticket vent;
+	SingIn vent2;
+	BienvenidaCines vent3;
+
+	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+/*	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -32,11 +50,11 @@ public class LogIn extends JFrame {
 			}
 		});
 	}
-
+*/
 	/**
 	 * Create the frame.
 	 */
-	public LogIn() {
+	public LogIn(Cliente[] arrrydeClientes) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -45,47 +63,73 @@ public class LogIn extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Log in - Registro");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 23));
-		lblNewLabel.setBounds(27, 11, 186, 49);
-		contentPane.add(lblNewLabel);
+		lblTitulo = new JLabel("Log in - Registro");
+		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 23));
+		lblTitulo.setBounds(27, 11, 186, 49);
+		contentPane.add(lblTitulo);
 		
-		JLabel lblNewLabel_1 = new JLabel("DNI:");
-		lblNewLabel_1.setBounds(27, 71, 56, 14);
-		contentPane.add(lblNewLabel_1);
+		lblDNI = new JLabel("DNI:");
+		lblDNI.setBounds(27, 71, 56, 14);
+		contentPane.add(lblDNI);
 		
-		JLabel lblNewLabel_2 = new JLabel("Contrasena:");
-		lblNewLabel_2.setBounds(27, 106, 68, 14);
-		contentPane.add(lblNewLabel_2);
+		lblContrasenya = new JLabel("Contrasena:");
+		lblContrasenya.setBounds(27, 106, 89, 14);
+		contentPane.add(lblContrasenya);
 		
-		textField = new JTextField();
-		textField.setBounds(105, 68, 121, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		txtDNI = new JTextField();
+		txtDNI.setBounds(126, 68, 121, 20);
+		contentPane.add(txtDNI);
+		txtDNI.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(105, 103, 121, 20);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
+		btnAceptar = new JButton("ACEPTAR");
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			for(int i=0; i<arrrydeClientes.length; i++) {	
+				if (String.valueOf(txtDNI.getText()).equals(arrrydeClientes[i].getDni())){
+					if (String.valueOf(txtContrasenya.getPassword()).equals(arrrydeClientes[i].getContrasena())){
+						vent = new Ticket();
+						vent.setVisible(true);
+					}
+				}else {
+					lblError.setVisible(true);
+				}
+			}
+			}
+		});
+		btnAceptar.setBounds(335, 227, 89, 23);
+		contentPane.add(btnAceptar);
 		
-		JButton btnNewButton = new JButton("ACEPTAR");
-		btnNewButton.setBounds(294, 210, 89, 23);
-		contentPane.add(btnNewButton);
+		btnCrearusuario = new JButton("Crear un usuario");
+		btnCrearusuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				vent2 = new SingIn();
+				vent2.setVisible(true);
+			}
+		});
+		btnCrearusuario.setBackground(new Color(255, 255, 255));
+		btnCrearusuario.setForeground(new Color(0, 0, 0));
+		btnCrearusuario.setBounds(14, 227, 151, 23);
+		contentPane.add(btnCrearusuario);
 		
-		JButton btnNewButton_1 = new JButton("Crear un usuario");
-		btnNewButton_1.setBackground(new Color(255, 0, 0));
-		btnNewButton_1.setForeground(new Color(0, 0, 0));
-		btnNewButton_1.setBounds(14, 227, 113, 23);
-		contentPane.add(btnNewButton_1);
+		btnVolverInicio = new JButton("Volver al Inicio");
+		btnVolverInicio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				vent3 = new BienvenidaCines(null, null, null, null, 0, null, 0, null);
+				vent3.setVisible(true);
+			}
+		});
+		btnVolverInicio.setBackground(new Color(255, 255, 255));
+		btnVolverInicio.setBounds(175, 227, 150, 23);
+		contentPane.add(btnVolverInicio);
 		
-		JButton btnNewButton_2 = new JButton("Volver al Inicio");
-		btnNewButton_2.setBackground(new Color(255, 0, 0));
-		btnNewButton_2.setBounds(134, 227, 113, 23);
-		contentPane.add(btnNewButton_2);
+		lblError = new JLabel("*Su usuario no esta registrado en la base de datos");
+		lblError.setForeground(new Color(255, 0, 0));
+		lblError.setBounds(14, 199, 312, 14);
+		contentPane.add(lblError);
+		lblError.setVisible(false);
 		
-		JLabel lblNewLabel_3 = new JLabel("*Su usuario no esta registrado en la base de datos");
-		lblNewLabel_3.setForeground(new Color(255, 0, 0));
-		lblNewLabel_3.setBounds(14, 199, 256, 14);
-		contentPane.add(lblNewLabel_3);
+		txtContrasenya = new JPasswordField();
+		txtContrasenya.setBounds(126, 103, 121, 20);
+		contentPane.add(txtContrasenya);
 	}
 }
