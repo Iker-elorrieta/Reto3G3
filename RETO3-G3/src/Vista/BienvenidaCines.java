@@ -115,9 +115,10 @@ public class BienvenidaCines extends JFrame implements ActionListener {
 	 * @param pel2 
 	 * @param arrayCines2 
 	 * @param selectedDate 
+	 * @param opcionSesion 
 	 * @throws SQLException 
 	 */
-	public BienvenidaCines(Cine[] arrayCines2, Pelicula pel2, Cliente[] arrayClientes2, Entrada[] arrayEntradas2, int opcionCine2, Pelicula[] nombresPelisCine, int opcionPeli, Date selectedDate) {
+	public BienvenidaCines(Cine[] arrayCines2, Pelicula pel2, Cliente[] arrayClientes2, Entrada[] arrayEntradas2, int opcionCine2, Pelicula[] nombresPelisCine, int opcionPeli, Date selectedDate, int opcionSesion) {
 //hay que hacer una array de sisiones y que si x valor es null no te lo sume (al volver es todo null)
 		
 		
@@ -172,6 +173,7 @@ public class BienvenidaCines extends JFrame implements ActionListener {
 		contentPane.add(lblNewLabel);
 		
 		btnNewButton = new JButton("ACEPTAR");
+		btnNewButton.setBackground(new Color(255, 255, 255));
 		btnNewButton.addActionListener(this);
 		
 		
@@ -184,13 +186,14 @@ public class BienvenidaCines extends JFrame implements ActionListener {
 
 		
 		btnNewButton_1 = new JButton("Finalizar");
+		btnNewButton_1.setBackground(new Color(255, 255, 255));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//if arraycines es null exit y si no va a resumen
 				if(arrayCines2 == null) {
 					System.exit(0);
 				}else {
-					vent2 = new Resumen(arrayCines2, pel2, arrayClientes2, arrayEntradas2, opcionCine2, nombresPelisCine, opcionPeli, selectedDate);
+					vent2 = new Resumen(arrayCines2, pel2, arrayClientes2, arrayEntradas2, opcionCine2, nombresPelisCine, opcionPeli, selectedDate, opcionSesion);
 					vent2.setVisible(true);
 				}
 

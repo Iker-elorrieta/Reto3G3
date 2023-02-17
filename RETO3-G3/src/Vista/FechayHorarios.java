@@ -63,6 +63,7 @@ public class FechayHorarios extends JFrame {
 	int contR;
 	JRadioButton[] arraybotones;
 	JRadioButton button1;
+	int opcionSesion;
 	
 	
 	
@@ -144,6 +145,9 @@ public class FechayHorarios extends JFrame {
 		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
 		contentPane.setLayout(null);
 		datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+		datePicker.getJFormattedTextField().setBackground(new Color(255, 255, 255));
+		datePicker.setForeground(new Color(0, 0, 0));
+		datePicker.setBackground(new Color(192, 192, 192));
 		datePicker.setBounds(68, 11, 202, 23);
 		contentPane.add(datePicker);
 		
@@ -155,9 +159,16 @@ public class FechayHorarios extends JFrame {
 		
 		
 		JButton btnNewButton = new JButton("ACEPTAR");
+		btnNewButton.setBackground(new Color(255, 255, 255));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(cambioDia>0) {
+					
+					for(int h=0;h<arraybotones.length;h++) {
+						if(arraybotones[h].isSelected()) {
+							opcionSesion= h;
+						}
+					}
 					
 				
 				Date selectedDate = (Date) datePicker.getModel().getValue();
@@ -175,7 +186,7 @@ public class FechayHorarios extends JFrame {
 					
 					JOptionPane.showMessageDialog(null, "Sesion seleccionada correctamente");
 					
-						vent = new BienvenidaCines(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine, nombresPelisCine, opcionPeli, selectedDate);
+						vent = new BienvenidaCines(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine, nombresPelisCine, opcionPeli, selectedDate, opcionSesion);
 						
 							//vent = new BienvenidaCines();
 						
@@ -198,6 +209,7 @@ public class FechayHorarios extends JFrame {
 		
 		cambioDia = 0;
 		JButton btnNewButton_1 = new JButton("Confirmar");
+		btnNewButton_1.setBackground(new Color(192, 192, 192));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//si se selecciona una sesion disponible y luego otra se tiene que poner invisible la anterior
@@ -277,11 +289,12 @@ public class FechayHorarios extends JFrame {
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Volver al inicio");
+		btnNewButton_2.setBackground(new Color(255, 255, 255));
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 					
-					vent = new BienvenidaCines(null, null, null, null, 0, null, 0, null);
+					vent = new BienvenidaCines(null, null, null, null, 0, null, 0, null, 0);
 					
 						
 							//vent = new BienvenidaCines();

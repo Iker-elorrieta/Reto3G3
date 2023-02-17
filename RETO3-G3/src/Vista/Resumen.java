@@ -28,7 +28,7 @@ public class Resumen extends JFrame {
 	int[] nSala;
 	int[] nSesion;
 	LogIn vent;
-	
+
 	/**
 	 * Launch the application.
 	 */
@@ -44,8 +44,9 @@ public class Resumen extends JFrame {
 	 * @param pel2 
 	 * @param arrayCines2 
 	 * @param selectedDate 
+	 * @param opcionSesion 
 	 */
-	public Resumen(Cine[] arrayCines2, Pelicula pel2, Cliente[] arrayClientes2, Entrada[] arrayEntradas2, int opcionCine2, Pelicula[] nombresPelisCine, int opcionPeli, Date selectedDate) {
+	public Resumen(Cine[] arrayCines2, Pelicula pel2, Cliente[] arrayClientes2, Entrada[] arrayEntradas2, int opcionCine2, Pelicula[] nombresPelisCine, int opcionPeli, Date selectedDate, int opcionSesion) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -74,9 +75,9 @@ public class Resumen extends JFrame {
 		
 		sesion=mts.mostrarSesiones(arrayCines2, opcionCine2, nSala, nSesion);
 		
-		for(int b=0;b<2;b++) {
+		for(int b=0;b<1;b++) {
 			//textArea.setText(""+nombresPelisCine[b]+"\n");
-			textArea.append(""+sesion[b]+"\n");
+			textArea.append(""+sesion[opcionSesion]+"\n");
 		}
 		
 		JButton btnNewButton_1 = new JButton("Comprar");

@@ -124,39 +124,19 @@ public class SeleccionPeliculas extends JFrame {
 		
 		
 		JButton btnNewButton = new JButton("ACEPTAR");
+		btnNewButton.setBackground(new Color(255, 255, 255));
 		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				for(int h=0;h<arraybotones.length;h++) {
-					if(arraybotones[h].isSelected()) {
-						opcionPeli= h;
-					}
-				}
-				
-				
-				if(opcionPeli==-1) {
-				
-				lblNewLabel_1.setVisible(true);
-				}else {
-					
-					vent = new FechayHorarios(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine, nombresPelisCine, opcionPeli);
-				vent.setVisible(true);
-				}
-				
-				
-				
-
-				
-				
-			}
+	
 		});
 		btnNewButton.setBounds(269, 227, 155, 23);
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Volver");
+		btnNewButton_1.setBackground(new Color(255, 255, 255));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				vent2 = new BienvenidaCines(null, null, null, null, 0, null, 0, null);
+				vent2 = new BienvenidaCines(null, null, null, null, 0, null, 0, null, 0);
 				
 				vent2.setVisible(true);
 				
@@ -176,4 +156,24 @@ public class SeleccionPeliculas extends JFrame {
 		
 	}
 
+	
+	public void actionPerformed(ActionEvent e) {
+		for(int h=0;h<arraybotones.length;h++) {
+			if(arraybotones[h].isSelected()) {
+				opcionPeli= h;
+			}
+		}
+		
+		
+		if(opcionPeli==-1) {
+		
+		lblNewLabel_1.setVisible(true);
+		}else {
+			
+			vent = new FechayHorarios(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine, nombresPelisCine, opcionPeli);
+		vent.setVisible(true);
+		}
+		
+	}
+	
 }

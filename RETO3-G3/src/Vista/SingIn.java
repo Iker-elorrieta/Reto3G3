@@ -19,6 +19,10 @@ import java.awt.event.ActionEvent;
 
 public class SingIn extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textDNI;
 	private JTextField textNombre;
@@ -98,6 +102,7 @@ public class SingIn extends JFrame {
 		contentPane.add(textApellido);
 		
 		JButton btnAceptar = new JButton("ACEPTAR");
+		btnAceptar.setBackground(new Color(255, 255, 255));
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 		//		if(metodo){
@@ -123,13 +128,13 @@ public class SingIn extends JFrame {
 		textContrasenya.setBounds(125, 201, 121, 20);
 		contentPane.add(textContrasenya);
 		
-		lblErrorDNI = new JLabel("DNI incorrecto");
+		lblErrorDNI = new JLabel("*DNI incorrecto");
 		lblErrorDNI.setForeground(new Color(255, 0, 0));
 		lblErrorDNI.setBounds(283, 74, 141, 14);
 		contentPane.add(lblErrorDNI);
 		lblErrorDNI.setVisible(false);
 		
-		lblErrorVacio = new JLabel("Alguno de los campos esta vacio");
+		lblErrorVacio = new JLabel("*Alguno de los campos esta vacio");
 		lblErrorVacio.setForeground(new Color(255, 0, 0));
 		lblErrorVacio.setBounds(26, 236, 220, 14);
 		contentPane.add(lblErrorVacio);

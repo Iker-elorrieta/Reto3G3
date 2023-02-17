@@ -19,6 +19,10 @@ import java.awt.event.ActionEvent;
 
 public class LogIn extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtDNI;
 	private JPasswordField txtContrasenya;
@@ -82,6 +86,7 @@ public class LogIn extends JFrame {
 		txtDNI.setColumns(10);
 		
 		btnAceptar = new JButton("ACEPTAR");
+		btnAceptar.setBackground(new Color(255, 255, 255));
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			for(int i=0; i<arrrydeClientes.length; i++) {	
@@ -106,7 +111,7 @@ public class LogIn extends JFrame {
 				vent2.setVisible(true);
 			}
 		});
-		btnCrearusuario.setBackground(new Color(255, 255, 255));
+		btnCrearusuario.setBackground(new Color(192, 192, 192));
 		btnCrearusuario.setForeground(new Color(0, 0, 0));
 		btnCrearusuario.setBounds(14, 227, 151, 23);
 		contentPane.add(btnCrearusuario);
@@ -114,11 +119,11 @@ public class LogIn extends JFrame {
 		btnVolverInicio = new JButton("Volver al Inicio");
 		btnVolverInicio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				vent3 = new BienvenidaCines(null, null, null, null, 0, null, 0, null);
+				vent3 = new BienvenidaCines(null, null, null, null, 0, null, 0, null, 0);
 				vent3.setVisible(true);
 			}
 		});
-		btnVolverInicio.setBackground(new Color(255, 255, 255));
+		btnVolverInicio.setBackground(new Color(192, 192, 192));
 		btnVolverInicio.setBounds(175, 227, 150, 23);
 		contentPane.add(btnVolverInicio);
 		

@@ -60,7 +60,7 @@ public class Bienvenida extends JFrame implements MouseListener{
 		panel.addMouseListener((MouseListener) this);
 			
 	
-		panel.setBackground(new Color(247, 106, 106));
+		panel.setBackground(new Color(192, 192, 192));
 		panel.setBounds(10, 11, 414, 239);
 		contentPane.add(panel);
 	}
@@ -70,7 +70,7 @@ public class Bienvenida extends JFrame implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		vent = new BienvenidaCines(null, null, null, null, 0, null, 0, null);
+		vent = new BienvenidaCines(null, null, null, null, 0, null, 0, null, 0);
 		
 		vent.setVisible(true);
 		this.dispose();

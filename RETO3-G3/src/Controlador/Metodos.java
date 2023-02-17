@@ -230,6 +230,42 @@ public class Metodos {
 		return sesion;
 	}
 	
+	
+	
+	
+	public String[] sesionesResumen(Cine[] arrayCines, int opcionCine, int[] nSala, int[] nSesion) {
+		//lo mismo pero solo es de  nombre, la sesión y la sala de las películas seleccionadas y el precio
+		
+		String[] hora = new String[0];
+		String[] nombrePeli = new String[0];
+		int[] nombreSala = new int[0];
+		Float[] precioEntrada = new Float[0];
+		
+		String[] sesion = new String[0];
+
+		
+		for(int h=0;h<nSesion.length;h++) {
+			
+			nombrePeli = reescribirArrayStrings(nombrePeli);
+			
+			nombreSala = reescribirArrayInts(nombreSala);
+			precioEntrada = reescribirArrayFloats(precioEntrada);
+			hora = reescribirArrayStrings(hora);
+			
+			hora[h] = fechasPelicula(arrayCines, opcionCine, nSala, nSesion)[h];
+			nombrePeli[h] = arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getxPelicula().getNombre();
+			nombreSala[h] = salasPelicula(arrayCines, opcionCine, nSala, nSesion)[h].getNumero();
+			precioEntrada[h] = preciosPelicula(arrayCines, opcionCine, nSala, nSesion)[h];
+			
+			sesion = reescribirArrayStrings(sesion);
+			sesion[h]=hora[h]+" PM - "+nombrePeli[h]+"( Sala "+nombreSala[h]+")"+" - "+precioEntrada[h]+"€";
+		}
+		return sesion;
+	}
+	
+	
+	
+	
 	public String[] fechasPelicula(Cine[] arrayCines, int opcionCine, int[] nSala, int[] nSesion) {
 		DateFormat dt = new SimpleDateFormat("dd-MM-yyyy");
 		DateFormat dt2 = new SimpleDateFormat("hh:mm");
