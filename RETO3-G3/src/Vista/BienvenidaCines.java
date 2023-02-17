@@ -37,7 +37,7 @@ import java.awt.event.MouseListener;
 import javax.swing.SwingConstants;
 import java.util.Date;
 
-public class BienvenidaCines extends JFrame {
+public class BienvenidaCines extends JFrame implements ActionListener {
 
 	/**
 	 * 
@@ -63,6 +63,7 @@ public class BienvenidaCines extends JFrame {
 	ResultSet registroEntradas;
 	Statement comando;
 	SeleccionPeliculas vent;
+	Resumen vent2;
 	int opcionCine = -1;
 	JLabel lblNewLabel_1;
 	Sala[] arraySalas;
@@ -72,11 +73,8 @@ public class BienvenidaCines extends JFrame {
 	Cine[] arrayCines;
 	Cliente[] arrayClientes;
 	Entrada[] arrayEntradas;
-	private JPanel panel;
 	JButton btnNewButton_1;
 	JButton btnNewButton;
-	private JLabel lblNewLabel_2;
-	private JLabel lblNewLabel_2_2;
 	int contR;
 	
 	JRadioButton button1;
@@ -86,25 +84,43 @@ public class BienvenidaCines extends JFrame {
 	 * Launch the application.
 	 */
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					BienvenidaCines frame = new BienvenidaCines();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					//int dato = 0;
+//					BienvenidaCines frame = new BienvenidaCines();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
+	 * @param opcionPeli 
+	 * @param nombresPelisCine 
+	 * @param opcionCine2 
+	 * @param arrayEntradas2 
+	 * @param arrayClientes2 
+	 * @param pel2 
+	 * @param arrayCines2 
+	 * @param opcionPeli 
+	 * @param nombresPelisCine 
+	 * @param opcionCine2 
+	 * @param arrayEntradas2 
+	 * @param arrayClientes2 
+	 * @param pel2 
+	 * @param arrayCines2 
+	 * @param selectedDate 
 	 * @throws SQLException 
 	 */
-	public BienvenidaCines() throws SQLException {
-
+	public BienvenidaCines(Cine[] arrayCines2, Pelicula pel2, Cliente[] arrayClientes2, Entrada[] arrayEntradas2, int opcionCine2, Pelicula[] nombresPelisCine, int opcionPeli, Date selectedDate) {
+//hay que hacer una array de sisiones y que si x valor es null no te lo sume (al volver es todo null)
+		
+		
 		arrayCines = mts.mostrarCines();
 		arrayClientes = mts.selectArrayClientes();
 		arrayEntradas = mts.selectArrayEntradas();
@@ -156,24 +172,7 @@ public class BienvenidaCines extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		btnNewButton = new JButton("ACEPTAR");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				for(int h=0;h<arraybotones.length;h++) {
-					if(arraybotones[h].isSelected()) {
-						opcionCine= h;
-					}
-				}
-
-				if(opcionCine==-1) {
-				
-				lblNewLabel_1.setVisible(true);
-				}else {
-					//cerrar this ventana
-					vent = new SeleccionPeliculas(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine);
-				vent.setVisible(true);
-				}
-			}
-		});
+		btnNewButton.addActionListener(this);
 		
 		
 		btnNewButton.setBounds(328, 227, 89, 23);
@@ -187,9 +186,15 @@ public class BienvenidaCines extends JFrame {
 		btnNewButton_1 = new JButton("Finalizar");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				//if arraycines es null exit y si no va a resumen
+				if(arrayCines2 == null) {
+					System.exit(0);
+				}else {
+					vent2 = new Resumen(arrayCines2, pel2, arrayClientes2, arrayEntradas2, opcionCine2, nombresPelisCine, opcionPeli, selectedDate);
+					vent2.setVisible(true);
+				}
 
-				System.exit(0);
+				
 				
 				
 			}
@@ -209,7 +214,22 @@ public class BienvenidaCines extends JFrame {
 		
 	}
 
-	public BienvenidaCines(int click) {
-		// TODO Auto-generated constructor stub
+	public void actionPerformed(ActionEvent e) {
+		for(int h=0;h<arraybotones.length;h++) {
+			if(arraybotones[h].isSelected()) {
+				opcionCine= h;
+			}
+		}
+
+		if(opcionCine==-1) {
+		
+		lblNewLabel_1.setVisible(true);
+		}else {
+			//cerrar this ventana
+			this.dispose();
+			vent = new SeleccionPeliculas(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine);
+		vent.setVisible(true);
+		}
 	}
+	
 }

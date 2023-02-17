@@ -155,12 +155,9 @@ public class SeleccionPeliculas extends JFrame {
 		JButton btnNewButton_1 = new JButton("Volver");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					vent2 = new BienvenidaCines();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				
+				vent2 = new BienvenidaCines(null, null, null, null, 0, null, 0, null);
+				
 				vent2.setVisible(true);
 				
 				

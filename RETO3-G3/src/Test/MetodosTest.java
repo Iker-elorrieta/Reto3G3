@@ -42,7 +42,7 @@ class MetodosTest {
 	}
 	
 	@Test
-	void test_mostrarPeliculas() {
+	void test_mostrarPeliculas2() {
 		Cine[] arrayCines = new Cine[1];
 		Cine cin = new Cine();
 		cin.setCodigoCine("342d");
@@ -52,7 +52,7 @@ class MetodosTest {
 			Sala sal = new Sala();
 			sal.setCodigoSala("");
 			sal.setNumero(3);
-				Sesion[] arraySesiones = new Sesion[1];
+				Sesion[] arraySesiones = new Sesion[2];
 				Sesion ses = new Sesion();
 				ses.setCodigoSesion("");
 				Calendar cal = Calendar.getInstance();
@@ -72,12 +72,26 @@ class MetodosTest {
 				ses.setFechaFin(cal2.getTime());
 				ses.setPrecio(7);
 					Pelicula pel = new Pelicula();
-					pel.setCodigoPelicula("");
+					pel.setCodigoPelicula("XXF");
 					pel.setDuracion(120);
 					pel.setNombre("");
 					pel.setGenero("");
 				ses.setxPelicula(pel);
+				//sesion2
+				Sesion ses2 = new Sesion();
+				ses2.setCodigoSesion("");
+				ses2.setFecha(cal.getTime());
+				ses2.setFechaFin(cal2.getTime());
+				ses2.setPrecio(7);
+					Pelicula pel2 = new Pelicula();
+					pel2.setCodigoPelicula("XXF");
+					pel2.setDuracion(120);
+					pel2.setNombre("");
+					pel2.setGenero("");
+				ses2.setxPelicula(pel2);
+				
 				arraySesiones[0]= ses;
+				arraySesiones[1]= ses2;
 			sal.setArraySesiones(arraySesiones);
 			arraySalas[0]= sal;
 			
@@ -93,9 +107,12 @@ class MetodosTest {
 		int[] nSesion = new int[1];
 		nSesion[0]= 0;
 		
-		System.out.println("hgsdgd");
+		System.out.println("hgsdgd222222");
 		System.out.println(mts.mostrarPeliculas(arrayCines, opcionCine)[0]);
-		assertEquals(mts.mostrarPeliculas(arrayCines, opcionCine)[0].toString(), "Pelicula [codigoPelícula=, duracion=120, nombre=, genero=]");
+		assertEquals(mts.mostrarPeliculas(arrayCines, opcionCine)[0].toString(), "Pelicula [codigoPelícula=XXF, duracion=120, nombre=, genero=]");
+		
+		mts.nSalaPelicula(arrayCines, opcionCine, nSala, nSesion, cal.getTime(), mts.mostrarPeliculas(arrayCines, opcionCine), 0);
+		mts.nSesionPelicula(arrayCines, opcionCine, nSala, nSesion, cal.getTime(), mts.mostrarPeliculas(arrayCines, opcionCine), 0);
 	}
 	
 	
@@ -158,11 +175,22 @@ class MetodosTest {
 		System.out.println(mts.preciosPelicula(arrayCines, opcionCine, nSala, nSesion)[0]);
 		System.out.println(mts.salasPelicula(arrayCines, opcionCine, nSala, nSesion)[0]);
 		
-		assertEquals(mts.fechasPelicula(arrayCines, opcionCine, nSala, nSesion)[0], "20-05-2023");
+		
+		assertEquals(mts.fechasPelicula(arrayCines, opcionCine, nSala, nSesion)[0].toString(), "20-05-2023 04:05");
 		assertEquals(mts.salasPelicula(arrayCines, opcionCine, nSala, nSesion)[0].toString(), "Sala [codigoSala=, numero=3]");
 		assertEquals(mts.preciosPelicula(arrayCines, opcionCine, nSala, nSesion)[0].toString(), "7.0");
 		
 		
+	}
+	
+	@Test
+	void test_nSala() {
+		mts.nSalaPelicula(null, 0, null, null, null, null, 0);
+	}
+	
+	@Test
+	void test_nSesion() {
+		mts.nSesionPelicula(null, 0, null, null, null, null, 0);
 	}
 	
 	@Test

@@ -28,35 +28,39 @@ import Modelo.Sesion;
 public class Metodos {
 	Sesion[] arraySesiones;
 	
-	private final String cine1 = "Código_Cine";
+	private final String cine1 = "Codigo_Cine";
 	private final String cine2 = "Nombre";
 	private final String cine3 = "Direccion";
 	
-	private final String sala1 = "Código_Sala";
+	private final String sala1 = "Codigo_Sala";
 	private final String sala2 = "Numero";
 	
-	private final String sesion1 = "Código_Sesión";
+	private final String sesion1 = "Codigo_Sesion";
 	private final String sesion2 = "Hora";
 	private final String sesion3 = "Fecha";
 	private final String sesion4 = "Fecha_Inicio";
 	private final String sesion5 = "Precio";
 
-	private final String pelicula1 = "Código_Película";
-	private final String pelicula2 = "Duración";
+	private final String pelicula1 = "Codigo_Pelicula";
+	private final String pelicula2 = "Duracion";
 	private final String pelicula3 = "Nombre";
-	private final String pelicula4 = "Género";
+	private final String pelicula4 = "Genero";
 	
 	private final String tabla1 = "cine";
 	private final String tabla2 = "salas";
-	private final String tabla3 = "sesión";
-	private final String tabla4 = "películas";
+	private final String tabla3 = "sesion";
+	private final String tabla4 = "peliculas";
+
+	private final String conexion1 = "jdbc:mysql://localhost:3306/reto3_grupo3";
+	private final String conexion2 = "root";
+	private final String conexion3 = "";
 	//"+tabla1+"
 
 	public Cine[] mostrarCines() {
 		Cine[] arrayCines = new Cine[0];
 		Connection conexion;
 		try {
-			conexion = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/reto3_grupo3","root","");
+			conexion = (Connection) DriverManager.getConnection(conexion1,conexion2,conexion3);
 	
 		Statement comando=(Statement) conexion.createStatement();
 		ResultSet registroCines = comando.executeQuery("select * from "+tabla1+"");
@@ -104,7 +108,7 @@ public class Metodos {
 					ses.setPrecio(registroSesiones2.getFloat(sesion5));
 					
 					Statement comando4=(Statement) conexion.createStatement();
-					ResultSet registroPelis2 = comando4.executeQuery("select * from "+tabla4+" where "+pelicula1+"=(select "+pelicula1+" from sesión where "+sesion1+"='"+registroSesiones2.getString(sesion1)+"')");
+					ResultSet registroPelis2 = comando4.executeQuery("select * from "+tabla4+" where "+pelicula1+"=(select "+pelicula1+" from "+tabla3+" where "+sesion1+"='"+registroSesiones2.getString(sesion1)+"')");
 					Pelicula pel = null;
 					while (registroPelis2.next()) {
 						
@@ -210,14 +214,15 @@ public class Metodos {
 		for(int h=0;h<nSesion.length;h++) {
 			
 			nombrePeli = reescribirArrayStrings(nombrePeli);
+			
 			nombreSala = reescribirArrayInts(nombreSala);
 			precioEntrada = reescribirArrayFloats(precioEntrada);
-			
 			hora = reescribirArrayStrings(hora);
-			hora[h] = dt.format(arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getFecha()) +" "+ dt2.format(arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getFecha());
+			
+			hora[h] = fechasPelicula(arrayCines, opcionCine, nSala, nSesion)[h];
 			nombrePeli[h] = arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getxPelicula().getNombre();
-			nombreSala[h] = arrayCines[opcionCine].getArraySalas()[nSala[h]].getNumero();
-			precioEntrada[h] = arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getPrecio();
+			nombreSala[h] = salasPelicula(arrayCines, opcionCine, nSala, nSesion)[h].getNumero();
+			precioEntrada[h] = preciosPelicula(arrayCines, opcionCine, nSala, nSesion)[h];
 			
 			sesion = reescribirArrayStrings(sesion);
 			sesion[h]=hora[h]+" PM - "+nombrePeli[h]+"( Sala "+nombreSala[h]+")"+" - "+precioEntrada[h]+"€";
@@ -227,10 +232,12 @@ public class Metodos {
 	
 	public String[] fechasPelicula(Cine[] arrayCines, int opcionCine, int[] nSala, int[] nSesion) {
 		DateFormat dt = new SimpleDateFormat("dd-MM-yyyy");
+		DateFormat dt2 = new SimpleDateFormat("hh:mm");
+		
 		String[] fechas = new String[0];
 		for(int h=0;h<nSesion.length;h++) {
 			fechas = reescribirArrayStrings(fechas);
-			fechas[h] = dt.format(arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getFecha());
+			fechas[h] = dt.format(arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getFecha()) +" "+ dt2.format(arrayCines[opcionCine].getArraySalas()[nSala[h]].getArraySesiones()[nSesion[h]].getFecha());
 		}
 		return fechas;
 	}
@@ -244,6 +251,7 @@ public class Metodos {
 		return preciosPelicula;
 	}
 	
+	//
 	public Sala[] salasPelicula(Cine[] arrayCines, int opcionCine, int[] nSala, int[] nSesion) {
 		Sala[] salasPelicula = new Sala[0];
 		for(int h=0;h<nSesion.length;h++) {
@@ -251,6 +259,49 @@ public class Metodos {
 			salasPelicula[h] = arrayCines[opcionCine].getArraySalas()[nSala[h]];
 		}
 		return salasPelicula;
+	}
+	
+	
+	public int[] nSesionPelicula(Cine[] arrayCines, int opcionCine, int[] nSala, int[] nSesion, Date selectedDate, Pelicula[] nombresPelisCine, int opcionPeli) {
+		DateFormat bd = new SimpleDateFormat("yyyy-MM-dd");
+		
+		int contSesion=0;
+		nSala = new int[0];
+		nSesion = new int[0];//2
+		for(int w=0;w<arrayCines[opcionCine].getArraySalas().length;w++) {
+			for(int z=0;z<arrayCines[opcionCine].getArraySalas()[w].getArraySesiones().length;z++) {
+				Pelicula datosPeli=arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getxPelicula();
+				if(datosPeli.getCodigoPelicula().equals(nombresPelisCine[opcionPeli].getCodigoPelicula()) && bd.format(arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getFecha()).equals(bd.format(selectedDate))) {
+					nSala = reescribirArrayInts(nSala);
+					nSala[contSesion] = w;
+					nSesion = reescribirArrayInts(nSesion);
+					nSesion[contSesion] = z;
+					contSesion++;
+				}
+			}
+		}
+		return nSesion;
+	}
+	
+	public int[] nSalaPelicula(Cine[] arrayCines, int opcionCine, int[] nSala, int[] nSesion, Date selectedDate, Pelicula[] nombresPelisCine, int opcionPeli) {
+		DateFormat bd = new SimpleDateFormat("yyyy-MM-dd");
+		
+		int contSesion=0;
+		nSala = new int[0];
+		nSesion = new int[0];//2
+		for(int w=0;w<arrayCines[opcionCine].getArraySalas().length;w++) {
+			for(int z=0;z<arrayCines[opcionCine].getArraySalas()[w].getArraySesiones().length;z++) {
+				Pelicula datosPeli=arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getxPelicula();
+				if(datosPeli.getCodigoPelicula().equals(nombresPelisCine[opcionPeli].getCodigoPelicula()) && bd.format(arrayCines[opcionCine].getArraySalas()[w].getArraySesiones()[z].getFecha()).equals(bd.format(selectedDate))) {
+					nSala = reescribirArrayInts(nSala);
+					nSala[contSesion] = w;
+					nSesion = reescribirArrayInts(nSesion);
+					nSesion[contSesion] = z;
+					contSesion++;
+				}
+			}
+		}
+		return nSala;
 	}
 	
 	
@@ -267,7 +318,7 @@ public Cliente[] selectArrayClientes() {
 	Connection conexion;
 	
 	try {
-		conexion=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/reto3_grupo3","root","");
+		conexion=(Connection) DriverManager.getConnection(conexion1,conexion2,conexion3);
 		Statement comando=(Statement) conexion.createStatement();
 	
 		ResultSet registroClientes = comando.executeQuery("select * from "+tablaC+"");
@@ -301,16 +352,17 @@ public Cliente[] selectArrayClientes() {
 		
 	}
 	
-private final String entrada1 = "Código_Entrada";
+private final String entrada1 = "Codigo_Entrada";
 private final String entrada2 = "Precio";
 
 private final String tablaE = "entrada";
+//hacer insert
 public Entrada[] selectArrayEntradas() {
 	Entrada[] arrayEntradas = new Entrada[0];
 	Connection conexion;
 	
 	try {
-		conexion=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/reto3_grupo3","root","");
+		conexion=(Connection) DriverManager.getConnection(conexion1,conexion2,conexion3);
 		Statement comando=(Statement) conexion.createStatement();
 		
 		ResultSet registroEntradas = comando.executeQuery("select * from "+tablaE+"");
