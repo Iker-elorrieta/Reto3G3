@@ -9,16 +9,12 @@ import Modelo.Cine;
 import Modelo.Cliente;
 import Modelo.Entrada;
 import Modelo.Pelicula;
-import Modelo.Sala;
-import Modelo.Sesion;
-
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
 import javax.swing.ButtonGroup;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
@@ -75,10 +71,14 @@ public class SeleccionPeliculas extends JFrame {
 	 * @param arrayClientes 
 	 * @param arrayCines 
 	 * @param opcionCine 
+	 * @param resumenSes 
+	 * @param resumenSal 
+	 * @param r 
+	 * @param resumenCin 
 	 * @param nombrePelis 
 	 * @param horaPelis 
 	 */
-	public SeleccionPeliculas(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, int opcionCine) {
+	public SeleccionPeliculas(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, int opcionCine, int r, int[] resumenSal, int[] resumenSes, int[] resumenCin) {
 		
 		
 			nombresPelisCine = mts.mostrarPeliculas(arrayCines, opcionCine);
@@ -124,6 +124,7 @@ public class SeleccionPeliculas extends JFrame {
 		
 		
 		JButton btnNewButton = new JButton("ACEPTAR");
+		btnNewButton.setBackground(new Color(255, 255, 255));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				for(int h=0;h<arraybotones.length;h++) {
@@ -138,14 +139,9 @@ public class SeleccionPeliculas extends JFrame {
 				lblNewLabel_1.setVisible(true);
 				}else {
 					
-					vent = new FechayHorarios(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine, nombresPelisCine, opcionPeli);
+					vent = new FechayHorarios(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine, nombresPelisCine, opcionPeli, r, resumenSal, resumenSes, resumenCin);
 				vent.setVisible(true);
 				}
-				
-				
-				
-
-				
 				
 			}
 		});
@@ -153,14 +149,12 @@ public class SeleccionPeliculas extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Volver");
+		btnNewButton_1.setBackground(new Color(255, 255, 255));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					vent2 = new BienvenidaCines();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				
+				vent2 = new BienvenidaCines(null, null, null, null, 0, null, 0, null, 0, r, resumenSal, resumenSes, resumenCin);
+				
 				vent2.setVisible(true);
 				
 				
@@ -179,4 +173,7 @@ public class SeleccionPeliculas extends JFrame {
 		
 	}
 
+	
+	
+	
 }

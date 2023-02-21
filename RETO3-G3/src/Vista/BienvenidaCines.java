@@ -1,7 +1,5 @@
 package Vista;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -22,22 +20,15 @@ import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
-import java.util.Calendar;
 import java.awt.event.ActionEvent;
 import javax.swing.ButtonGroup;
 import java.awt.Color;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
-import javax.swing.SwingConstants;
 import java.util.Date;
 
-public class BienvenidaCines extends JFrame {
+public class BienvenidaCines extends JFrame implements ActionListener {
 
 	/**
 	 * 
@@ -63,6 +54,7 @@ public class BienvenidaCines extends JFrame {
 	ResultSet registroEntradas;
 	Statement comando;
 	SeleccionPeliculas vent;
+	Resumen vent2;
 	int opcionCine = -1;
 	JLabel lblNewLabel_1;
 	Sala[] arraySalas;
@@ -72,11 +64,8 @@ public class BienvenidaCines extends JFrame {
 	Cine[] arrayCines;
 	Cliente[] arrayClientes;
 	Entrada[] arrayEntradas;
-	private JPanel panel;
 	JButton btnNewButton_1;
 	JButton btnNewButton;
-	private JLabel lblNewLabel_2;
-	private JLabel lblNewLabel_2_2;
 	int contR;
 	
 	JRadioButton button1;
@@ -86,18 +75,19 @@ public class BienvenidaCines extends JFrame {
 	 * Launch the application.
 	 */
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					BienvenidaCines frame = new BienvenidaCines();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					//int dato = 0;
+//					BienvenidaCines frame = new BienvenidaCines();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
@@ -108,9 +98,24 @@ public class BienvenidaCines extends JFrame {
 	 * @param arrayClientes2 
 	 * @param pel2 
 	 * @param arrayCines2 
+	 * @param opcionPeli 
+	 * @param nombresPelisCine 
+	 * @param opcionCine2 
+	 * @param arrayEntradas2 
+	 * @param arrayClientes2 
+	 * @param pel2 
+	 * @param arrayCines2 
+	 * @param selectedDate 
+	 * @param opcionSesion 
+	 * @param resumenSes 
+	 * @param resumenSal 
+	 * @param resumenSes 
+	 * @param resumenSal 
+	 * @param r 
+	 * @param resumenCin 
 	 * @throws SQLException 
 	 */
-	public BienvenidaCines() throws SQLException {
+	public BienvenidaCines(Cine[] arrayCines2, Pelicula pel2, Cliente[] arrayClientes2, Entrada[] arrayEntradas2, int opcionCine2, Pelicula[] nombresPelisCine, int opcionPeli, Date selectedDate, int opcionSesion, int r, int[] resumenSal, int[] resumenSes, int[] resumenCin) {
 //hay que hacer una array de sisiones y que si x valor es null no te lo sume (al volver es todo null)
 		
 		
@@ -165,6 +170,7 @@ public class BienvenidaCines extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		btnNewButton = new JButton("ACEPTAR");
+		btnNewButton.setBackground(new Color(255, 255, 255));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				for(int h=0;h<arraybotones.length;h++) {
@@ -178,7 +184,7 @@ public class BienvenidaCines extends JFrame {
 				lblNewLabel_1.setVisible(true);
 				}else {
 					//cerrar this ventana
-					vent = new SeleccionPeliculas(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine);
+					vent = new SeleccionPeliculas(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine, r, resumenSal, resumenSes, resumenCin);
 				vent.setVisible(true);
 				}
 			}
@@ -194,11 +200,23 @@ public class BienvenidaCines extends JFrame {
 
 		
 		btnNewButton_1 = new JButton("Finalizar");
+		btnNewButton_1.setBackground(new Color(255, 255, 255));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				//if arraycines es null exit y si no va a resumen
+				if(arrayCines2 == null) {
+					System.exit(0);
+				}else {
+//					System.out.println("**resumen nums**");
+//					for(int p=0;p<2;p++) {
+//						System.out.println(resumenSal[p]);
+//						System.out.println(resumenSes[p]);
+//					}
+					vent2 = new Resumen(arrayCines2, pel2, arrayClientes2, arrayEntradas2, opcionCine2, nombresPelisCine, opcionPeli, selectedDate, opcionSesion, r, resumenSal, resumenSes, resumenCin);
+					vent2.setVisible(true);
+				}
 
-				System.exit(0);
+				
 				
 				
 			}
@@ -218,4 +236,12 @@ public class BienvenidaCines extends JFrame {
 		
 	}
 
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	
 }

@@ -1,18 +1,13 @@
 package Controlador;
 
-import java.awt.Container;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
-import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
 
 import com.mysql.jdbc.Connection;
@@ -28,35 +23,39 @@ import Modelo.Sesion;
 public class Metodos {
 	Sesion[] arraySesiones;
 	
-	private final String cine1 = "Código_Cine";
+	private final String cine1 = "Codigo_Cine";
 	private final String cine2 = "Nombre";
 	private final String cine3 = "Direccion";
 	
-	private final String sala1 = "Código_Sala";
+	private final String sala1 = "Codigo_Sala";
 	private final String sala2 = "Numero";
 	
-	private final String sesion1 = "Código_Sesión";
+	private final String sesion1 = "Codigo_Sesion";
 	private final String sesion2 = "Hora";
 	private final String sesion3 = "Fecha";
 	private final String sesion4 = "Fecha_Inicio";
 	private final String sesion5 = "Precio";
 
-	private final String pelicula1 = "Código_Película";
-	private final String pelicula2 = "Duración";
+	private final String pelicula1 = "Codigo_Pelicula";
+	private final String pelicula2 = "Duracion";
 	private final String pelicula3 = "Nombre";
-	private final String pelicula4 = "Género";
+	private final String pelicula4 = "Genero";
 	
 	private final String tabla1 = "cine";
 	private final String tabla2 = "salas";
-	private final String tabla3 = "sesión";
-	private final String tabla4 = "películas";
+	private final String tabla3 = "sesion";
+	private final String tabla4 = "peliculas";
+
+	private final String conexion1 = "jdbc:mysql://localhost:3306/reto3_grupo3";
+	private final String conexion2 = "root";
+	private final String conexion3 = "";
 	//"+tabla1+"
 
 	public Cine[] mostrarCines() {
 		Cine[] arrayCines = new Cine[0];
 		Connection conexion;
 		try {
-			conexion = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/reto3_grupo3","root","");
+			conexion = (Connection) DriverManager.getConnection(conexion1,conexion2,conexion3);
 	
 		Statement comando=(Statement) conexion.createStatement();
 		ResultSet registroCines = comando.executeQuery("select * from "+tabla1+"");
@@ -104,7 +103,7 @@ public class Metodos {
 					ses.setPrecio(registroSesiones2.getFloat(sesion5));
 					
 					Statement comando4=(Statement) conexion.createStatement();
-					ResultSet registroPelis2 = comando4.executeQuery("select * from "+tabla4+" where "+pelicula1+"=(select "+pelicula1+" from sesión where "+sesion1+"='"+registroSesiones2.getString(sesion1)+"')");
+					ResultSet registroPelis2 = comando4.executeQuery("select * from "+tabla4+" where "+pelicula1+"=(select "+pelicula1+" from "+tabla3+" where "+sesion1+"='"+registroSesiones2.getString(sesion1)+"')");
 					Pelicula pel = null;
 					while (registroPelis2.next()) {
 						
@@ -194,8 +193,8 @@ public class Metodos {
 	String[] hora;
 	
 	public String[] mostrarSesiones(Cine[] arrayCines, int opcionCine, int[] nSala, int[] nSesion) {
-		DateFormat dt = new SimpleDateFormat("dd-MM-yyyy");
-		DateFormat dt2 = new SimpleDateFormat("hh:mm");
+//		DateFormat dt = new SimpleDateFormat("dd-MM-yyyy");
+//		DateFormat dt2 = new SimpleDateFormat("hh:mm");
 		
 		
 		
@@ -225,6 +224,7 @@ public class Metodos {
 		}
 		return sesion;
 	}
+	
 	
 	public String[] fechasPelicula(Cine[] arrayCines, int opcionCine, int[] nSala, int[] nSesion) {
 		DateFormat dt = new SimpleDateFormat("dd-MM-yyyy");
@@ -314,7 +314,7 @@ public Cliente[] selectArrayClientes() {
 	Connection conexion;
 	
 	try {
-		conexion=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/reto3_grupo3","root","");
+		conexion=(Connection) DriverManager.getConnection(conexion1,conexion2,conexion3);
 		Statement comando=(Statement) conexion.createStatement();
 	
 		ResultSet registroClientes = comando.executeQuery("select * from "+tablaC+"");
@@ -348,16 +348,17 @@ public Cliente[] selectArrayClientes() {
 		
 	}
 	
-private final String entrada1 = "Código_Entrada";
+private final String entrada1 = "Codigo_Entrada";
 private final String entrada2 = "Precio";
 
 private final String tablaE = "entrada";
+//hacer insert
 public Entrada[] selectArrayEntradas() {
 	Entrada[] arrayEntradas = new Entrada[0];
 	Connection conexion;
 	
 	try {
-		conexion=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/reto3_grupo3","root","");
+		conexion=(Connection) DriverManager.getConnection(conexion1,conexion2,conexion3);
 		Statement comando=(Statement) conexion.createStatement();
 		
 		ResultSet registroEntradas = comando.executeQuery("select * from "+tablaE+"");

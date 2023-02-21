@@ -1,19 +1,11 @@
 package Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Calendar;
 
 import javax.swing.JRadioButton;
 
 import org.junit.jupiter.api.Test;
-
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.Statement;
 
 import Controlador.Metodos;
 import Modelo.Cine;
@@ -38,7 +30,9 @@ class MetodosTest {
 	
 	@Test
 	void test_mostrarCines() {
-		mts.mostrarCines();
+		
+		//System.out.println(mts.mostrarCines()[0].getArraySalas()[0].getArraySesiones()[0].getxPelicula().getNombre());
+		assertEquals(mts.mostrarCines()[0].getArraySalas()[0].getArraySesiones()[0].getxPelicula().getNombre(),"Handia");
 	}
 	
 	@Test
@@ -107,12 +101,14 @@ class MetodosTest {
 		int[] nSesion = new int[1];
 		nSesion[0]= 0;
 		
-		System.out.println("hgsdgd222222");
-		System.out.println(mts.mostrarPeliculas(arrayCines, opcionCine)[0]);
+		//System.out.println(mts.mostrarPeliculas(arrayCines, opcionCine)[0]);
 		assertEquals(mts.mostrarPeliculas(arrayCines, opcionCine)[0].toString(), "Pelicula [codigoPelícula=XXF, duracion=120, nombre=, genero=]");
 		
-		mts.nSalaPelicula(arrayCines, opcionCine, nSala, nSesion, cal.getTime(), mts.mostrarPeliculas(arrayCines, opcionCine), 0);
-		mts.nSesionPelicula(arrayCines, opcionCine, nSala, nSesion, cal.getTime(), mts.mostrarPeliculas(arrayCines, opcionCine), 0);
+		
+//		System.out.println(mts.nSalaPelicula(arrayCines, opcionCine, nSesion, nSesion, cal.getTime(), mts.mostrarPeliculas(arrayCines, opcionCine), 0)[0]);
+//		System.out.println(mts.nSesionPelicula(arrayCines, opcionCine, nSala, nSesion, cal.getTime(), mts.mostrarPeliculas(arrayCines, opcionCine), 0)[0]);
+		assertEquals(mts.nSalaPelicula(arrayCines, opcionCine, nSesion, nSesion, cal.getTime(), mts.mostrarPeliculas(arrayCines, opcionCine), 0)[0],  0);
+		assertEquals(mts.nSesionPelicula(arrayCines, opcionCine, nSala, nSesion, cal.getTime(), mts.mostrarPeliculas(arrayCines, opcionCine), 0)[0],  0);
 	}
 	
 	
@@ -183,15 +179,15 @@ class MetodosTest {
 		
 	}
 	
-	@Test
-	void test_nSala() {
-		mts.nSalaPelicula(null, 0, null, null, null, null, 0);
-	}
-	
-	@Test
-	void test_nSesion() {
-		mts.nSesionPelicula(null, 0, null, null, null, null, 0);
-	}
+//	@Test
+//	void test_nSala() {
+//		mts.nSalaPelicula(null, 0, null, null, null, null, 0);
+//	}
+//	
+//	@Test
+//	void test_nSesion() {
+//		mts.nSesionPelicula(null, 0, null, null, null, null, 0);
+//	}
 	
 	@Test
 	void test_reescribirArrays() {
@@ -227,13 +223,13 @@ class MetodosTest {
 	}
 	
 	@Test
-	void test_selectArrayClientes() {
-		mts.selectArrayClientes();
+	void test_selectArrayClientesyEntradas() {
+		
+//		System.out.println(mts.selectArrayClientes()[0].getDni());
+//		System.out.println(mts.selectArrayEntradas()[0].getCodigoEntrada());
+		assertEquals(mts.selectArrayClientes()[0].getDni(),"22761890D");
+		assertEquals(mts.selectArrayEntradas()[0].getCodigoEntrada(),"B8L3");
 	}
 	
-	@Test
-	void test_selectArrayEntradas() {
-		mts.selectArrayEntradas();
-	}
 
 }

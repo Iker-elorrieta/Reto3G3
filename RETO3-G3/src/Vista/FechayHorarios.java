@@ -14,14 +14,10 @@ import Modelo.Cliente;
 import Modelo.DateLabelFormatter;
 import Modelo.Entrada;
 import Modelo.Pelicula;
-import Modelo.Sala;
-import Modelo.Sesion;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -63,6 +59,12 @@ public class FechayHorarios extends JFrame {
 	int contR;
 	JRadioButton[] arraybotones;
 	JRadioButton button1;
+	int opcionSesion;
+	
+	int r2;
+	int[] resumenSal2;
+	int[] resumenSes2;
+	int[] resumenCin2;
 	
 	
 	
@@ -105,6 +107,7 @@ public class FechayHorarios extends JFrame {
 	 * @param arrayEntradas 
 	 * @param arrayClientes 
 	 * @param arrayCines 
+	 * @param resumenCin 
 	 * @param opcion2 
 	 * @param opcion 
 	 * @param horaPelis 
@@ -119,12 +122,15 @@ public class FechayHorarios extends JFrame {
 	 * @param horaPelis 
 	 * @param nombrePelis 
 	 */
-	public FechayHorarios(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, int opcionCine, Pelicula[] nombresPelisCine, int opcionPeli) {
+	public FechayHorarios(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, int opcionCine, Pelicula[] nombresPelisCine, int opcionPeli, int r, int[] resumenSal, int[] resumenSes, int[] resumenCin) {
 	
+		r2=r;
+		resumenSal2 = resumenSal;
+		resumenSes2 = resumenSes;
+		resumenCin2 = resumenCin;
 		
 		
-		
-		DateFormat dt = new SimpleDateFormat("dd-MM-yyyy");
+		//DateFormat dt = new SimpleDateFormat("dd-MM-yyyy");
 		DateFormat bd = new SimpleDateFormat("yyyy-MM-dd");
 	
 
@@ -144,6 +150,9 @@ public class FechayHorarios extends JFrame {
 		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
 		contentPane.setLayout(null);
 		datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+		datePicker.getJFormattedTextField().setBackground(new Color(255, 255, 255));
+		datePicker.setForeground(new Color(0, 0, 0));
+		datePicker.setBackground(new Color(192, 192, 192));
 		datePicker.setBounds(68, 11, 202, 23);
 		contentPane.add(datePicker);
 		
@@ -155,9 +164,17 @@ public class FechayHorarios extends JFrame {
 		
 		
 		JButton btnNewButton = new JButton("ACEPTAR");
+		btnNewButton.setBackground(new Color(255, 255, 255));
 		btnNewButton.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
 				if(cambioDia>0) {
+					
+					for(int h=0;h<arraybotones.length;h++) {
+						if(arraybotones[h].isSelected()) {
+							opcionSesion= h;
+						}
+					}
 					
 				
 				Date selectedDate = (Date) datePicker.getModel().getValue();
@@ -171,17 +188,24 @@ public class FechayHorarios extends JFrame {
 				if(arraybotones[b].isSelected()) {
 					seleccion=true;
 					lblNewLabel_1.setVisible(false);
-
 					
 					JOptionPane.showMessageDialog(null, "Sesion seleccionada correctamente");
-					try {
-						//vent = new BienvenidaCines();
-						vent = new BienvenidaCines();
+					
+					
+					
+					resumenSal2 = mts.reescribirArrayInts(resumenSal2);
+					resumenSal2[r2] = nSala[opcionSesion];
+					resumenSes2 = mts.reescribirArrayInts(resumenSes2);
+					resumenSes2[r2] = nSesion[opcionSesion];
+					resumenCin2 = mts.reescribirArrayInts(resumenCin2);
+					resumenCin2[r2] = opcionCine;
+					r2++;
+						vent = new BienvenidaCines(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine, nombresPelisCine, opcionPeli, selectedDate, opcionSesion, r2, resumenSal2, resumenSes2, resumenCin2);
 						
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+							//vent = new BienvenidaCines();
+						
+						
+					
 					vent.setVisible(true);
 						
 				}
@@ -199,6 +223,7 @@ public class FechayHorarios extends JFrame {
 		
 		cambioDia = 0;
 		JButton btnNewButton_1 = new JButton("Confirmar");
+		btnNewButton_1.setBackground(new Color(192, 192, 192));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//si se selecciona una sesion disponible y luego otra se tiene que poner invisible la anterior
@@ -278,17 +303,17 @@ public class FechayHorarios extends JFrame {
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Volver al inicio");
+		btnNewButton_2.setBackground(new Color(255, 255, 255));
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 					
-					//vent = new BienvenidaCines(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine, nombresPelisCine, opcionPeli);
-					try {
-						vent = new BienvenidaCines();
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					vent = new BienvenidaCines(null, null, null, null, 0, null, 0, null, 0, r, resumenSal, resumenSes, resumenCin);
+					
+						
+							//vent = new BienvenidaCines();
+						
+				
 				vent.setVisible(true);
 				
 				

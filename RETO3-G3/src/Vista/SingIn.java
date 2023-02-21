@@ -9,16 +9,30 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JRadioButton;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JPasswordField;
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class SingIn extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
+	private JTextField textDNI;
+	private JTextField textNombre;
+	private JTextField textApellido;
+	private JComboBox<String> comboBoxSexo;
+	private JPasswordField textContrasenya;
+	Ticket vent;
 
+	JLabel lblErrorVacio;
+	JLabel lblErrorDNI;
 	/**
 	 * Launch the application.
 	 */
@@ -52,54 +66,78 @@ public class SingIn extends JFrame {
 		lblSingIn.setBounds(26, 11, 301, 49);
 		contentPane.add(lblSingIn);
 		
-		JLabel lblNewLabel_1 = new JLabel("DNI:");
-		lblNewLabel_1.setBounds(26, 81, 54, 14);
-		contentPane.add(lblNewLabel_1);
+		JLabel lblDNI = new JLabel("DNI:");
+		lblDNI.setBounds(26, 81, 54, 14);
+		contentPane.add(lblDNI);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(100, 78, 121, 20);
-		contentPane.add(textField);
+		textDNI = new JTextField();
+		textDNI.setColumns(10);
+		textDNI.setBounds(125, 71, 121, 20);
+		contentPane.add(textDNI);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("Nombre:");
-		lblNewLabel_1_1.setBounds(26, 112, 56, 14);
-		contentPane.add(lblNewLabel_1_1);
+		JLabel lblNombre = new JLabel("Nombre:");
+		lblNombre.setBounds(26, 112, 56, 14);
+		contentPane.add(lblNombre);
 		
-		JLabel lblNewLabel_1_2 = new JLabel("Apellido:");
-		lblNewLabel_1_2.setBounds(26, 148, 56, 14);
-		contentPane.add(lblNewLabel_1_2);
+		JLabel lblApellido = new JLabel("Apellido:");
+		lblApellido.setBounds(26, 148, 89, 14);
+		contentPane.add(lblApellido);
 		
-		JLabel lblNewLabel_1_3 = new JLabel("Sexo:");
-		lblNewLabel_1_3.setBounds(26, 173, 56, 14);
-		contentPane.add(lblNewLabel_1_3);
+		JLabel lblSexo = new JLabel("Sexo:");
+		lblSexo.setBounds(26, 173, 56, 14);
+		contentPane.add(lblSexo);
 		
-		JLabel lblNewLabel_1_4 = new JLabel("Contrasena:");
-		lblNewLabel_1_4.setBounds(26, 204, 68, 14);
-		contentPane.add(lblNewLabel_1_4);
+		JLabel lblContrasenya = new JLabel("Contrasena:");
+		lblContrasenya.setBounds(26, 204, 89, 14);
+		contentPane.add(lblContrasenya);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(100, 109, 121, 20);
-		contentPane.add(textField_1);
+		textNombre = new JTextField();
+		textNombre.setColumns(10);
+		textNombre.setBounds(125, 109, 121, 20);
+		contentPane.add(textNombre);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(100, 139, 121, 20);
-		contentPane.add(textField_2);
+		textApellido = new JTextField();
+		textApellido.setColumns(10);
+		textApellido.setBounds(125, 140, 121, 20);
+		contentPane.add(textApellido);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(100, 170, 121, 20);
-		contentPane.add(textField_3);
+		JButton btnAceptar = new JButton("ACEPTAR");
+		btnAceptar.setBackground(new Color(255, 255, 255));
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+		//		if(metodo){
+		//			lblErrorDNI.setVisible(true);
+		//		}
+				if (String.valueOf(textDNI.getText()).equals("") || String.valueOf(textNombre.getText()).equals("") || String.valueOf(textApellido.getText()).equals("") || String.valueOf(textContrasenya.getPassword()).equals("") || comboBoxSexo.getSelectedItem().toString().equals("")){
+					lblErrorVacio.setVisible(true);
+				}else {
+					vent = new Ticket();
+					vent.setVisible(true);
+				}
+			}
+		});
+		btnAceptar.setBounds(299, 227, 89, 23);
+		contentPane.add(btnAceptar);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(100, 201, 121, 20);
-		contentPane.add(textField_4);
+		comboBoxSexo = new JComboBox<String>();
+		comboBoxSexo.setModel(new DefaultComboBoxModel<String>(new String[] {"", "H", "M"}));
+		comboBoxSexo.setBounds(125, 169, 121, 22);
+		contentPane.add(comboBoxSexo);
 		
-		JButton btnNewButton = new JButton("ACEPTAR");
-		btnNewButton.setBounds(299, 227, 89, 23);
-		contentPane.add(btnNewButton);
+		textContrasenya = new JPasswordField();
+		textContrasenya.setBounds(125, 201, 121, 20);
+		contentPane.add(textContrasenya);
+		
+		lblErrorDNI = new JLabel("*DNI incorrecto");
+		lblErrorDNI.setForeground(new Color(255, 0, 0));
+		lblErrorDNI.setBounds(283, 74, 141, 14);
+		contentPane.add(lblErrorDNI);
+		lblErrorDNI.setVisible(false);
+		
+		lblErrorVacio = new JLabel("*Alguno de los campos esta vacio");
+		lblErrorVacio.setForeground(new Color(255, 0, 0));
+		lblErrorVacio.setBounds(26, 236, 220, 14);
+		contentPane.add(lblErrorVacio);
+		lblErrorVacio.setVisible(false);
 	}
-
 }
