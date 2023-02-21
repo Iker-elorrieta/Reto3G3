@@ -1,12 +1,14 @@
 package Vista;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Controlador.Metodos;
+import Modelo.Cine;
 import Modelo.Cliente;
+import Modelo.Entrada;
+import Modelo.Pelicula;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -15,9 +17,10 @@ import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 
-public class LogIn extends JFrame {
+public class LogIn extends JFrame implements ActionListener{
 
 	/**
 	 * 
@@ -37,6 +40,23 @@ public class LogIn extends JFrame {
 	Ticket vent;
 	SingIn vent2;
 	BienvenidaCines vent3;
+	int nCliente = 0;//-1
+	Metodos mts = new Metodos();
+	
+	//variables actionListener
+	Cine[] arrayCinesAL;
+	Pelicula pelAL;
+	Cliente[] arrayClientesAL;
+	Entrada[] arrayEntradasAL;
+	int opcionCineAL;
+	Pelicula[] nombresPelisCineAL;
+	int opcionPeliAL;
+	Date selectedDateAL;
+	int opcionSesionAL;
+	int rAL;
+	int[] resumenSalAL;
+	int[] resumenSesAL;
+	int[] resumenCinAL;
 
 	
 	/**
@@ -57,8 +77,37 @@ public class LogIn extends JFrame {
 */
 	/**
 	 * Create the frame.
+	 * @param resumenCin 
+	 * @param resumenSes 
+	 * @param resumenSal 
+	 * @param r 
+	 * @param opcionSesion 
+	 * @param selectedDate 
+	 * @param opcionPeli 
+	 * @param nombresPelisCine 
+	 * @param opcionCine2 
+	 * @param arrayEntradas2 
+	 * @param pel2 
+	 * @param arrayCines2 
 	 */
-	public LogIn(Cliente[] arrrydeClientes) {
+	public LogIn(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, int opcionCine, Pelicula[] nombresPelisCine, int opcionPeli, Date selectedDate, int opcionSesion, int r, int[] resumenSal, int[] resumenSes, int[] resumenCin) {
+		
+		arrayCinesAL = arrayCines;
+		pelAL = pel;
+		arrayClientesAL = arrayClientes;
+		arrayEntradasAL = arrayEntradas;
+		opcionCineAL = opcionCine;
+		nombresPelisCineAL = nombresPelisCine;
+		opcionPeliAL = opcionPeli;
+		selectedDateAL = selectedDate;
+		opcionSesionAL = opcionSesion;
+		rAL = r;
+		resumenSalAL = resumenSal;
+		resumenSesAL = resumenSes;
+		resumenCinAL = resumenCin;
+		
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -87,42 +136,19 @@ public class LogIn extends JFrame {
 		
 		btnAceptar = new JButton("ACEPTAR");
 		btnAceptar.setBackground(new Color(255, 255, 255));
-		btnAceptar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			for(int i=0; i<arrrydeClientes.length; i++) {	
-				if (String.valueOf(txtDNI.getText()).equals(arrrydeClientes[i].getDni())){
-					if (String.valueOf(txtContrasenya.getPassword()).equals(arrrydeClientes[i].getContrasena())){
-						vent = new Ticket();
-						vent.setVisible(true);
-					}
-				}else {
-					lblError.setVisible(true);
-				}
-			}
-			}
-		});
+		btnAceptar.addActionListener((ActionListener) this);
 		btnAceptar.setBounds(335, 227, 89, 23);
 		contentPane.add(btnAceptar);
 		
 		btnCrearusuario = new JButton("Crear un usuario");
-		btnCrearusuario.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				vent2 = new SingIn();
-				vent2.setVisible(true);
-			}
-		});
+		btnCrearusuario.addActionListener((ActionListener) this);
 		btnCrearusuario.setBackground(new Color(192, 192, 192));
 		btnCrearusuario.setForeground(new Color(0, 0, 0));
 		btnCrearusuario.setBounds(14, 227, 151, 23);
 		contentPane.add(btnCrearusuario);
 		
 		btnVolverInicio = new JButton("Volver al Inicio");
-		btnVolverInicio.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				vent3 = new BienvenidaCines(null, null, null, null, 0, null, 0, null, 0, 0, null, null, null);
-				vent3.setVisible(true);
-			}
-		});
+		btnVolverInicio.addActionListener((ActionListener) this);
 		btnVolverInicio.setBackground(new Color(192, 192, 192));
 		btnVolverInicio.setBounds(175, 227, 150, 23);
 		contentPane.add(btnVolverInicio);
@@ -137,4 +163,35 @@ public class LogIn extends JFrame {
 		txtContrasenya.setBounds(126, 103, 121, 20);
 		contentPane.add(txtContrasenya);
 	}
+	
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==btnAceptar) {
+			for(int i=0; i<arrayClientesAL.length; i++) {	
+				if (String.valueOf(txtDNI.getText()).equals(arrayClientesAL[i].getDni())){
+					if (String.valueOf(txtContrasenya.getPassword()).equals(arrayClientesAL[i].getContrasena())){
+//						nCliente = mts.reescribirArrayInts(nCliente);
+						nCliente = i;
+						lblError.setVisible(false);
+						this.dispose();
+						vent = new Ticket(arrayCinesAL, pelAL, arrayClientesAL, arrayEntradasAL, opcionCineAL, nombresPelisCineAL, opcionPeliAL, selectedDateAL, opcionSesionAL, rAL, resumenSalAL, resumenSesAL, resumenCinAL, nCliente);
+						vent.setVisible(true);
+					}
+				}else {
+					lblError.setVisible(true);
+				}
+			}
+		}
+		if(e.getSource()==btnCrearusuario) {
+			this.dispose();
+			vent2 = new SingIn(arrayCinesAL, pelAL, arrayClientesAL, arrayEntradasAL, opcionCineAL, nombresPelisCineAL, opcionPeliAL, selectedDateAL, opcionSesionAL, rAL, resumenSalAL, resumenSesAL, resumenCinAL, 0);
+			vent2.setVisible(true);
+		}
+		if(e.getSource()==btnVolverInicio) {
+			this.dispose();
+			vent3 = new BienvenidaCines(null, null, null, null, 0, null, 0, null, 0, rAL, resumenSalAL, resumenSesAL, resumenCinAL);
+			vent3.setVisible(true);
+		}
+		
+		}
+	
 }

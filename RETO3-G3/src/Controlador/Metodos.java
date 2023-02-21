@@ -1,18 +1,13 @@
 package Controlador;
 
-import java.awt.Container;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
-import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
 
 import com.mysql.jdbc.Connection;
@@ -183,14 +178,14 @@ public class Metodos {
 			if(eleccionTodasPelis[x]!=null) {
 				nombresPelisCine = reescribirArrayPeliculas(nombresPelisCine);
 				nombresPelisCine[posNombre]=eleccionTodasPelis[x];
-				System.out.println(eleccionTodasPelis[x]);
+				//System.out.println(eleccionTodasPelis[x]);
 				posNombre++;
 			}
 			
 	    } 
 
 		//array de todas las pelis del cine sin repetir peliculas
-		System.out.println("***Pelis cine "+opcionCine+" (sin repes)***");
+		//System.out.println("***Pelis cine "+opcionCine+" (sin repes)***");
 		
 		return nombresPelisCine;
 	}
@@ -198,8 +193,8 @@ public class Metodos {
 	String[] hora;
 	
 	public String[] mostrarSesiones(Cine[] arrayCines, int opcionCine, int[] nSala, int[] nSesion) {
-		DateFormat dt = new SimpleDateFormat("dd-MM-yyyy");
-		DateFormat dt2 = new SimpleDateFormat("hh:mm");
+//		DateFormat dt = new SimpleDateFormat("dd-MM-yyyy");
+//		DateFormat dt2 = new SimpleDateFormat("hh:mm");
 		
 		
 		

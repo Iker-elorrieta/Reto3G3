@@ -1,7 +1,5 @@
 package Vista;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -17,7 +15,6 @@ import Modelo.Pelicula;
 
 import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JTextArea;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
@@ -25,16 +22,39 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 
-public class Resumen extends JFrame {
+public class Resumen extends JFrame implements ActionListener{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	String[] sesion;
 	Metodos mts = new Metodos();
 	int[] nSala;
 	int[] nSesion;
 	LogIn vent;
+	BienvenidaCines vent2;
 	private JTable table;
+	JButton btnNewButton_1;
+	JButton btnNewButton;
 
+	//variables ActionListener
+	Cine[] arrayCines2AL;
+	Pelicula pel2AL;
+	Cliente[] arrayClientes2AL;
+	Entrada[] arrayEntradas2AL;
+	int opcionCine2AL;
+	Pelicula[] nombresPelisCineAL;
+	int opcionPeliAL;
+	Date selectedDateAL;
+	int opcionSesionAL;
+	int rAL;
+	int[] resumenSalAL;
+	int[] resumenSesAL;
+	int[] resumenCinAL;
+	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -57,6 +77,23 @@ public class Resumen extends JFrame {
 	 * @param resumenCin 
 	 */
 	public Resumen(Cine[] arrayCines2, Pelicula pel2, Cliente[] arrayClientes2, Entrada[] arrayEntradas2, int opcionCine2, Pelicula[] nombresPelisCine, int opcionPeli, Date selectedDate, int opcionSesion, int r, int[] resumenSal, int[] resumenSes, int[] resumenCin) {
+		
+		
+		arrayCines2AL = arrayCines2;
+		pel2AL = pel2;
+		arrayClientes2AL = arrayClientes2;
+		arrayEntradas2AL = arrayEntradas2;
+		opcionCine2AL = opcionCine2;
+		nombresPelisCineAL = nombresPelisCine;
+		opcionPeliAL = opcionPeli;
+		selectedDateAL = selectedDate;
+		opcionSesionAL = opcionSesion;
+		rAL = r;
+		resumenSalAL = resumenSal;
+		resumenSesAL = resumenSes;
+		resumenCinAL = resumenCin;
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -123,18 +160,29 @@ public class Resumen extends JFrame {
 //			textArea.append(""+sesion[opcionSesion]+"\n");
 //		}
 		
-		JButton btnNewButton_1 = new JButton("Comprar");
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				vent = new LogIn(arrayClientes2);
-				vent.setVisible(true);
-			}
-		});
+		btnNewButton_1 = new JButton("Comprar");
+		btnNewButton_1.addActionListener((ActionListener) this);
 		btnNewButton_1.setBounds(286, 234, 119, 23);
 		contentPane.add(btnNewButton_1);
 		
-		JButton btnNewButton = new JButton("Volver al inicio");
+		btnNewButton = new JButton("Volver al inicio");
+		btnNewButton.addActionListener((ActionListener) this);
 		btnNewButton.setBounds(22, 234, 127, 23);
 		contentPane.add(btnNewButton);
 	}
+	
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==btnNewButton_1) {
+			this.dispose();
+			vent = new LogIn(arrayCines2AL, pel2AL, arrayClientes2AL, arrayEntradas2AL, opcionCine2AL, nombresPelisCineAL, opcionPeliAL, selectedDateAL, opcionSesionAL, rAL, resumenSalAL, resumenSesAL, resumenCinAL);
+			vent.setVisible(true);
+		}
+		if(e.getSource()==btnNewButton) {
+			this.dispose();
+			vent2 = new BienvenidaCines(null, null, null, null, 0, null, 0, null, 0, rAL, resumenSalAL, resumenSesAL, resumenCinAL);
+			vent2.setVisible(true);
+		}
+		
+	}
+	
 }

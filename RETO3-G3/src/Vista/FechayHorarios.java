@@ -14,16 +14,10 @@ import Modelo.Cliente;
 import Modelo.DateLabelFormatter;
 import Modelo.Entrada;
 import Modelo.Pelicula;
-import Modelo.Sala;
-import Modelo.Sesion;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
 import java.awt.event.ActionEvent;
@@ -31,7 +25,7 @@ import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import java.awt.Color;
 
-public class FechayHorarios extends JFrame {
+public class FechayHorarios extends JFrame implements ActionListener{
 
 	/**
 	 * 
@@ -59,6 +53,8 @@ public class FechayHorarios extends JFrame {
 	int[] nSala;
 	int[] nSesion;
 	int cambioDia;
+	JButton btnNewButton;
+	JButton btnNewButton_2;
 	
 	int contR;
 	JRadioButton[] arraybotones;
@@ -70,6 +66,14 @@ public class FechayHorarios extends JFrame {
 	int[] resumenSes2;
 	int[] resumenCin2;
 	
+	//variables actionLisenes
+	Cine[] arrayCinesAL;
+	Pelicula pelAL;
+	Cliente[] arrayClientesAL;
+	Entrada[] arrayEntradasAL;
+	int opcionCineAL;
+	Pelicula[] nombresPelisCineAL;
+	int opcionPeliAL;
 	
 	
 	/**
@@ -128,14 +132,25 @@ public class FechayHorarios extends JFrame {
 	 */
 	public FechayHorarios(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, int opcionCine, Pelicula[] nombresPelisCine, int opcionPeli, int r, int[] resumenSal, int[] resumenSes, int[] resumenCin) {
 	
+		arrayCinesAL = arrayCines;
+		pelAL = pel;
+		arrayClientesAL = arrayClientes;
+		arrayEntradasAL= arrayEntradas;
+		opcionCineAL = opcionCine;
+		nombresPelisCineAL = nombresPelisCine;
+		opcionPeliAL = opcionPeli;
+		
+		
+		
+		
 		r2=r;
 		resumenSal2 = resumenSal;
 		resumenSes2 = resumenSes;
 		resumenCin2 = resumenCin;
 		
 		
-		DateFormat dt = new SimpleDateFormat("dd-MM-yyyy");
-		DateFormat bd = new SimpleDateFormat("yyyy-MM-dd");
+		//DateFormat dt = new SimpleDateFormat("dd-MM-yyyy");
+		//DateFormat bd = new SimpleDateFormat("yyyy-MM-dd");
 	
 
 		
@@ -167,61 +182,9 @@ public class FechayHorarios extends JFrame {
 		
 		
 		
-		JButton btnNewButton = new JButton("ACEPTAR");
+		btnNewButton = new JButton("ACEPTAR");
 		btnNewButton.setBackground(new Color(255, 255, 255));
-		btnNewButton.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				if(cambioDia>0) {
-					
-					for(int h=0;h<arraybotones.length;h++) {
-						if(arraybotones[h].isSelected()) {
-							opcionSesion= h;
-						}
-					}
-					
-				
-				Date selectedDate = (Date) datePicker.getModel().getValue();
-				System.out.println(selectedDate);
-			//	String selectedDateDT = dt.format(String.valueOf(selectedDate));
-				System.out.println(selectedDate);
-				
-				boolean seleccion=false;
-				for(int b=0; b<arraybotones.length;b++) {
-	
-				if(arraybotones[b].isSelected()) {
-					seleccion=true;
-					lblNewLabel_1.setVisible(false);
-					
-					JOptionPane.showMessageDialog(null, "Sesion seleccionada correctamente");
-					
-					
-					
-					resumenSal2 = mts.reescribirArrayInts(resumenSal2);
-					resumenSal2[r2] = nSala[opcionSesion];
-					resumenSes2 = mts.reescribirArrayInts(resumenSes2);
-					resumenSes2[r2] = nSesion[opcionSesion];
-					resumenCin2 = mts.reescribirArrayInts(resumenCin2);
-					resumenCin2[r2] = opcionCine;
-					r2++;
-						vent = new BienvenidaCines(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine, nombresPelisCine, opcionPeli, selectedDate, opcionSesion, r2, resumenSal2, resumenSes2, resumenCin2);
-						
-							//vent = new BienvenidaCines();
-						
-						
-					
-					vent.setVisible(true);
-						
-				}
-				else if(seleccion==false){
-					lblNewLabel_1.setVisible(true);
-					}
-				}
-			}else {
-				lblNewLabel_1.setVisible(true);
-			}
-			}
-		});
+		btnNewButton.addActionListener((ActionListener) this);
 		btnNewButton.setBounds(324, 227, 89, 23);
 		contentPane.add(btnNewButton);
 		
@@ -238,8 +201,8 @@ public class FechayHorarios extends JFrame {
 				}
 				
 				Date selectedDate = (Date) datePicker.getModel().getValue();
-				System.out.println("**selected date**");
-				System.out.println(bd.format(selectedDate));
+//				System.out.println("**selected date**");
+//				System.out.println(bd.format(selectedDate));
 				
 				//sacar numero de sala y de sesion de la pelicula elegida
 				//no se puede poner en metodos porque tendria que devolber dos cosas y porque tambien se usa para poner un label si las peliculas no son correctas o hacer el label invisible si si lo son 
@@ -274,9 +237,9 @@ public class FechayHorarios extends JFrame {
 			            button1.addActionListener(new ActionListener() {
 			                @Override
 			                public void actionPerformed(ActionEvent e) {
-			                    System.err.println("Action Performed..************");
-			                    System.out.println("This is action text.."+button1.getText()); 
-			                    System.out.println("tool tip text"+button1.getToolTipText());
+//			                    System.err.println("Action Performed..************");
+//			                    System.out.println("This is action text.."+button1.getText()); 
+//			                    System.out.println("tool tip text"+button1.getToolTipText());
 			                }
 			            });
 			            button1.setBounds(37, 31+contR, 420, 23);
@@ -306,23 +269,9 @@ public class FechayHorarios extends JFrame {
 		btnNewButton_1.setBounds(302, 11, 100, 23);
 		contentPane.add(btnNewButton_1);
 		
-		JButton btnNewButton_2 = new JButton("Volver al inicio");
+		btnNewButton_2 = new JButton("Volver al inicio");
 		btnNewButton_2.setBackground(new Color(255, 255, 255));
-		btnNewButton_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-					
-					vent = new BienvenidaCines(null, null, null, null, 0, null, 0, null, 0, r, resumenSal, resumenSes, resumenCin);
-					
-						
-							//vent = new BienvenidaCines();
-						
-				
-				vent.setVisible(true);
-				
-				
-			}
-		});
+		btnNewButton_2.addActionListener((ActionListener) this);
 		btnNewButton_2.setBounds(177, 227, 137, 23);
 		contentPane.add(btnNewButton_2);
 		
@@ -338,4 +287,69 @@ public class FechayHorarios extends JFrame {
 		contentPane.add(lblNewLabel_2);
 		lblNewLabel_2.setVisible(false);
 	}
+	
+	public void actionPerformed(ActionEvent e) {
+if(e.getSource()==btnNewButton) {
+
+		if(cambioDia>0) {
+			
+			for(int h=0;h<arraybotones.length;h++) {
+				if(arraybotones[h].isSelected()) {
+					opcionSesion= h;
+				}
+			}
+			
+		
+		Date selectedDate = (Date) datePicker.getModel().getValue();
+//		System.out.println(selectedDate);
+//		String selectedDateDT = dt.format(String.valueOf(selectedDate));
+//		System.out.println(selectedDate);
+		
+		boolean seleccion=false;
+		for(int b=0; b<arraybotones.length;b++) {
+
+		if(arraybotones[b].isSelected()) {
+			seleccion=true;
+			lblNewLabel_1.setVisible(false);
+			
+			JOptionPane.showMessageDialog(null, "Sesion seleccionada correctamente");
+			
+			
+			
+			resumenSal2 = mts.reescribirArrayInts(resumenSal2);
+			resumenSal2[r2] = nSala[opcionSesion];
+			resumenSes2 = mts.reescribirArrayInts(resumenSes2);
+			resumenSes2[r2] = nSesion[opcionSesion];
+			resumenCin2 = mts.reescribirArrayInts(resumenCin2);
+			resumenCin2[r2] = opcionCineAL;
+			r2++;
+			
+			this.dispose();
+				vent = new BienvenidaCines(arrayCinesAL, pelAL, arrayClientesAL, arrayEntradasAL, opcionCineAL, nombresPelisCineAL, opcionPeliAL, selectedDate, opcionSesion, r2, resumenSal2, resumenSes2, resumenCin2);
+				
+					//vent = new BienvenidaCines();
+				
+				
+			
+			vent.setVisible(true);
+				
+		}
+		else if(seleccion==false){
+			lblNewLabel_1.setVisible(true);
+			}
+		}
+	}else {
+		lblNewLabel_1.setVisible(true);
+	}
+
+	}
+if(e.getSource()==btnNewButton_2) {
+	this.dispose();
+	vent = new BienvenidaCines(null, null, null, null, 0, null, 0, null, 0, r2, resumenSal2, resumenSes2, resumenCin2);
+	//vent = new BienvenidaCines();
+	vent.setVisible(true);
+
+}
+	}
+	
 }
