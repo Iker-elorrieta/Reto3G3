@@ -1,7 +1,5 @@
 package Vista;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -17,7 +15,6 @@ import Modelo.Pelicula;
 
 import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JTextArea;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
@@ -27,6 +24,10 @@ import java.awt.event.ActionEvent;
 
 public class Resumen extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	String[] sesion;
 	Metodos mts = new Metodos();
@@ -126,7 +127,7 @@ public class Resumen extends JFrame {
 		JButton btnNewButton_1 = new JButton("Comprar");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				vent = new LogIn(arrayClientes2);
+				vent = new LogIn(arrayCines2, pel2, arrayClientes2, arrayEntradas2, opcionCine2, nombresPelisCine, opcionPeli, selectedDate, opcionSesion, r, resumenSal, resumenSes, resumenCin);
 				vent.setVisible(true);
 			}
 		});

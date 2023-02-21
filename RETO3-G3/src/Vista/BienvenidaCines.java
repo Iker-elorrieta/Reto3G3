@@ -70,6 +70,12 @@ public class BienvenidaCines extends JFrame implements ActionListener {
 	
 	JRadioButton button1;
 	JRadioButton[] arraybotones;
+	
+	//variables action lisener o event..
+	int rAL;
+	int[] resumenSalAL;
+	int[] resumenSesAL;
+	int[] resumenCinAL;
 
 	/**
 	 * Launch the application.
@@ -117,15 +123,15 @@ public class BienvenidaCines extends JFrame implements ActionListener {
 	 */
 	public BienvenidaCines(Cine[] arrayCines2, Pelicula pel2, Cliente[] arrayClientes2, Entrada[] arrayEntradas2, int opcionCine2, Pelicula[] nombresPelisCine, int opcionPeli, Date selectedDate, int opcionSesion, int r, int[] resumenSal, int[] resumenSes, int[] resumenCin) {
 //hay que hacer una array de sisiones y que si x valor es null no te lo sume (al volver es todo null)
-		
+		rAL = r;
+		resumenSalAL = resumenSal;
+		resumenSesAL = resumenSes;
+		resumenCinAL = resumenCin;
 		
 		arrayCines = mts.mostrarCines();
 		arrayClientes = mts.selectArrayClientes();
 		arrayEntradas = mts.selectArrayEntradas();
 		
-				
-		System.out.println(arrayCines[0].getArraySalas()[0].getArraySesiones()[0].getxPelicula().getNombre());
-		System.out.println(arrayCines[0].getArraySalas()[1].getArraySesiones()[0].getxPelicula().getNombre());
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -146,9 +152,9 @@ public class BienvenidaCines extends JFrame implements ActionListener {
 		            button1.addActionListener(new ActionListener() {
 		                @Override
 		                public void actionPerformed(ActionEvent e) {
-		                    System.err.println("Action Performed..************");
-		                    System.out.println("This is action text.."+button1.getText()); 
-		                    System.out.println("tool tip text"+button1.getToolTipText());
+//		                    System.err.println("Action Performed..************");
+//		                    System.out.println("This is action text.."+button1.getText()); 
+//		                    System.out.println("tool tip text"+button1.getToolTipText());
 		                }
 		            });
 		            button1.setBounds(37, 31+contR, 227, 23);
@@ -171,26 +177,7 @@ public class BienvenidaCines extends JFrame implements ActionListener {
 		
 		btnNewButton = new JButton("ACEPTAR");
 		btnNewButton.setBackground(new Color(255, 255, 255));
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				for(int h=0;h<arraybotones.length;h++) {
-					if(arraybotones[h].isSelected()) {
-						opcionCine= h;
-					}
-				}
-
-				if(opcionCine==-1) {
-				
-				lblNewLabel_1.setVisible(true);
-				}else {
-					//cerrar this ventana
-					vent = new SeleccionPeliculas(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine, r, resumenSal, resumenSes, resumenCin);
-				vent.setVisible(true);
-				}
-			}
-		});
-		
-		
+		btnNewButton.addActionListener((ActionListener)this);
 		btnNewButton.setBounds(328, 227, 89, 23);
 		contentPane.add(btnNewButton);
 		
@@ -236,10 +223,22 @@ public class BienvenidaCines extends JFrame implements ActionListener {
 		
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		for(int h=0;h<arraybotones.length;h++) {
+			if(arraybotones[h].isSelected()) {
+				opcionCine= h;
+			}
+		}
+
+		if(opcionCine==-1) {
 		
+		lblNewLabel_1.setVisible(true);
+		}else {
+			//cerrar this ventana
+			this.dispose();
+			vent = new SeleccionPeliculas(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine, rAL, resumenSalAL, resumenSesAL, resumenCinAL);
+		vent.setVisible(true);
+		}
 	}
 
 	

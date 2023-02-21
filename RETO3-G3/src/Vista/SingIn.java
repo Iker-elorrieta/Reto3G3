@@ -9,7 +9,6 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPasswordField;
@@ -111,7 +110,7 @@ public class SingIn extends JFrame {
 				if (String.valueOf(textDNI.getText()).equals("") || String.valueOf(textNombre.getText()).equals("") || String.valueOf(textApellido.getText()).equals("") || String.valueOf(textContrasenya.getPassword()).equals("") || comboBoxSexo.getSelectedItem().toString().equals("")){
 					lblErrorVacio.setVisible(true);
 				}else {
-					vent = new Ticket();
+					vent = new Ticket(null, null, null, null, 0, null, 0, null, 0, 0, null, null, null, 0);
 					vent.setVisible(true);
 				}
 			}

@@ -178,14 +178,14 @@ public class Metodos {
 			if(eleccionTodasPelis[x]!=null) {
 				nombresPelisCine = reescribirArrayPeliculas(nombresPelisCine);
 				nombresPelisCine[posNombre]=eleccionTodasPelis[x];
-				System.out.println(eleccionTodasPelis[x]);
+				//System.out.println(eleccionTodasPelis[x]);
 				posNombre++;
 			}
 			
 	    } 
 
 		//array de todas las pelis del cine sin repetir peliculas
-		System.out.println("***Pelis cine "+opcionCine+" (sin repes)***");
+		//System.out.println("***Pelis cine "+opcionCine+" (sin repes)***");
 		
 		return nombresPelisCine;
 	}

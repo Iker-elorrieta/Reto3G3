@@ -18,7 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
-public class SeleccionPeliculas extends JFrame {
+public class SeleccionPeliculas extends JFrame implements ActionListener{
 
 	/**
 	 * 
@@ -39,11 +39,24 @@ public class SeleccionPeliculas extends JFrame {
 	Pelicula[] nombresPelisCine;
 	int[] nSala;
 	int[] nSesion;
+	JButton btnNewButton;
+	JButton btnNewButton_1;
 	
+	//botones
 	int contR;
 	JRadioButton[] arraybotones;
 	JRadioButton button1;
 	
+	//variables para el actionEvent
+	Cine[] arrayCinesAE;
+	Pelicula pelAE;
+	Cliente[] arrayClientesAE;
+	Entrada[] arrayEntradasAE;
+	int opcionCineAE;
+	int rAE;
+	int[] resumenSalAE; 
+	int[] resumenSesAE; 
+	int[] resumenCinAE;
 
 	/**
 	 * Launch the application.
@@ -79,7 +92,15 @@ public class SeleccionPeliculas extends JFrame {
 	 * @param horaPelis 
 	 */
 	public SeleccionPeliculas(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, int opcionCine, int r, int[] resumenSal, int[] resumenSes, int[] resumenCin) {
-		
+		arrayCinesAE=arrayCines;
+		pelAE=pel;
+		arrayClientesAE=arrayClientes;
+		arrayEntradasAE=arrayEntradas;
+		opcionCineAE = opcionCine;
+		rAE = r;
+		resumenSalAE = resumenSal;
+		resumenSesAE= resumenSes;
+		resumenCinAE = resumenCin;
 		
 			nombresPelisCine = mts.mostrarPeliculas(arrayCines, opcionCine);
 		
@@ -109,9 +130,9 @@ public class SeleccionPeliculas extends JFrame {
             button1.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    System.err.println("Action Performed..************");
-                    System.out.println("This is action text.."+button1.getText()); 
-                    System.out.println("tool tip text"+button1.getToolTipText());
+//                    System.err.println("Action Performed..************");
+//                    System.out.println("This is action text.."+button1.getText()); 
+//                    System.out.println("tool tip text"+button1.getToolTipText());
                 }
             });
             button1.setBounds(37, 31+contR, 227, 23);
@@ -123,43 +144,15 @@ public class SeleccionPeliculas extends JFrame {
 		
 		
 		
-		JButton btnNewButton = new JButton("ACEPTAR");
+		btnNewButton = new JButton("ACEPTAR");
 		btnNewButton.setBackground(new Color(255, 255, 255));
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				for(int h=0;h<arraybotones.length;h++) {
-					if(arraybotones[h].isSelected()) {
-						opcionPeli= h;
-					}
-				}
-				
-				
-				if(opcionPeli==-1) {
-				
-				lblNewLabel_1.setVisible(true);
-				}else {
-					
-					vent = new FechayHorarios(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine, nombresPelisCine, opcionPeli, r, resumenSal, resumenSes, resumenCin);
-				vent.setVisible(true);
-				}
-				
-			}
-		});
+		btnNewButton.addActionListener((ActionListener) this);
 		btnNewButton.setBounds(269, 227, 155, 23);
 		contentPane.add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("Volver");
+		btnNewButton_1 = new JButton("Volver");
 		btnNewButton_1.setBackground(new Color(255, 255, 255));
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				vent2 = new BienvenidaCines(null, null, null, null, 0, null, 0, null, 0, r, resumenSal, resumenSes, resumenCin);
-				
-				vent2.setVisible(true);
-				
-				
-			}
-		});
+		btnNewButton_1.addActionListener((ActionListener)this);
 		btnNewButton_1.setBounds(170, 227, 89, 23);
 		contentPane.add(btnNewButton_1);
 		
@@ -173,7 +166,34 @@ public class SeleccionPeliculas extends JFrame {
 		
 	}
 
-	
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==btnNewButton) {
+			
+		
+		for(int h=0;h<arraybotones.length;h++) {
+			if(arraybotones[h].isSelected()) {
+				opcionPeli= h;
+			}
+		}
+		
+		
+		if(opcionPeli==-1) {
+		
+		lblNewLabel_1.setVisible(true);
+		}else {
+			this.dispose();
+			vent = new FechayHorarios(arrayCinesAE, pelAE, arrayClientesAE, arrayEntradasAE, opcionCineAE, nombresPelisCine, opcionPeli, rAE, resumenSalAE, resumenSesAE, resumenCinAE);
+		vent.setVisible(true);
+		}
+	}
+		
+		if(e.getSource()==btnNewButton_1) {
+		this.dispose();
+		vent2 = new BienvenidaCines(null, null, null, null, 0, null, 0, null, 0, rAE, resumenSalAE, resumenSesAE, resumenCinAE);
+		vent2.setVisible(true);
+	}
+		
+	}
 	
 	
 }

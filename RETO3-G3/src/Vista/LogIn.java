@@ -1,12 +1,14 @@
 package Vista;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Controlador.Metodos;
+import Modelo.Cine;
 import Modelo.Cliente;
+import Modelo.Entrada;
+import Modelo.Pelicula;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -15,6 +17,7 @@ import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 
 public class LogIn extends JFrame {
@@ -37,6 +40,8 @@ public class LogIn extends JFrame {
 	Ticket vent;
 	SingIn vent2;
 	BienvenidaCines vent3;
+	int nCliente = -1;
+	Metodos mts = new Metodos();
 
 	
 	/**
@@ -57,8 +62,20 @@ public class LogIn extends JFrame {
 */
 	/**
 	 * Create the frame.
+	 * @param resumenCin 
+	 * @param resumenSes 
+	 * @param resumenSal 
+	 * @param r 
+	 * @param opcionSesion 
+	 * @param selectedDate 
+	 * @param opcionPeli 
+	 * @param nombresPelisCine 
+	 * @param opcionCine2 
+	 * @param arrayEntradas2 
+	 * @param pel2 
+	 * @param arrayCines2 
 	 */
-	public LogIn(Cliente[] arrrydeClientes) {
+	public LogIn(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, int opcionCine, Pelicula[] nombresPelisCine, int opcionPeli, Date selectedDate, int opcionSesion, int r, int[] resumenSal, int[] resumenSes, int[] resumenCin) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -89,10 +106,13 @@ public class LogIn extends JFrame {
 		btnAceptar.setBackground(new Color(255, 255, 255));
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			for(int i=0; i<arrrydeClientes.length; i++) {	
-				if (String.valueOf(txtDNI.getText()).equals(arrrydeClientes[i].getDni())){
-					if (String.valueOf(txtContrasenya.getPassword()).equals(arrrydeClientes[i].getContrasena())){
-						vent = new Ticket();
+			for(int i=0; i<arrayClientes.length; i++) {	
+				if (String.valueOf(txtDNI.getText()).equals(arrayClientes[i].getDni())){
+					if (String.valueOf(txtContrasenya.getPassword()).equals(arrayClientes[i].getContrasena())){
+//						nCliente = mts.reescribirArrayInts(nCliente);
+						nCliente = i;
+						lblError.setVisible(false);
+						vent = new Ticket(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine, nombresPelisCine, opcionPeli, selectedDate, opcionSesion, r, resumenSal, resumenSes, resumenCin, nCliente);
 						vent.setVisible(true);
 					}
 				}else {
