@@ -119,7 +119,7 @@ public class LogIn extends JFrame {
 		btnVolverInicio = new JButton("Volver al Inicio");
 		btnVolverInicio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				vent3 = new BienvenidaCines(null, null, null, null, 0, null, 0, null, 0);
+				vent3 = new BienvenidaCines(null, null, null, null, 0, null, 0, null, 0, 0, null, null, null);
 				vent3.setVisible(true);
 			}
 		});

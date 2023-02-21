@@ -116,9 +116,15 @@ public class BienvenidaCines extends JFrame implements ActionListener {
 	 * @param arrayCines2 
 	 * @param selectedDate 
 	 * @param opcionSesion 
+	 * @param resumenSes 
+	 * @param resumenSal 
+	 * @param resumenSes 
+	 * @param resumenSal 
+	 * @param r 
+	 * @param resumenCin 
 	 * @throws SQLException 
 	 */
-	public BienvenidaCines(Cine[] arrayCines2, Pelicula pel2, Cliente[] arrayClientes2, Entrada[] arrayEntradas2, int opcionCine2, Pelicula[] nombresPelisCine, int opcionPeli, Date selectedDate, int opcionSesion) {
+	public BienvenidaCines(Cine[] arrayCines2, Pelicula pel2, Cliente[] arrayClientes2, Entrada[] arrayEntradas2, int opcionCine2, Pelicula[] nombresPelisCine, int opcionPeli, Date selectedDate, int opcionSesion, int r, int[] resumenSal, int[] resumenSes, int[] resumenCin) {
 //hay que hacer una array de sisiones y que si x valor es null no te lo sume (al volver es todo null)
 		
 		
@@ -174,7 +180,24 @@ public class BienvenidaCines extends JFrame implements ActionListener {
 		
 		btnNewButton = new JButton("ACEPTAR");
 		btnNewButton.setBackground(new Color(255, 255, 255));
-		btnNewButton.addActionListener(this);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				for(int h=0;h<arraybotones.length;h++) {
+					if(arraybotones[h].isSelected()) {
+						opcionCine= h;
+					}
+				}
+
+				if(opcionCine==-1) {
+				
+				lblNewLabel_1.setVisible(true);
+				}else {
+					//cerrar this ventana
+					vent = new SeleccionPeliculas(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine, r, resumenSal, resumenSes, resumenCin);
+				vent.setVisible(true);
+				}
+			}
+		});
 		
 		
 		btnNewButton.setBounds(328, 227, 89, 23);
@@ -193,7 +216,12 @@ public class BienvenidaCines extends JFrame implements ActionListener {
 				if(arrayCines2 == null) {
 					System.exit(0);
 				}else {
-					vent2 = new Resumen(arrayCines2, pel2, arrayClientes2, arrayEntradas2, opcionCine2, nombresPelisCine, opcionPeli, selectedDate, opcionSesion);
+//					System.out.println("**resumen nums**");
+//					for(int p=0;p<2;p++) {
+//						System.out.println(resumenSal[p]);
+//						System.out.println(resumenSes[p]);
+//					}
+					vent2 = new Resumen(arrayCines2, pel2, arrayClientes2, arrayEntradas2, opcionCine2, nombresPelisCine, opcionPeli, selectedDate, opcionSesion, r, resumenSal, resumenSes, resumenCin);
 					vent2.setVisible(true);
 				}
 
@@ -217,22 +245,12 @@ public class BienvenidaCines extends JFrame implements ActionListener {
 		
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
-		for(int h=0;h<arraybotones.length;h++) {
-			if(arraybotones[h].isSelected()) {
-				opcionCine= h;
-			}
-		}
-
-		if(opcionCine==-1) {
+		// TODO Auto-generated method stub
 		
-		lblNewLabel_1.setVisible(true);
-		}else {
-			//cerrar this ventana
-			this.dispose();
-			vent = new SeleccionPeliculas(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine);
-		vent.setVisible(true);
-		}
 	}
+
+	
 	
 }

@@ -4,14 +4,11 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.sql.SQLException;
 
 public class Bienvenida extends JFrame implements MouseListener{
 
@@ -21,6 +18,10 @@ public class Bienvenida extends JFrame implements MouseListener{
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	BienvenidaCines vent;
+	int r=0;
+	int[] resumenCin = new int[0];
+	int[] resumenSal = new int[0];
+	int[] resumenSes = new int[0];
 
 	/**
 	 * Launch the application.
@@ -70,7 +71,7 @@ public class Bienvenida extends JFrame implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		vent = new BienvenidaCines(null, null, null, null, 0, null, 0, null, 0);
+		vent = new BienvenidaCines(null, null, null, null, 0, null, 0, null, 0, r, resumenSal, resumenSes, resumenCin);
 		
 		vent.setVisible(true);
 		this.dispose();

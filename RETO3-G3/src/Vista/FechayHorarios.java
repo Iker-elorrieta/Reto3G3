@@ -65,6 +65,11 @@ public class FechayHorarios extends JFrame {
 	JRadioButton button1;
 	int opcionSesion;
 	
+	int r2;
+	int[] resumenSal2;
+	int[] resumenSes2;
+	int[] resumenCin2;
+	
 	
 	
 	/**
@@ -106,6 +111,7 @@ public class FechayHorarios extends JFrame {
 	 * @param arrayEntradas 
 	 * @param arrayClientes 
 	 * @param arrayCines 
+	 * @param resumenCin 
 	 * @param opcion2 
 	 * @param opcion 
 	 * @param horaPelis 
@@ -120,9 +126,12 @@ public class FechayHorarios extends JFrame {
 	 * @param horaPelis 
 	 * @param nombrePelis 
 	 */
-	public FechayHorarios(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, int opcionCine, Pelicula[] nombresPelisCine, int opcionPeli) {
+	public FechayHorarios(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, int opcionCine, Pelicula[] nombresPelisCine, int opcionPeli, int r, int[] resumenSal, int[] resumenSes, int[] resumenCin) {
 	
-		
+		r2=r;
+		resumenSal2 = resumenSal;
+		resumenSes2 = resumenSes;
+		resumenCin2 = resumenCin;
 		
 		
 		DateFormat dt = new SimpleDateFormat("dd-MM-yyyy");
@@ -161,6 +170,7 @@ public class FechayHorarios extends JFrame {
 		JButton btnNewButton = new JButton("ACEPTAR");
 		btnNewButton.setBackground(new Color(255, 255, 255));
 		btnNewButton.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
 				if(cambioDia>0) {
 					
@@ -182,11 +192,19 @@ public class FechayHorarios extends JFrame {
 				if(arraybotones[b].isSelected()) {
 					seleccion=true;
 					lblNewLabel_1.setVisible(false);
-
 					
 					JOptionPane.showMessageDialog(null, "Sesion seleccionada correctamente");
 					
-						vent = new BienvenidaCines(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine, nombresPelisCine, opcionPeli, selectedDate, opcionSesion);
+					
+					
+					resumenSal2 = mts.reescribirArrayInts(resumenSal2);
+					resumenSal2[r2] = nSala[opcionSesion];
+					resumenSes2 = mts.reescribirArrayInts(resumenSes2);
+					resumenSes2[r2] = nSesion[opcionSesion];
+					resumenCin2 = mts.reescribirArrayInts(resumenCin2);
+					resumenCin2[r2] = opcionCine;
+					r2++;
+						vent = new BienvenidaCines(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine, nombresPelisCine, opcionPeli, selectedDate, opcionSesion, r2, resumenSal2, resumenSes2, resumenCin2);
 						
 							//vent = new BienvenidaCines();
 						
@@ -294,7 +312,7 @@ public class FechayHorarios extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 					
-					vent = new BienvenidaCines(null, null, null, null, 0, null, 0, null, 0);
+					vent = new BienvenidaCines(null, null, null, null, 0, null, 0, null, 0, r, resumenSal, resumenSes, resumenCin);
 					
 						
 							//vent = new BienvenidaCines();

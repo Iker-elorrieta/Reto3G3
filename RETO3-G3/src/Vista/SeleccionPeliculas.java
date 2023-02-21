@@ -75,10 +75,14 @@ public class SeleccionPeliculas extends JFrame {
 	 * @param arrayClientes 
 	 * @param arrayCines 
 	 * @param opcionCine 
+	 * @param resumenSes 
+	 * @param resumenSal 
+	 * @param r 
+	 * @param resumenCin 
 	 * @param nombrePelis 
 	 * @param horaPelis 
 	 */
-	public SeleccionPeliculas(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, int opcionCine) {
+	public SeleccionPeliculas(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, int opcionCine, int r, int[] resumenSal, int[] resumenSes, int[] resumenCin) {
 		
 		
 			nombresPelisCine = mts.mostrarPeliculas(arrayCines, opcionCine);
@@ -126,7 +130,24 @@ public class SeleccionPeliculas extends JFrame {
 		JButton btnNewButton = new JButton("ACEPTAR");
 		btnNewButton.setBackground(new Color(255, 255, 255));
 		btnNewButton.addActionListener(new ActionListener() {
-	
+			public void actionPerformed(ActionEvent e) {
+				for(int h=0;h<arraybotones.length;h++) {
+					if(arraybotones[h].isSelected()) {
+						opcionPeli= h;
+					}
+				}
+				
+				
+				if(opcionPeli==-1) {
+				
+				lblNewLabel_1.setVisible(true);
+				}else {
+					
+					vent = new FechayHorarios(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine, nombresPelisCine, opcionPeli, r, resumenSal, resumenSes, resumenCin);
+				vent.setVisible(true);
+				}
+				
+			}
 		});
 		btnNewButton.setBounds(269, 227, 155, 23);
 		contentPane.add(btnNewButton);
@@ -136,7 +157,7 @@ public class SeleccionPeliculas extends JFrame {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				vent2 = new BienvenidaCines(null, null, null, null, 0, null, 0, null, 0);
+				vent2 = new BienvenidaCines(null, null, null, null, 0, null, 0, null, 0, r, resumenSal, resumenSes, resumenCin);
 				
 				vent2.setVisible(true);
 				
@@ -157,23 +178,6 @@ public class SeleccionPeliculas extends JFrame {
 	}
 
 	
-	public void actionPerformed(ActionEvent e) {
-		for(int h=0;h<arraybotones.length;h++) {
-			if(arraybotones[h].isSelected()) {
-				opcionPeli= h;
-			}
-		}
-		
-		
-		if(opcionPeli==-1) {
-		
-		lblNewLabel_1.setVisible(true);
-		}else {
-			
-			vent = new FechayHorarios(arrayCines, pel, arrayClientes, arrayEntradas, opcionCine, nombresPelisCine, opcionPeli);
-		vent.setVisible(true);
-		}
-		
-	}
+	
 	
 }
