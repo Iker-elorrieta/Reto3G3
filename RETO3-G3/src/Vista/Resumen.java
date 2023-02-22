@@ -125,8 +125,7 @@ public class Resumen extends JFrame implements ActionListener{
 		contentPane.add(scrollPane);
 		
 		String[][] datosTabla = new String[resumenSes.length][5];
-		for(int i = 0;i<resumenSes.length;i++)
-		{
+		for(int i = 0;i<resumenSes.length;i++){
 			datosTabla[i][0] = arrayCines2[resumenCin[i]].getArraySalas()[resumenSal[i]].getArraySesiones()[resumenSes[i]].getxPelicula().getNombre();
 			datosTabla[i][1] = dt.format(arrayCines2[resumenCin[i]].getArraySalas()[resumenSal[i]].getArraySesiones()[resumenSes[i]].getFecha());
 			datosTabla[i][2] = dt2.format(arrayCines2[resumenCin[i]].getArraySalas()[resumenSal[i]].getArraySesiones()[resumenSes[i]].getFecha());

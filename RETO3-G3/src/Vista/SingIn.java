@@ -37,6 +37,7 @@ public class SingIn extends JFrame implements ActionListener{
 	private JPasswordField textContrasenya;
 	Ticket vent;
 	JButton btnAceptar;
+	String[] arrayNuevoCliente = new String[5];
 
 	JLabel lblErrorVacio;
 	JLabel lblErrorDNI;
@@ -96,6 +97,7 @@ public class SingIn extends JFrame implements ActionListener{
 		resumenSesAL = resumenSes;
 		resumenCinAL = resumenCin;
 		nClienteAL =nCliente;
+		
 		
 		
 		
@@ -184,8 +186,15 @@ public class SingIn extends JFrame implements ActionListener{
 						lblErrorVacio.setVisible(true);
 					}else {
 						//ncliente = -1 y array de clienteNuevo
+						
+						arrayNuevoCliente[0]= textDNI.getText();
+						arrayNuevoCliente[1]= textNombre.getText();
+						arrayNuevoCliente[2]= textApellido.getText();
+						arrayNuevoCliente[3]= comboBoxSexo.getSelectedItem().toString();
+						arrayNuevoCliente[4]= textContrasenya.getPassword().toString();
+						
 						this.dispose();
-						vent = new Ticket(arrayCinesAL, pelAL, arrayClientesAL, arrayEntradasAL, opcionCineAL, nombresPelisCineAL, opcionPeliAL, selectedDateAL, opcionSesionAL, rAL, resumenSalAL, resumenSesAL, resumenCinAL, nClienteAL);
+						vent = new Ticket(arrayCinesAL, pelAL, arrayClientesAL, arrayEntradasAL, opcionCineAL, nombresPelisCineAL, opcionPeliAL, selectedDateAL, opcionSesionAL, rAL, resumenSalAL, resumenSesAL, resumenCinAL, nClienteAL, arrayNuevoCliente);
 						vent.setVisible(true);
 					}
 		}

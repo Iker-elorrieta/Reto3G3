@@ -173,7 +173,7 @@ public class LogIn extends JFrame implements ActionListener{
 						nCliente = i;
 						lblError.setVisible(false);
 						this.dispose();
-						vent = new Ticket(arrayCinesAL, pelAL, arrayClientesAL, arrayEntradasAL, opcionCineAL, nombresPelisCineAL, opcionPeliAL, selectedDateAL, opcionSesionAL, rAL, resumenSalAL, resumenSesAL, resumenCinAL, nCliente);
+						vent = new Ticket(arrayCinesAL, pelAL, arrayClientesAL, arrayEntradasAL, opcionCineAL, nombresPelisCineAL, opcionPeliAL, selectedDateAL, opcionSesionAL, rAL, resumenSalAL, resumenSesAL, resumenCinAL, nCliente, null);
 						vent.setVisible(true);
 					}
 				}else {
