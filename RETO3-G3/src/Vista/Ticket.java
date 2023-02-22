@@ -10,6 +10,7 @@ import Controlador.Metodos;
 import Modelo.Cine;
 import Modelo.Cliente;
 import Modelo.Entrada;
+import Modelo.Pedido;
 import Modelo.Pelicula;
 
 import javax.swing.JLabel;
@@ -101,6 +102,8 @@ public class Ticket extends JFrame {
 				{
 					stringTxT = mts.reescribirArrayStrings(stringTxT);
 					if(arrayNuevoCliente==null) {
+						Pedido ped = new Pedido();
+						ped.setxCliente(arrayClientes[nCliente]);
 						stringTxT[i] = "Nombre de Cine: "+arrayCines[resumenCin[i]].getNombre()
 								+"\n Cliente: "+arrayClientes[nCliente].getNombre()
 								+"\n DNI de Cliente: "+arrayClientes[nCliente].getDni()

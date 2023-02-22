@@ -5,8 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 import javax.swing.JRadioButton;
 
@@ -16,6 +18,7 @@ import com.mysql.jdbc.Statement;
 import Modelo.Cine;
 import Modelo.Cliente;
 import Modelo.Entrada;
+import Modelo.Pedido;
 import Modelo.Pelicula;
 import Modelo.Sala;
 import Modelo.Sesion;
@@ -348,13 +351,15 @@ public Cliente[] selectArrayClientes() {
 		
 	}
 	
+
+Entrada[] arrayEntradas;
 private final String entrada1 = "Codigo_Entrada";
 private final String entrada2 = "Precio";
 
 private final String tablaE = "entrada";
 //hacer insert
 public Entrada[] selectArrayEntradas() {
-	Entrada[] arrayEntradas = new Entrada[0];
+	arrayEntradas = new Entrada[0];
 	Connection conexion;
 	
 	try {
@@ -369,7 +374,7 @@ public Entrada[] selectArrayEntradas() {
 			Entrada ent = new Entrada();
 			ent.setCodigoEntrada(registroEntradas.getString(entrada1));
 			ent.setPrecio(registroEntradas.getFloat(entrada2));
-			ent.setxCliente(arrayClientes[i3]);
+			//ent.setxCliente(arrayClientes[i3]);
 			ent.setArraySesiones(arraySesiones);
 			
 			arrayEntradas = reescribirArrayEntradas(arrayEntradas);
@@ -391,45 +396,69 @@ public Entrada[] selectArrayEntradas() {
 }
 
 
+private final String pedido1 = "Codigo_Pedido";
+private final String pedido2 = "Importe";
+private final String pedido3 = "Fecha_Compra";
 
-//public Entrada[] selectArrayPedidos() {
-//	Entrada[] arrayPedidos = new Entrada[0];
-//	Connection conexion;
-//	
-//	try {
-//		conexion=(Connection) DriverManager.getConnection(conexion1,conexion2,conexion3);
-//		Statement comando=(Statement) conexion.createStatement();
-//		
-//		ResultSet registroEntradas = comando.executeQuery("select * from "+tablaE+"");
-//		int i3=0;
-//		while (registroEntradas.next()) {
-//			
-//			
-//			Entrada ent = new Entrada();
-//			ent.setCodigoEntrada(registroEntradas.getString(entrada1));
-//			ent.setPrecio(registroEntradas.getFloat(entrada2));
-//			ent.setxCliente(arrayClientes[i3]);
-//			ent.setArraySesiones(arraySesiones);
-//			
-//			arrayEntradas = reescribirArrayEntradas(arrayEntradas);
-//			arrayEntradas[i3]=ent;
-//			i3++;
-//		}
-//		registroEntradas.close();
-//
-//		
-//		comando.close();
-//		conexion.close();
-//	} catch(SQLException ex){
-//			ex.printStackTrace();
-//
-//	}
-//	
-//	return arrayPedidos;
-//	
-//}
+private final String tablaP = "pedido";
+
+public Pedido[] selectArrayPedidos() {
+	Pedido[] arrayPedidos = new Pedido[0];
+	Connection conexion;
+	
+	try {
+		conexion=(Connection) DriverManager.getConnection(conexion1,conexion2,conexion3);
+		Statement comando=(Statement) conexion.createStatement();
+		
+		ResultSet registroPedidos = comando.executeQuery("select * from "+tablaP+"");
+		int i3=0;
+		while (registroPedidos.next()) {
+			
+			
+			Pedido ped = new Pedido();
+			ped.setCodigoPedido(registroPedidos.getString(pedido1));
+			ped.setImporte(registroPedidos.getFloat(pedido2));
+				Calendar cal = Calendar.getInstance();
+				cal.set(Calendar.DAY_OF_MONTH, Integer.valueOf(registroPedidos.getDate(pedido3).toString().split("-")[2]));
+				cal.set(Calendar.MONTH, Integer.valueOf(registroPedidos.getDate(pedido3).toString().split("-")[1]));
+				cal.set(Calendar.YEAR, Integer.valueOf(registroPedidos.getDate(pedido3).toString().split("-")[0]));
+			ped.setFechaCompra(cal.getTime());
+			//i3 no es//???
+			//esto es luego
+//			ped.setxCliente(arrayClientes[i3]);
+//			ped.setxEntrada(arrayEntradas[i3]);
+			
+			arrayPedidos = reescribirArrayPedidos(arrayPedidos);
+			arrayPedidos[i3]=ped;
+			i3++;
+		}
+		registroPedidos.close();
+
+		
+		comando.close();
+		conexion.close();
+	} catch(SQLException ex){
+			ex.printStackTrace();
+
+	}
+	
+	return arrayPedidos;
+	
+}
 	
 	
+
+private static final Pattern REGEXP = Pattern.compile("[0-9]{8}[A-Z]");
+private static final String DIGITO_CONTROL = "TRWAGMYFPDXBNJZSQVHLCKE";
+private static final String[] INVALIDOS = new String[] { "00000000T", "00000001R", "99999999R" };
+
+public boolean validarDNI(String dni) {
+	dni = dni.toUpperCase();
+  return Arrays.binarySearch(INVALIDOS, dni) < 0 // (1)
+	    && REGEXP.matcher(dni).matches() // (2)
+      && dni.charAt(8) == DIGITO_CONTROL.charAt(Integer.parseInt(dni.substring(0, 8)) % 23); // (3)
+}
+
 	
 	
 	public Cine[] reescribirArrayCines(Cine[] arrayViejo) {
@@ -468,6 +497,17 @@ public Entrada[] selectArrayEntradas() {
 	public Entrada[] reescribirArrayEntradas(Entrada[] arrayViejo) {
 		// TODO Auto-generated method stub
 		Entrada[] arrayNuevo = new Entrada[arrayViejo.length+1];
+		for(int i =0;i<arrayViejo.length;i++)
+		{
+			arrayNuevo[i]=arrayViejo[i];
+		}
+		arrayViejo = arrayNuevo;
+		return arrayNuevo;
+	}
+	
+	public Pedido[] reescribirArrayPedidos(Pedido[] arrayViejo) {
+		// TODO Auto-generated method stub
+		Pedido[] arrayNuevo = new Pedido[arrayViejo.length+1];
 		for(int i =0;i<arrayViejo.length;i++)
 		{
 			arrayNuevo[i]=arrayViejo[i];

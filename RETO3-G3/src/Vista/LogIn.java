@@ -8,6 +8,7 @@ import Controlador.Metodos;
 import Modelo.Cine;
 import Modelo.Cliente;
 import Modelo.Entrada;
+import Modelo.Pedido;
 import Modelo.Pelicula;
 
 import javax.swing.JLabel;

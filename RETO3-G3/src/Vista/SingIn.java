@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Controlador.Metodos;
 import Modelo.Cine;
 import Modelo.Cliente;
 import Modelo.Entrada;
@@ -38,6 +39,7 @@ public class SingIn extends JFrame implements ActionListener{
 	Ticket vent;
 	JButton btnAceptar;
 	String[] arrayNuevoCliente = new String[5];
+	Metodos mts = new Metodos();
 
 	JLabel lblErrorVacio;
 	JLabel lblErrorDNI;
@@ -179,9 +181,9 @@ public class SingIn extends JFrame implements ActionListener{
 	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btnAceptar) {
-//			if(metodo){
-			//			lblErrorDNI.setVisible(true);
-			//		}
+			if(mts.validarDNI(textDNI.getText())){	
+				lblErrorDNI.setVisible(false);
+			
 					if (String.valueOf(textDNI.getText()).equals("") || String.valueOf(textNombre.getText()).equals("") || String.valueOf(textApellido.getText()).equals("") || String.valueOf(textContrasenya.getPassword()).equals("") || comboBoxSexo.getSelectedItem().toString().equals("")){
 						lblErrorVacio.setVisible(true);
 					}else {
@@ -197,6 +199,9 @@ public class SingIn extends JFrame implements ActionListener{
 						vent = new Ticket(arrayCinesAL, pelAL, arrayClientesAL, arrayEntradasAL, opcionCineAL, nombresPelisCineAL, opcionPeliAL, selectedDateAL, opcionSesionAL, rAL, resumenSalAL, resumenSesAL, resumenCinAL, nClienteAL, arrayNuevoCliente);
 						vent.setVisible(true);
 					}
+			}else {
+				lblErrorDNI.setVisible(true);
+			}
 		}
 	
 		}
