@@ -389,6 +389,45 @@ public Entrada[] selectArrayEntradas() {
 	return arrayEntradas;
 	
 }
+
+
+
+//public Entrada[] selectArrayPedidos() {
+//	Entrada[] arrayPedidos = new Entrada[0];
+//	Connection conexion;
+//	
+//	try {
+//		conexion=(Connection) DriverManager.getConnection(conexion1,conexion2,conexion3);
+//		Statement comando=(Statement) conexion.createStatement();
+//		
+//		ResultSet registroEntradas = comando.executeQuery("select * from "+tablaE+"");
+//		int i3=0;
+//		while (registroEntradas.next()) {
+//			
+//			
+//			Entrada ent = new Entrada();
+//			ent.setCodigoEntrada(registroEntradas.getString(entrada1));
+//			ent.setPrecio(registroEntradas.getFloat(entrada2));
+//			ent.setxCliente(arrayClientes[i3]);
+//			ent.setArraySesiones(arraySesiones);
+//			
+//			arrayEntradas = reescribirArrayEntradas(arrayEntradas);
+//			arrayEntradas[i3]=ent;
+//			i3++;
+//		}
+//		registroEntradas.close();
+//
+//		
+//		comando.close();
+//		conexion.close();
+//	} catch(SQLException ex){
+//			ex.printStackTrace();
+//
+//	}
+//	
+//	return arrayPedidos;
+//	
+//}
 	
 	
 	

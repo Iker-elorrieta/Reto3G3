@@ -42,9 +42,6 @@ public class Ticket extends JFrame {
 	private JPanel contentPane;
 	Metodos mts = new Metodos();
 	int cont=0;
-	Timestamp ts = new Timestamp(System.currentTimeMillis());
-	DateFormat dt = new SimpleDateFormat("dd-MM-yyyy");
-	DateFormat dt2 = new SimpleDateFormat("hh:mm");
 	DateFormat bd = new SimpleDateFormat("yyyy-MM-dd");
 
 	/**
@@ -90,13 +87,15 @@ public class Ticket extends JFrame {
 		lblConExitod.setBounds(10, 126, 414, 50);
 		contentPane.add(lblConExitod);
 		
-		
+		DateFormat dt = new SimpleDateFormat("dd-MM-yyyy");
+		DateFormat dt2 = new SimpleDateFormat("hh:mm");
 		
 		JButton btnNewButton = new JButton("Guardar Ticket");
 		btnNewButton.setBackground(new Color(255, 255, 255));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//guardar en BDD y txt
+				Timestamp ts = new Timestamp(System.currentTimeMillis());
 				String[] stringTxT = new String[0];
 				for(int i = 0;i<resumenSes.length;i++)
 				{
@@ -164,17 +163,14 @@ public class Ticket extends JFrame {
 					
 					try {
 						Connection conexion = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/reto3_grupo3","root","");
-					
-						//el num
-						System.out.println("prueba");
-						for(int i = 1;i<resumenSes.length;i++){
-							Object insert = conexion.createStatement();
-							((Statement) insert).executeUpdate("insert into entrada values('"+2+"', '"+6.5+"', '"+arrayCines[resumenCin[i]].getArraySalas()[resumenSal[i]].getArraySesiones()[resumenSes[i]].getCodigoSesion()+"');");	
+						Object insert = conexion.createStatement();
+						for(int i = 0;i<resumenSes.length;i++){
+							System.out.println(arrayCines[resumenCin[0]].getArraySalas()[resumenSal[0]].getArraySesiones()[resumenSes[0]].getCodigoSesion());
+							((Statement) insert).executeUpdate("insert into entrada value("+(arrayEntradas.length+1)+", '"+6.5+"', '"+arrayCines[resumenCin[0]].getArraySalas()[resumenSal[0]].getArraySesiones()[resumenSes[0]].getCodigoSesion()+"');");	
 						}
-						//insert.executeUpdate("insert into pedido value("+cont+", '"+fechaBD+"', '"+horaBD+"', '"+deBD+"', '"+paraBD+"', '"+asuntoBD+"', '"+contenidoBD+"');");
-//						for(int f = 1;f<resumenSes.length;f++){
-//							((Statement) insert).executeUpdate("insert into pedido value("+f+", '"+13+"', '"+bd.format(ts)+"', '"+arrayClientes[nCliente].getDni()+"', '"+arrayEntradas[f-1].getCodigoEntrada()+"');");	
-//						}
+						for(int f = 0;f<resumenSes.length;f++){
+						//((Statement) insert).executeUpdate("insert into pedido value("+(arrayEntradas.length+1)+", '"+13+"', '"+bd.format(ts)+"', '"+arrayClientes[nCliente].getDni()+"', '"+arrayEntradas[f-1].getCodigoEntrada()+"');");	
+						}
 						cont++;
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
