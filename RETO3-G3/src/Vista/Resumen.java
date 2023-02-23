@@ -176,20 +176,11 @@ public class Resumen extends JFrame implements ActionListener{
 		btnNewButton.setBounds(22, 234, 127, 23);
 		contentPane.add(btnNewButton);
 		
-		//precio final (poner en metodos)
-		//suma
-		for(int i = 0;i<resumenSes.length;i++){
-			sumaPrecios = sumaPrecios + arrayCines2[resumenCin[i]].getArraySalas()[resumenSal[i]].getArraySesiones()[resumenSes[i]].getPrecio();
-		}
-		//descuentos
-		precioFinal=sumaPrecios;
+	
 		
-		if(resumenSes.length==2) {
-			precioFinal = (float) (sumaPrecios -(sumaPrecios*0.2));
-		}
-		else if(resumenSes.length>=3) {
-			precioFinal = (float) (sumaPrecios -(sumaPrecios*0.3));
-		}
+		precioFinal = mts.sumarPrecioyDescuentos(arrayCines2, pel2, arrayClientes2, arrayEntradas2, arrayPedidos, opcionCine2, nombresPelisCine, opcionPeli, selectedDate, opcionSesion, r, resumenSal, resumenSes, resumenCin);
+		
+		
 		
 		lblNewLabel_1 = new JLabel("Precio Final: "+(precioFinal)+"");
 		lblNewLabel_1.setBounds(10, 211, 172, 14);

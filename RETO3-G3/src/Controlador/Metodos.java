@@ -1,8 +1,13 @@
 package Controlador;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -10,7 +15,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Pattern;
 
+import javax.swing.AbstractButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
@@ -22,6 +32,7 @@ import Modelo.Pedido;
 import Modelo.Pelicula;
 import Modelo.Sala;
 import Modelo.Sesion;
+import Vista.Ticket;
 
 public class Metodos {
 	Sesion[] arraySesiones;
@@ -460,6 +471,143 @@ public boolean validarDNI(String dni) {
 }
 
 	
+
+public float sumarPrecioyDescuentos(Cine[] arrayCines2, Pelicula pel2, Cliente[] arrayClientes2, Entrada[] arrayEntradas2, Pedido[] arrayPedidos, int opcionCine2, Pelicula[] nombresPelisCine, int opcionPeli, Date selectedDate, int opcionSesion, int r, int[] resumenSal, int[] resumenSes, int[] resumenCin) {
+	float sumaPrecios=0;
+	float precioFinal=0;
+	//suma
+	for(int i = 0;i<resumenSes.length;i++){
+		sumaPrecios = sumaPrecios + arrayCines2[resumenCin[i]].getArraySalas()[resumenSal[i]].getArraySesiones()[resumenSes[i]].getPrecio();
+	}
+	
+	//descuentos
+	precioFinal=sumaPrecios;
+	if(resumenSes.length==2) {
+		precioFinal = (float) (sumaPrecios -(sumaPrecios*0.2));
+	}
+	else if(resumenSes.length>=3) {
+		precioFinal = (float) (sumaPrecios -(sumaPrecios*0.3));
+	}
+	return precioFinal;	
+}
+
+public boolean comprobacionLogInDNI(Cine[] arrayCinesAL, Cliente[] arrayClientesAL, JTextField txtDNI, JPasswordField txtContrasenya, int i) {
+	boolean dniBien= false;
+	
+	if (String.valueOf(txtDNI.getText()).equals(arrayClientesAL[i].getDni())){
+		dniBien = true;
+	}else {
+		dniBien = false;
+	}
+	
+	return dniBien;
+}
+
+
+public boolean comprobacionLogInContra(Cine[] arrayCinesAL, Cliente[] arrayClientesAL, JTextField txtDNI, JPasswordField txtContrasenya, int i) {
+boolean contraBien= false;
+	
+	if (String.valueOf(txtContrasenya.getPassword()).equals(arrayClientesAL[i].getContrasena())){
+		contraBien = true;
+	}else {
+		contraBien = false;
+	}
+	
+	return contraBien;
+}
+
+
+public void guardarTXT(String[] stringTxT, float precioFinal) {
+	File file = new File("Ticket.txt");
+	
+	BufferedWriter fichero;
+	
+		try {
+			fichero = new BufferedWriter(new FileWriter(file));
+		for(int i =0;i<stringTxT.length;i++)
+		{
+			fichero.write(stringTxT[i].toString());
+		}
+		fichero.write("\n Precio Final de compra: "+precioFinal);
+		fichero.close();
+		JOptionPane.showMessageDialog(null,
+				"Los mensajes en memoria, han sido guardados en el fichero Ticket.txt",
+				"éxito!",
+				JOptionPane.INFORMATION_MESSAGE);
+		
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+}
+
+
+public void guardarBDD(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, Pedido[] arrayPedidos, int opcionCine, Pelicula[] nombresPelisCine, int opcionPeli, Date selectedDate, int opcionSesion, float precioFinal, int r, int[] resumenSal, int[] resumenSes, int[] resumenCin, int nCliente, String[] arrayNuevoCliente) {
+	Timestamp ts = new Timestamp(System.currentTimeMillis());
+	DateFormat bd = new SimpleDateFormat("yyyy-MM-dd");
+	
+	Pedido[] arrayPedidosIntro = new Pedido[0];
+	try {
+		Connection conexion = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/reto3_grupo3","root","");
+		Object insert = conexion.createStatement();
+		if(arrayNuevoCliente==null) {
+			int autoEnt =arrayEntradas.length+1;
+			for(int i = 0;i<resumenSes.length;i++){
+				System.out.println(arrayCines[resumenCin[0]].getArraySalas()[resumenSal[0]].getArraySesiones()[resumenSes[0]].getCodigoSesion());
+				((Statement) insert).executeUpdate("insert into entrada value("+(autoEnt)+", '"+arrayCines[resumenCin[i]].getArraySalas()[resumenSal[i]].getArraySesiones()[resumenSes[i]].getPrecio()+"', '"+arrayCines[resumenCin[i]].getArraySalas()[resumenSal[i]].getArraySesiones()[resumenSes[i]].getCodigoSesion()+"');");
+				
+				Entrada ent1 = new Entrada();
+				ent1.setCodigoEntrada(String.valueOf(autoEnt));
+				
+				Pedido ped1 = new Pedido();
+				ped1.setxEntrada(ent1);
+				arrayPedidosIntro = reescribirArrayPedidos(arrayPedidosIntro);
+				arrayPedidosIntro[i] = ped1;
+				
+				autoEnt++;
+			}
+			int autoPed =arrayPedidos.length+1;
+			for(int f = 0;f<resumenSes.length;f++){	
+			((Statement) insert).executeUpdate("insert into pedido value("+(autoPed)+", '"+precioFinal+"', '"+bd.format(ts)+"', '"+arrayClientes[nCliente].getDni()+"', '"+Integer.valueOf(arrayPedidosIntro[f].getxEntrada().getCodigoEntrada())+"');");	
+			autoPed++;
+			}
+		}else {
+			
+				((Statement) insert).executeUpdate("insert into clientes value('"+arrayNuevoCliente[0]+"', '"+arrayNuevoCliente[1]+"', '"+arrayNuevoCliente[2]+"', '"+arrayNuevoCliente[3]+"', '"+arrayNuevoCliente[4]+"');");	
+			
+			int autoEnt =arrayEntradas.length+1;
+			for(int i = 0;i<resumenSes.length;i++){
+				System.out.println(arrayCines[resumenCin[0]].getArraySalas()[resumenSal[0]].getArraySesiones()[resumenSes[0]].getCodigoSesion());
+				((Statement) insert).executeUpdate("insert into entrada value("+(autoEnt)+", '"+arrayCines[resumenCin[i]].getArraySalas()[resumenSal[i]].getArraySesiones()[resumenSes[i]].getPrecio()+"', '"+arrayCines[resumenCin[i]].getArraySalas()[resumenSal[i]].getArraySesiones()[resumenSes[i]].getCodigoSesion()+"');");
+				
+				Entrada ent1 = new Entrada();
+				ent1.setCodigoEntrada(String.valueOf(autoEnt));
+				
+				Pedido ped1 = new Pedido();
+				ped1.setxEntrada(ent1);
+				arrayPedidosIntro = reescribirArrayPedidos(arrayPedidosIntro);
+				arrayPedidosIntro[i] = ped1;
+				
+				autoEnt++;
+			}
+			int autoPed =arrayPedidos.length+1;
+			for(int f = 0;f<resumenSes.length;f++){	
+			((Statement) insert).executeUpdate("insert into pedido value("+(autoPed)+", '"+precioFinal+"', '"+bd.format(ts)+"', '"+arrayNuevoCliente[0]+"', '"+Integer.valueOf(arrayPedidosIntro[f].getxEntrada().getCodigoEntrada())+"');");	
+			autoPed++;
+			}
+		}
+		
+	} catch (SQLException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
+}
+
+
+
+
+
 	
 	public Cine[] reescribirArrayCines(Cine[] arrayViejo) {
 		// TODO Auto-generated method stub

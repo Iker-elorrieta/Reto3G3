@@ -174,8 +174,8 @@ public class LogIn extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btnAceptar) {
 			for(int i=0; i<arrayClientesAL.length; i++) {	
-				if (String.valueOf(txtDNI.getText()).equals(arrayClientesAL[i].getDni())){
-					if (String.valueOf(txtContrasenya.getPassword()).equals(arrayClientesAL[i].getContrasena())){
+				if (mts.comprobacionLogInDNI(arrayCinesAL, arrayClientesAL, txtDNI, txtContrasenya, i)){
+					if (mts.comprobacionLogInContra(arrayCinesAL, arrayClientesAL, txtDNI, txtContrasenya, i)){
 //						nCliente = mts.reescribirArrayInts(nCliente);
 						nCliente = i;
 						lblError.setVisible(false);

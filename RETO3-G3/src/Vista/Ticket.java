@@ -144,27 +144,29 @@ public class Ticket extends JFrame implements ActionListener{
 				
 				
 				
-				File file = new File("Ticket.txt");
+//				File file = new File("Ticket.txt");
+//				
+//				BufferedWriter fichero;
+//				
+//					try {
+//						fichero = new BufferedWriter(new FileWriter(file));
+//					for(int i =0;i<stringTxT.length;i++)
+//					{
+//						fichero.write(stringTxT[i].toString());
+//					}
+//					fichero.write("\n Precio Final de compra: "+precioFinal);
+//					fichero.close();
+//					JOptionPane.showMessageDialog(null,
+//							"Los mensajes en memoria, han sido guardados en el fichero Ticket.txt",
+//							"éxito!",
+//							JOptionPane.INFORMATION_MESSAGE);
+//					
+//					} catch (IOException e1) {
+//						// TODO Auto-generated catch block
+//						e1.printStackTrace();
+//					}
 				
-				BufferedWriter fichero;
-				
-					try {
-						fichero = new BufferedWriter(new FileWriter(file));
-					for(int i =0;i<stringTxT.length;i++)
-					{
-						fichero.write(stringTxT[i].toString());
-					}
-					fichero.write("\n Precio Final de compra: "+precioFinal);
-					fichero.close();
-					JOptionPane.showMessageDialog(null,
-							"Los mensajes en memoria, han sido guardados en el fichero Ticket.txt",
-							"éxito!",
-							JOptionPane.INFORMATION_MESSAGE);
-					
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+				mts.guardarTXT(stringTxT, precioFinal);
 					
 					
 					
@@ -183,65 +185,65 @@ public class Ticket extends JFrame implements ActionListener{
 		
 		//inserts
 		//INSERT INTO `entrada`(`Codigo_Entrada`, `Precio`, `Codigo_Sesion`) VALUES ('[value-1]','[value-2]','[value-3]')
-		Pedido[] arrayPedidosIntro = new Pedido[0];
 		
-		try {
-			Connection conexion = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/reto3_grupo3","root","");
-			Object insert = conexion.createStatement();
-			if(arrayNuevoCliente==null) {
-				int autoEnt =arrayEntradas.length+1;
-				for(int i = 0;i<resumenSes.length;i++){
-					System.out.println(arrayCines[resumenCin[0]].getArraySalas()[resumenSal[0]].getArraySesiones()[resumenSes[0]].getCodigoSesion());
-					((Statement) insert).executeUpdate("insert into entrada value("+(autoEnt)+", '"+arrayCines[resumenCin[i]].getArraySalas()[resumenSal[i]].getArraySesiones()[resumenSes[i]].getPrecio()+"', '"+arrayCines[resumenCin[i]].getArraySalas()[resumenSal[i]].getArraySesiones()[resumenSes[i]].getCodigoSesion()+"');");
-					
-					Entrada ent1 = new Entrada();
-					ent1.setCodigoEntrada(String.valueOf(autoEnt));
-					
-					
-					Pedido ped1 = new Pedido();
-					ped1.setxEntrada(ent1);
-					arrayPedidosIntro = mts.reescribirArrayPedidos(arrayPedidosIntro);
-					arrayPedidosIntro[i] = ped1;
-					
-					autoEnt++;
-				}
-				int autoPed =arrayPedidos.length+1;
-				for(int f = 0;f<resumenSes.length;f++){	
-				((Statement) insert).executeUpdate("insert into pedido value("+(autoPed)+", '"+precioFinal+"', '"+bd.format(ts)+"', '"+arrayClientes[nCliente].getDni()+"', '"+Integer.valueOf(arrayPedidosIntro[f].getxEntrada().getCodigoEntrada())+"');");	
-				autoPed++;
-				}
-			}else {
-				
-					((Statement) insert).executeUpdate("insert into clientes value('"+arrayNuevoCliente[0]+"', '"+arrayNuevoCliente[1]+"', '"+arrayNuevoCliente[2]+"', '"+arrayNuevoCliente[3]+"', '"+arrayNuevoCliente[4]+"');");	
-				
-				int autoEnt =arrayEntradas.length+1;
-				for(int i = 0;i<resumenSes.length;i++){
-					System.out.println(arrayCines[resumenCin[0]].getArraySalas()[resumenSal[0]].getArraySesiones()[resumenSes[0]].getCodigoSesion());
-					((Statement) insert).executeUpdate("insert into entrada value("+(autoEnt)+", '"+arrayCines[resumenCin[i]].getArraySalas()[resumenSal[i]].getArraySesiones()[resumenSes[i]].getPrecio()+"', '"+arrayCines[resumenCin[i]].getArraySalas()[resumenSal[i]].getArraySesiones()[resumenSes[i]].getCodigoSesion()+"');");
-					
-					Entrada ent1 = new Entrada();
-					ent1.setCodigoEntrada(String.valueOf(autoEnt));
-					
-					
-					Pedido ped1 = new Pedido();
-					ped1.setxEntrada(ent1);
-					arrayPedidosIntro = mts.reescribirArrayPedidos(arrayPedidosIntro);
-					arrayPedidosIntro[i] = ped1;
-					
-					autoEnt++;
-				}
-				int autoPed =arrayPedidos.length+1;
-				for(int f = 0;f<resumenSes.length;f++){	
-				((Statement) insert).executeUpdate("insert into pedido value("+(autoPed)+", '"+precioFinal+"', '"+bd.format(ts)+"', '"+arrayNuevoCliente[0]+"', '"+Integer.valueOf(arrayPedidosIntro[f].getxEntrada().getCodigoEntrada())+"');");	
-				autoPed++;
-				}
-			}
-			
-			cont++;
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+//		Pedido[] arrayPedidosIntro = new Pedido[0];
+//		
+//		try {
+//			Connection conexion = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/reto3_grupo3","root","");
+//			Object insert = conexion.createStatement();
+//			if(arrayNuevoCliente==null) {
+//				int autoEnt =arrayEntradas.length+1;
+//				for(int i = 0;i<resumenSes.length;i++){
+//					System.out.println(arrayCines[resumenCin[0]].getArraySalas()[resumenSal[0]].getArraySesiones()[resumenSes[0]].getCodigoSesion());
+//					((Statement) insert).executeUpdate("insert into entrada value("+(autoEnt)+", '"+arrayCines[resumenCin[i]].getArraySalas()[resumenSal[i]].getArraySesiones()[resumenSes[i]].getPrecio()+"', '"+arrayCines[resumenCin[i]].getArraySalas()[resumenSal[i]].getArraySesiones()[resumenSes[i]].getCodigoSesion()+"');");
+//					
+//					Entrada ent1 = new Entrada();
+//					ent1.setCodigoEntrada(String.valueOf(autoEnt));
+//					
+//					Pedido ped1 = new Pedido();
+//					ped1.setxEntrada(ent1);
+//					arrayPedidosIntro = mts.reescribirArrayPedidos(arrayPedidosIntro);
+//					arrayPedidosIntro[i] = ped1;
+//					
+//					autoEnt++;
+//				}
+//				int autoPed =arrayPedidos.length+1;
+//				for(int f = 0;f<resumenSes.length;f++){	
+//				((Statement) insert).executeUpdate("insert into pedido value("+(autoPed)+", '"+precioFinal+"', '"+bd.format(ts)+"', '"+arrayClientes[nCliente].getDni()+"', '"+Integer.valueOf(arrayPedidosIntro[f].getxEntrada().getCodigoEntrada())+"');");	
+//				autoPed++;
+//				}
+//			}else {
+//				
+//					((Statement) insert).executeUpdate("insert into clientes value('"+arrayNuevoCliente[0]+"', '"+arrayNuevoCliente[1]+"', '"+arrayNuevoCliente[2]+"', '"+arrayNuevoCliente[3]+"', '"+arrayNuevoCliente[4]+"');");	
+//				
+//				int autoEnt =arrayEntradas.length+1;
+//				for(int i = 0;i<resumenSes.length;i++){
+//					System.out.println(arrayCines[resumenCin[0]].getArraySalas()[resumenSal[0]].getArraySesiones()[resumenSes[0]].getCodigoSesion());
+//					((Statement) insert).executeUpdate("insert into entrada value("+(autoEnt)+", '"+arrayCines[resumenCin[i]].getArraySalas()[resumenSal[i]].getArraySesiones()[resumenSes[i]].getPrecio()+"', '"+arrayCines[resumenCin[i]].getArraySalas()[resumenSal[i]].getArraySesiones()[resumenSes[i]].getCodigoSesion()+"');");
+//					
+//					Entrada ent1 = new Entrada();
+//					ent1.setCodigoEntrada(String.valueOf(autoEnt));
+//					
+//					Pedido ped1 = new Pedido();
+//					ped1.setxEntrada(ent1);
+//					arrayPedidosIntro = mts.reescribirArrayPedidos(arrayPedidosIntro);
+//					arrayPedidosIntro[i] = ped1;
+//					
+//					autoEnt++;
+//				}
+//				int autoPed =arrayPedidos.length+1;
+//				for(int f = 0;f<resumenSes.length;f++){	
+//				((Statement) insert).executeUpdate("insert into pedido value("+(autoPed)+", '"+precioFinal+"', '"+bd.format(ts)+"', '"+arrayNuevoCliente[0]+"', '"+Integer.valueOf(arrayPedidosIntro[f].getxEntrada().getCodigoEntrada())+"');");	
+//				autoPed++;
+//				}
+//			}
+//			
+//			cont++;
+//		} catch (SQLException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+		mts.guardarBDD(arrayCines, pel, arrayClientes, arrayEntradas, arrayPedidos, opcionCine, nombresPelisCine, opcionPeli, selectedDate, opcionSesion, precioFinal, r, resumenSal, resumenSes, resumenCin, nCliente, arrayNuevoCliente);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
