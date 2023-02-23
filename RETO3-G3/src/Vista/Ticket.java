@@ -44,6 +44,7 @@ public class Ticket extends JFrame {
 	Metodos mts = new Metodos();
 	int cont=0;
 	DateFormat bd = new SimpleDateFormat("yyyy-MM-dd");
+	Entrada[] arrayEntradasIntro;
 
 	/**
 	 * Launch the application.
@@ -66,10 +67,11 @@ public class Ticket extends JFrame {
 	 * @param arrayClientes 
 	 * @param pel 
 	 * @param arrayCines 
+	 * @param arrayPedidos 
 	 * @param nCliente 
 	 * @param arrayNuevoCliente 
 	 */
-	public Ticket(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, int opcionCine, Pelicula[] nombresPelisCine, int opcionPeli, Date selectedDate, int opcionSesion, int r, int[] resumenSal, int[] resumenSes, int[] resumenCin, int nCliente, String[] arrayNuevoCliente) {
+	public Ticket(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, Pedido[] arrayPedidos, int opcionCine, Pelicula[] nombresPelisCine, int opcionPeli, Date selectedDate, int opcionSesion, int r, int[] resumenSal, int[] resumenSes, int[] resumenCin, int nCliente, String[] arrayNuevoCliente) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -91,12 +93,13 @@ public class Ticket extends JFrame {
 		DateFormat dt = new SimpleDateFormat("dd-MM-yyyy");
 		DateFormat dt2 = new SimpleDateFormat("hh:mm");
 		
+		Timestamp ts = new Timestamp(System.currentTimeMillis());
+		
 		JButton btnNewButton = new JButton("Guardar Ticket");
 		btnNewButton.setBackground(new Color(255, 255, 255));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//guardar en BDD y txt
-				Timestamp ts = new Timestamp(System.currentTimeMillis());
 				String[] stringTxT = new String[0];
 				for(int i = 0;i<resumenSes.length;i++)
 				{
@@ -161,29 +164,74 @@ public class Ticket extends JFrame {
 					}
 					
 					
-					//inserts
-					//INSERT INTO `entrada`(`Codigo_Entrada`, `Precio`, `Codigo_Sesion`) VALUES ('[value-1]','[value-2]','[value-3]')
 					
-					try {
-						Connection conexion = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/reto3_grupo3","root","");
-						Object insert = conexion.createStatement();
-						for(int i = 0;i<resumenSes.length;i++){
-							System.out.println(arrayCines[resumenCin[0]].getArraySalas()[resumenSal[0]].getArraySesiones()[resumenSes[0]].getCodigoSesion());
-							((Statement) insert).executeUpdate("insert into entrada value("+(arrayEntradas.length+1)+", '"+6.5+"', '"+arrayCines[resumenCin[0]].getArraySalas()[resumenSal[0]].getArraySesiones()[resumenSes[0]].getCodigoSesion()+"');");	
-						}
-						for(int f = 0;f<resumenSes.length;f++){
-						//((Statement) insert).executeUpdate("insert into pedido value("+(arrayEntradas.length+1)+", '"+13+"', '"+bd.format(ts)+"', '"+arrayClientes[nCliente].getDni()+"', '"+arrayEntradas[f-1].getCodigoEntrada()+"');");	
-						}
-						cont++;
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
 					
 					
 			}
 		});
 		btnNewButton.setBounds(164, 210, 139, 40);
 		contentPane.add(btnNewButton);
+		
+		//inserts
+		//INSERT INTO `entrada`(`Codigo_Entrada`, `Precio`, `Codigo_Sesion`) VALUES ('[value-1]','[value-2]','[value-3]')
+		Pedido[] arrayPedidosIntro = new Pedido[0];
+		
+		try {
+			Connection conexion = (Connection) DriverManager.getConnection("jdbc:mysql://10.5.14.220:3306/reto3_grupo3","peio","Elorrieta00@");
+			Object insert = conexion.createStatement();
+			if(arrayNuevoCliente==null) {
+				int autoEnt =arrayEntradas.length+1;
+				for(int i = 0;i<resumenSes.length;i++){
+					System.out.println(arrayCines[resumenCin[0]].getArraySalas()[resumenSal[0]].getArraySesiones()[resumenSes[0]].getCodigoSesion());
+					((Statement) insert).executeUpdate("insert into entrada value("+(autoEnt)+", '"+6.5+"', '"+arrayCines[resumenCin[i]].getArraySalas()[resumenSal[i]].getArraySesiones()[resumenSes[i]].getCodigoSesion()+"');");
+					
+					Entrada ent1 = new Entrada();
+					ent1.setCodigoEntrada(String.valueOf(autoEnt));
+					
+					
+					Pedido ped1 = new Pedido();
+					ped1.setxEntrada(ent1);
+					arrayPedidosIntro = mts.reescribirArrayPedidos(arrayPedidosIntro);
+					arrayPedidosIntro[i] = ped1;
+					
+					autoEnt++;
+				}
+				int autoPed =arrayPedidos.length+1;
+				for(int f = 0;f<resumenSes.length;f++){	
+				((Statement) insert).executeUpdate("insert into pedido value("+(autoPed)+", '"+13+"', '"+bd.format(ts)+"', '"+arrayClientes[nCliente].getDni()+"', '"+Integer.valueOf(arrayPedidosIntro[f].getxEntrada().getCodigoEntrada())+"');");	
+				autoPed++;
+				}
+			}else {
+				
+					((Statement) insert).executeUpdate("insert into clientes value('"+arrayNuevoCliente[0]+"', '"+arrayNuevoCliente[1]+"', '"+arrayNuevoCliente[2]+"', '"+arrayNuevoCliente[3]+"', '"+arrayNuevoCliente[4]+"');");	
+				
+				int autoEnt =arrayEntradas.length+1;
+				for(int i = 0;i<resumenSes.length;i++){
+					System.out.println(arrayCines[resumenCin[0]].getArraySalas()[resumenSal[0]].getArraySesiones()[resumenSes[0]].getCodigoSesion());
+					((Statement) insert).executeUpdate("insert into entrada value("+(autoEnt)+", '"+6.5+"', '"+arrayCines[resumenCin[i]].getArraySalas()[resumenSal[i]].getArraySesiones()[resumenSes[i]].getCodigoSesion()+"');");
+					
+					Entrada ent1 = new Entrada();
+					ent1.setCodigoEntrada(String.valueOf(autoEnt));
+					
+					
+					Pedido ped1 = new Pedido();
+					ped1.setxEntrada(ent1);
+					arrayPedidosIntro = mts.reescribirArrayPedidos(arrayPedidosIntro);
+					arrayPedidosIntro[i] = ped1;
+					
+					autoEnt++;
+				}
+				int autoPed =arrayPedidos.length+1;
+				for(int f = 0;f<resumenSes.length;f++){	
+				((Statement) insert).executeUpdate("insert into pedido value("+(autoPed)+", '"+13+"', '"+bd.format(ts)+"', '"+arrayNuevoCliente[0]+"', '"+Integer.valueOf(arrayPedidosIntro[f].getxEntrada().getCodigoEntrada())+"');");	
+				autoPed++;
+				}
+			}
+			
+			cont++;
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 }

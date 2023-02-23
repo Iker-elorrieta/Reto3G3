@@ -11,6 +11,7 @@ import Controlador.Metodos;
 import Modelo.Cine;
 import Modelo.Cliente;
 import Modelo.Entrada;
+import Modelo.Pedido;
 import Modelo.Pelicula;
 import Modelo.Sala;
 import Modelo.Sesion;
@@ -64,6 +65,7 @@ public class BienvenidaCines extends JFrame implements ActionListener {
 	Cine[] arrayCines;
 	Cliente[] arrayClientes;
 	Entrada[] arrayEntradas;
+	Pedido[] arrayPedidos;
 	JButton btnNewButton_1;
 	JButton btnNewButton;
 	int contR;
@@ -150,6 +152,7 @@ public class BienvenidaCines extends JFrame implements ActionListener {
 		arrayCines = mts.mostrarCines();
 		arrayClientes = mts.selectArrayClientes();
 		arrayEntradas = mts.selectArrayEntradas();
+		arrayPedidos = mts.selectArrayPedidos();
 		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -254,7 +257,7 @@ public class BienvenidaCines extends JFrame implements ActionListener {
 //					System.out.println(resumenSes[p]);
 //				}
 				this.dispose();
-				vent2 = new Resumen(arrayCines2AL, pel2AL, arrayClientes2AL, arrayEntradas2AL, opcionCine2AL, nombresPelisCineAL, opcionPeliAL, selectedDateAL, opcionSesionAL, rAL, resumenSalAL, resumenSesAL, resumenCinAL);
+				vent2 = new Resumen(arrayCines2AL, pel2AL, arrayClientes2AL, arrayEntradas2AL,arrayPedidos , opcionCine2AL, nombresPelisCineAL, opcionPeliAL, selectedDateAL, opcionSesionAL, rAL, resumenSalAL, resumenSesAL, resumenCinAL);
 				vent2.setVisible(true);
 			}
 

@@ -11,6 +11,7 @@ import Controlador.Metodos;
 import Modelo.Cine;
 import Modelo.Cliente;
 import Modelo.Entrada;
+import Modelo.Pedido;
 import Modelo.Pelicula;
 
 import javax.swing.JLabel;
@@ -38,12 +39,14 @@ public class Resumen extends JFrame implements ActionListener{
 	private JTable table;
 	JButton btnNewButton_1;
 	JButton btnNewButton;
+	JLabel lblNewLabel_1;
 
 	//variables ActionListener
 	Cine[] arrayCines2AL;
 	Pelicula pel2AL;
 	Cliente[] arrayClientes2AL;
 	Entrada[] arrayEntradas2AL;
+	Pedido[]  arrayPedidosAL;
 	int opcionCine2AL;
 	Pelicula[] nombresPelisCineAL;
 	int opcionPeliAL;
@@ -69,6 +72,7 @@ public class Resumen extends JFrame implements ActionListener{
 	 * @param arrayClientes2 
 	 * @param pel2 
 	 * @param arrayCines2 
+	 * @param arrayPedidos 
 	 * @param selectedDate 
 	 * @param opcionSesion 
 	 * @param resumenSes 
@@ -76,13 +80,14 @@ public class Resumen extends JFrame implements ActionListener{
 	 * @param r 
 	 * @param resumenCin 
 	 */
-	public Resumen(Cine[] arrayCines2, Pelicula pel2, Cliente[] arrayClientes2, Entrada[] arrayEntradas2, int opcionCine2, Pelicula[] nombresPelisCine, int opcionPeli, Date selectedDate, int opcionSesion, int r, int[] resumenSal, int[] resumenSes, int[] resumenCin) {
+	public Resumen(Cine[] arrayCines2, Pelicula pel2, Cliente[] arrayClientes2, Entrada[] arrayEntradas2, Pedido[] arrayPedidos, int opcionCine2, Pelicula[] nombresPelisCine, int opcionPeli, Date selectedDate, int opcionSesion, int r, int[] resumenSal, int[] resumenSes, int[] resumenCin) {
 		
 		
 		arrayCines2AL = arrayCines2;
 		pel2AL = pel2;
 		arrayClientes2AL = arrayClientes2;
 		arrayEntradas2AL = arrayEntradas2;
+		arrayPedidosAL = arrayPedidos;
 		opcionCine2AL = opcionCine2;
 		nombresPelisCineAL = nombresPelisCine;
 		opcionPeliAL = opcionPeli;
@@ -168,12 +173,16 @@ public class Resumen extends JFrame implements ActionListener{
 		btnNewButton.addActionListener((ActionListener) this);
 		btnNewButton.setBounds(22, 234, 127, 23);
 		contentPane.add(btnNewButton);
+		
+		lblNewLabel_1 = new JLabel("Precio Final:+");
+		lblNewLabel_1.setBounds(10, 211, 172, 14);
+		contentPane.add(lblNewLabel_1);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btnNewButton_1) {
 			this.dispose();
-			vent = new LogIn(arrayCines2AL, pel2AL, arrayClientes2AL, arrayEntradas2AL, opcionCine2AL, nombresPelisCineAL, opcionPeliAL, selectedDateAL, opcionSesionAL, rAL, resumenSalAL, resumenSesAL, resumenCinAL);
+			vent = new LogIn(arrayCines2AL, pel2AL, arrayClientes2AL, arrayEntradas2AL, arrayPedidosAL, opcionCine2AL, nombresPelisCineAL, opcionPeliAL, selectedDateAL, opcionSesionAL, rAL, resumenSalAL, resumenSesAL, resumenCinAL);
 			vent.setVisible(true);
 		}
 		if(e.getSource()==btnNewButton) {
@@ -183,5 +192,4 @@ public class Resumen extends JFrame implements ActionListener{
 		}
 		
 	}
-	
 }

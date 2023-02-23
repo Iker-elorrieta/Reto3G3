@@ -10,6 +10,7 @@ import Controlador.Metodos;
 import Modelo.Cine;
 import Modelo.Cliente;
 import Modelo.Entrada;
+import Modelo.Pedido;
 import Modelo.Pelicula;
 
 import javax.swing.JLabel;
@@ -49,6 +50,7 @@ public class SingIn extends JFrame implements ActionListener{
 		Pelicula pelAL;
 		Cliente[] arrayClientesAL;
 		Entrada[] arrayEntradasAL;
+		Pedido[] arrayPedidosAL;
 		int opcionCineAL;
 		Pelicula[] nombresPelisCineAL;
 		int opcionPeliAL;
@@ -82,13 +84,15 @@ public class SingIn extends JFrame implements ActionListener{
 	 * @param arrayClientes 
 	 * @param pel 
 	 * @param arrayCines 
+	 * @param arrayPedidos 
 	 */
-	public SingIn(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, int opcionCine, Pelicula[] nombresPelisCine, int opcionPeli, Date selectedDate, int opcionSesion, int r, int[] resumenSal, int[] resumenSes, int[] resumenCin, int nCliente) {
+	public SingIn(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, Pedido[] arrayPedidos, int opcionCine, Pelicula[] nombresPelisCine, int opcionPeli, Date selectedDate, int opcionSesion, int r, int[] resumenSal, int[] resumenSes, int[] resumenCin, int nCliente) {
 		
 		arrayCinesAL = arrayCines;
 		pelAL = pel;
 		arrayClientesAL = arrayClientes;
 		arrayEntradasAL = arrayEntradas;
+		arrayPedidosAL = arrayPedidos;
 		opcionCineAL = opcionCine;
 		nombresPelisCineAL = nombresPelisCine;
 		opcionPeliAL = opcionPeli;
@@ -189,14 +193,16 @@ public class SingIn extends JFrame implements ActionListener{
 					}else {
 						//ncliente = -1 y array de clienteNuevo
 						
-						arrayNuevoCliente[0]= textDNI.getText();
+						arrayNuevoCliente[0]= textDNI.getText().toUpperCase();
 						arrayNuevoCliente[1]= textNombre.getText();
 						arrayNuevoCliente[2]= textApellido.getText();
 						arrayNuevoCliente[3]= comboBoxSexo.getSelectedItem().toString();
-						arrayNuevoCliente[4]= textContrasenya.getPassword().toString();
+						arrayNuevoCliente[4]= String.valueOf(textContrasenya.getPassword());
+						
+						//System.out.println(String.valueOf(textContrasenya.getPassword()));
 						
 						this.dispose();
-						vent = new Ticket(arrayCinesAL, pelAL, arrayClientesAL, arrayEntradasAL, opcionCineAL, nombresPelisCineAL, opcionPeliAL, selectedDateAL, opcionSesionAL, rAL, resumenSalAL, resumenSesAL, resumenCinAL, nClienteAL, arrayNuevoCliente);
+						vent = new Ticket(arrayCinesAL, pelAL, arrayClientesAL, arrayEntradasAL, arrayPedidosAL, opcionCineAL, nombresPelisCineAL, opcionPeliAL, selectedDateAL, opcionSesionAL, rAL, resumenSalAL, resumenSesAL, resumenCinAL, nClienteAL, arrayNuevoCliente);
 						vent.setVisible(true);
 					}
 			}else {

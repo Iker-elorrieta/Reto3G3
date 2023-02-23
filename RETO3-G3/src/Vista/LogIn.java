@@ -49,6 +49,7 @@ public class LogIn extends JFrame implements ActionListener{
 	Pelicula pelAL;
 	Cliente[] arrayClientesAL;
 	Entrada[] arrayEntradasAL;
+	Pedido[] arrayPedidosAL;
 	int opcionCineAL;
 	Pelicula[] nombresPelisCineAL;
 	int opcionPeliAL;
@@ -78,6 +79,7 @@ public class LogIn extends JFrame implements ActionListener{
 */
 	/**
 	 * Create the frame.
+	 * @param arrayPedidosAL 
 	 * @param resumenCin 
 	 * @param resumenSes 
 	 * @param resumenSal 
@@ -91,12 +93,13 @@ public class LogIn extends JFrame implements ActionListener{
 	 * @param pel2 
 	 * @param arrayCines2 
 	 */
-	public LogIn(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, int opcionCine, Pelicula[] nombresPelisCine, int opcionPeli, Date selectedDate, int opcionSesion, int r, int[] resumenSal, int[] resumenSes, int[] resumenCin) {
+	public LogIn(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, Pedido[] arrayPedidos, int opcionCine, Pelicula[] nombresPelisCine, int opcionPeli, Date selectedDate, int opcionSesion, int r, int[] resumenSal, int[] resumenSes, int[] resumenCin) {
 		
 		arrayCinesAL = arrayCines;
 		pelAL = pel;
 		arrayClientesAL = arrayClientes;
 		arrayEntradasAL = arrayEntradas;
+		arrayPedidosAL = arrayPedidos;
 		opcionCineAL = opcionCine;
 		nombresPelisCineAL = nombresPelisCine;
 		opcionPeliAL = opcionPeli;
@@ -174,7 +177,7 @@ public class LogIn extends JFrame implements ActionListener{
 						nCliente = i;
 						lblError.setVisible(false);
 						this.dispose();
-						vent = new Ticket(arrayCinesAL, pelAL, arrayClientesAL, arrayEntradasAL, opcionCineAL, nombresPelisCineAL, opcionPeliAL, selectedDateAL, opcionSesionAL, rAL, resumenSalAL, resumenSesAL, resumenCinAL, nCliente, null);
+						vent = new Ticket(arrayCinesAL, pelAL, arrayClientesAL, arrayEntradasAL, arrayPedidosAL, opcionCineAL, nombresPelisCineAL, opcionPeliAL, selectedDateAL, opcionSesionAL, rAL, resumenSalAL, resumenSesAL, resumenCinAL, nCliente, null);
 						vent.setVisible(true);
 					}
 				}else {
@@ -184,7 +187,7 @@ public class LogIn extends JFrame implements ActionListener{
 		}
 		if(e.getSource()==btnCrearusuario) {
 			this.dispose();
-			vent2 = new SingIn(arrayCinesAL, pelAL, arrayClientesAL, arrayEntradasAL, opcionCineAL, nombresPelisCineAL, opcionPeliAL, selectedDateAL, opcionSesionAL, rAL, resumenSalAL, resumenSesAL, resumenCinAL, 0);
+			vent2 = new SingIn(arrayCinesAL, pelAL, arrayClientesAL, arrayEntradasAL, arrayPedidosAL, opcionCineAL, nombresPelisCineAL, opcionPeliAL, selectedDateAL, opcionSesionAL, rAL, resumenSalAL, resumenSesAL, resumenCinAL, 0);
 			vent2.setVisible(true);
 		}
 		if(e.getSource()==btnVolverInicio) {
