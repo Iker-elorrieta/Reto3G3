@@ -40,7 +40,7 @@ public class LogIn extends JFrame implements ActionListener{
 	JLabel lblTitulo;
 	Ticket vent;
 	SingIn vent2;
-	BienvenidaCines vent3;
+	Bienvenida vent3;
 	int nCliente = 0;//-1
 	Metodos mts = new Metodos();
 	
@@ -55,6 +55,7 @@ public class LogIn extends JFrame implements ActionListener{
 	int opcionPeliAL;
 	Date selectedDateAL;
 	int opcionSesionAL;
+	float precioFinalAL;
 	int rAL;
 	int[] resumenSalAL;
 	int[] resumenSesAL;
@@ -88,12 +89,13 @@ public class LogIn extends JFrame implements ActionListener{
 	 * @param selectedDate 
 	 * @param opcionPeli 
 	 * @param nombresPelisCine 
+	 * @param precioFinal 
 	 * @param opcionCine2 
 	 * @param arrayEntradas2 
 	 * @param pel2 
 	 * @param arrayCines2 
 	 */
-	public LogIn(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, Pedido[] arrayPedidos, int opcionCine, Pelicula[] nombresPelisCine, int opcionPeli, Date selectedDate, int opcionSesion, int r, int[] resumenSal, int[] resumenSes, int[] resumenCin) {
+	public LogIn(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, Pedido[] arrayPedidos, int opcionCine, Pelicula[] nombresPelisCine, int opcionPeli, Date selectedDate, int opcionSesion, float precioFinal, int r, int[] resumenSal, int[] resumenSes, int[] resumenCin) {
 		
 		arrayCinesAL = arrayCines;
 		pelAL = pel;
@@ -105,6 +107,7 @@ public class LogIn extends JFrame implements ActionListener{
 		opcionPeliAL = opcionPeli;
 		selectedDateAL = selectedDate;
 		opcionSesionAL = opcionSesion;
+		precioFinalAL = precioFinal;
 		rAL = r;
 		resumenSalAL = resumenSal;
 		resumenSesAL = resumenSes;
@@ -141,20 +144,20 @@ public class LogIn extends JFrame implements ActionListener{
 		btnAceptar = new JButton("ACEPTAR");
 		btnAceptar.setBackground(new Color(255, 255, 255));
 		btnAceptar.addActionListener((ActionListener) this);
-		btnAceptar.setBounds(335, 227, 89, 23);
+		btnAceptar.setBounds(321, 227, 105, 23);
 		contentPane.add(btnAceptar);
 		
 		btnCrearusuario = new JButton("Crear un usuario");
 		btnCrearusuario.addActionListener((ActionListener) this);
 		btnCrearusuario.setBackground(new Color(192, 192, 192));
 		btnCrearusuario.setForeground(new Color(0, 0, 0));
-		btnCrearusuario.setBounds(14, 227, 151, 23);
+		btnCrearusuario.setBounds(14, 227, 143, 23);
 		contentPane.add(btnCrearusuario);
 		
 		btnVolverInicio = new JButton("Volver al Inicio");
 		btnVolverInicio.addActionListener((ActionListener) this);
 		btnVolverInicio.setBackground(new Color(192, 192, 192));
-		btnVolverInicio.setBounds(175, 227, 150, 23);
+		btnVolverInicio.setBounds(161, 227, 150, 23);
 		contentPane.add(btnVolverInicio);
 		
 		lblError = new JLabel("*Su usuario no esta registrado en la base de datos");
@@ -177,7 +180,7 @@ public class LogIn extends JFrame implements ActionListener{
 						nCliente = i;
 						lblError.setVisible(false);
 						this.dispose();
-						vent = new Ticket(arrayCinesAL, pelAL, arrayClientesAL, arrayEntradasAL, arrayPedidosAL, opcionCineAL, nombresPelisCineAL, opcionPeliAL, selectedDateAL, opcionSesionAL, rAL, resumenSalAL, resumenSesAL, resumenCinAL, nCliente, null);
+						vent = new Ticket(arrayCinesAL, pelAL, arrayClientesAL, arrayEntradasAL, arrayPedidosAL, opcionCineAL, nombresPelisCineAL, opcionPeliAL, selectedDateAL, opcionSesionAL, precioFinalAL, rAL, resumenSalAL, resumenSesAL, resumenCinAL, nCliente, null);
 						vent.setVisible(true);
 					}
 				}else {
@@ -187,12 +190,12 @@ public class LogIn extends JFrame implements ActionListener{
 		}
 		if(e.getSource()==btnCrearusuario) {
 			this.dispose();
-			vent2 = new SingIn(arrayCinesAL, pelAL, arrayClientesAL, arrayEntradasAL, arrayPedidosAL, opcionCineAL, nombresPelisCineAL, opcionPeliAL, selectedDateAL, opcionSesionAL, rAL, resumenSalAL, resumenSesAL, resumenCinAL, 0);
+			vent2 = new SingIn(arrayCinesAL, pelAL, arrayClientesAL, arrayEntradasAL, arrayPedidosAL, opcionCineAL, nombresPelisCineAL, opcionPeliAL, selectedDateAL, opcionSesionAL, precioFinalAL, rAL, resumenSalAL, resumenSesAL, resumenCinAL, 0);
 			vent2.setVisible(true);
 		}
 		if(e.getSource()==btnVolverInicio) {
 			this.dispose();
-			vent3 = new BienvenidaCines(null, null, null, null, 0, null, 0, null, 0, rAL, resumenSalAL, resumenSesAL, resumenCinAL);
+			vent3 = new Bienvenida();
 			vent3.setVisible(true);
 		}
 		

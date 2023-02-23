@@ -40,6 +40,8 @@ public class Resumen extends JFrame implements ActionListener{
 	JButton btnNewButton_1;
 	JButton btnNewButton;
 	JLabel lblNewLabel_1;
+	float sumaPrecios;
+	float precioFinal;
 
 	//variables ActionListener
 	Cine[] arrayCines2AL;
@@ -100,7 +102,7 @@ public class Resumen extends JFrame implements ActionListener{
 		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 652, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -126,7 +128,7 @@ public class Resumen extends JFrame implements ActionListener{
 		
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 48, 414, 163);
+		scrollPane.setBounds(10, 48, 618, 163);
 		contentPane.add(scrollPane);
 		
 		String[][] datosTabla = new String[resumenSes.length][5];
@@ -174,7 +176,22 @@ public class Resumen extends JFrame implements ActionListener{
 		btnNewButton.setBounds(22, 234, 127, 23);
 		contentPane.add(btnNewButton);
 		
-		lblNewLabel_1 = new JLabel("Precio Final:+");
+		//precio final (poner en metodos)
+		//suma
+		for(int i = 0;i<resumenSes.length;i++){
+			sumaPrecios = sumaPrecios + arrayCines2[resumenCin[i]].getArraySalas()[resumenSal[i]].getArraySesiones()[resumenSes[i]].getPrecio();
+		}
+		//descuentos
+		precioFinal=sumaPrecios;
+		
+		if(resumenSes.length==2) {
+			precioFinal = (float) (sumaPrecios -(sumaPrecios*0.2));
+		}
+		else if(resumenSes.length>=3) {
+			precioFinal = (float) (sumaPrecios -(sumaPrecios*0.3));
+		}
+		
+		lblNewLabel_1 = new JLabel("Precio Final: "+(precioFinal)+"");
 		lblNewLabel_1.setBounds(10, 211, 172, 14);
 		contentPane.add(lblNewLabel_1);
 	}
@@ -182,12 +199,12 @@ public class Resumen extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btnNewButton_1) {
 			this.dispose();
-			vent = new LogIn(arrayCines2AL, pel2AL, arrayClientes2AL, arrayEntradas2AL, arrayPedidosAL, opcionCine2AL, nombresPelisCineAL, opcionPeliAL, selectedDateAL, opcionSesionAL, rAL, resumenSalAL, resumenSesAL, resumenCinAL);
+			vent = new LogIn(arrayCines2AL, pel2AL, arrayClientes2AL, arrayEntradas2AL, arrayPedidosAL, opcionCine2AL, nombresPelisCineAL, opcionPeliAL, selectedDateAL, opcionSesionAL, precioFinal, rAL, resumenSalAL, resumenSesAL, resumenCinAL);
 			vent.setVisible(true);
 		}
 		if(e.getSource()==btnNewButton) {
 			this.dispose();
-			vent2 = new BienvenidaCines(null, null, null, null, 0, null, 0, null, 0, rAL, resumenSalAL, resumenSesAL, resumenCinAL);
+			vent2 = new BienvenidaCines(arrayCines2AL, pel2AL, arrayClientes2AL, arrayEntradas2AL, opcionCine2AL, nombresPelisCineAL, opcionPeliAL, selectedDateAL, opcionSesionAL, rAL, resumenSalAL, resumenSesAL, resumenCinAL);
 			vent2.setVisible(true);
 		}
 		

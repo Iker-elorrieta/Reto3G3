@@ -34,7 +34,7 @@ import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
-public class Ticket extends JFrame {
+public class Ticket extends JFrame implements ActionListener{
 
 	/**
 	 * 
@@ -45,7 +45,8 @@ public class Ticket extends JFrame {
 	int cont=0;
 	DateFormat bd = new SimpleDateFormat("yyyy-MM-dd");
 	Entrada[] arrayEntradasIntro;
-
+	JButton btnVolverAlInicio;
+	Bienvenida vent;
 	/**
 	 * Launch the application.
 	 */
@@ -68,10 +69,11 @@ public class Ticket extends JFrame {
 	 * @param pel 
 	 * @param arrayCines 
 	 * @param arrayPedidos 
+	 * @param precioFinal 
 	 * @param nCliente 
 	 * @param arrayNuevoCliente 
 	 */
-	public Ticket(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, Pedido[] arrayPedidos, int opcionCine, Pelicula[] nombresPelisCine, int opcionPeli, Date selectedDate, int opcionSesion, int r, int[] resumenSal, int[] resumenSes, int[] resumenCin, int nCliente, String[] arrayNuevoCliente) {
+	public Ticket(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, Pedido[] arrayPedidos, int opcionCine, Pelicula[] nombresPelisCine, int opcionPeli, Date selectedDate, int opcionSesion, float precioFinal, int r, int[] resumenSal, int[] resumenSes, int[] resumenCin, int nCliente, String[] arrayNuevoCliente) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -152,9 +154,10 @@ public class Ticket extends JFrame {
 					{
 						fichero.write(stringTxT[i].toString());
 					}
+					fichero.write("\n Precio Final de compra: "+precioFinal);
 					fichero.close();
 					JOptionPane.showMessageDialog(null,
-							"Los mensajes en memoria, han sido guardados en el fichero MENSAJES.TXT",
+							"Los mensajes en memoria, han sido guardados en el fichero Ticket.txt",
 							"éxito!",
 							JOptionPane.INFORMATION_MESSAGE);
 					
@@ -169,21 +172,27 @@ public class Ticket extends JFrame {
 					
 			}
 		});
-		btnNewButton.setBounds(164, 210, 139, 40);
+		btnNewButton.setBounds(237, 198, 139, 40);
 		contentPane.add(btnNewButton);
+		
+		btnVolverAlInicio = new JButton("Volver al inicio");
+		btnVolverAlInicio.addActionListener((ActionListener) this);
+		btnVolverAlInicio.setBackground(Color.WHITE);
+		btnVolverAlInicio.setBounds(23, 198, 139, 40);
+		contentPane.add(btnVolverAlInicio);
 		
 		//inserts
 		//INSERT INTO `entrada`(`Codigo_Entrada`, `Precio`, `Codigo_Sesion`) VALUES ('[value-1]','[value-2]','[value-3]')
 		Pedido[] arrayPedidosIntro = new Pedido[0];
 		
 		try {
-			Connection conexion = (Connection) DriverManager.getConnection("jdbc:mysql://10.5.14.220:3306/reto3_grupo3","peio","Elorrieta00@");
+			Connection conexion = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/reto3_grupo3","root","");
 			Object insert = conexion.createStatement();
 			if(arrayNuevoCliente==null) {
 				int autoEnt =arrayEntradas.length+1;
 				for(int i = 0;i<resumenSes.length;i++){
 					System.out.println(arrayCines[resumenCin[0]].getArraySalas()[resumenSal[0]].getArraySesiones()[resumenSes[0]].getCodigoSesion());
-					((Statement) insert).executeUpdate("insert into entrada value("+(autoEnt)+", '"+6.5+"', '"+arrayCines[resumenCin[i]].getArraySalas()[resumenSal[i]].getArraySesiones()[resumenSes[i]].getCodigoSesion()+"');");
+					((Statement) insert).executeUpdate("insert into entrada value("+(autoEnt)+", '"+arrayCines[resumenCin[i]].getArraySalas()[resumenSal[i]].getArraySesiones()[resumenSes[i]].getPrecio()+"', '"+arrayCines[resumenCin[i]].getArraySalas()[resumenSal[i]].getArraySesiones()[resumenSes[i]].getCodigoSesion()+"');");
 					
 					Entrada ent1 = new Entrada();
 					ent1.setCodigoEntrada(String.valueOf(autoEnt));
@@ -198,7 +207,7 @@ public class Ticket extends JFrame {
 				}
 				int autoPed =arrayPedidos.length+1;
 				for(int f = 0;f<resumenSes.length;f++){	
-				((Statement) insert).executeUpdate("insert into pedido value("+(autoPed)+", '"+13+"', '"+bd.format(ts)+"', '"+arrayClientes[nCliente].getDni()+"', '"+Integer.valueOf(arrayPedidosIntro[f].getxEntrada().getCodigoEntrada())+"');");	
+				((Statement) insert).executeUpdate("insert into pedido value("+(autoPed)+", '"+precioFinal+"', '"+bd.format(ts)+"', '"+arrayClientes[nCliente].getDni()+"', '"+Integer.valueOf(arrayPedidosIntro[f].getxEntrada().getCodigoEntrada())+"');");	
 				autoPed++;
 				}
 			}else {
@@ -208,7 +217,7 @@ public class Ticket extends JFrame {
 				int autoEnt =arrayEntradas.length+1;
 				for(int i = 0;i<resumenSes.length;i++){
 					System.out.println(arrayCines[resumenCin[0]].getArraySalas()[resumenSal[0]].getArraySesiones()[resumenSes[0]].getCodigoSesion());
-					((Statement) insert).executeUpdate("insert into entrada value("+(autoEnt)+", '"+6.5+"', '"+arrayCines[resumenCin[i]].getArraySalas()[resumenSal[i]].getArraySesiones()[resumenSes[i]].getCodigoSesion()+"');");
+					((Statement) insert).executeUpdate("insert into entrada value("+(autoEnt)+", '"+arrayCines[resumenCin[i]].getArraySalas()[resumenSal[i]].getArraySesiones()[resumenSes[i]].getPrecio()+"', '"+arrayCines[resumenCin[i]].getArraySalas()[resumenSal[i]].getArraySesiones()[resumenSes[i]].getCodigoSesion()+"');");
 					
 					Entrada ent1 = new Entrada();
 					ent1.setCodigoEntrada(String.valueOf(autoEnt));
@@ -223,7 +232,7 @@ public class Ticket extends JFrame {
 				}
 				int autoPed =arrayPedidos.length+1;
 				for(int f = 0;f<resumenSes.length;f++){	
-				((Statement) insert).executeUpdate("insert into pedido value("+(autoPed)+", '"+13+"', '"+bd.format(ts)+"', '"+arrayNuevoCliente[0]+"', '"+Integer.valueOf(arrayPedidosIntro[f].getxEntrada().getCodigoEntrada())+"');");	
+				((Statement) insert).executeUpdate("insert into pedido value("+(autoPed)+", '"+precioFinal+"', '"+bd.format(ts)+"', '"+arrayNuevoCliente[0]+"', '"+Integer.valueOf(arrayPedidosIntro[f].getxEntrada().getCodigoEntrada())+"');");	
 				autoPed++;
 				}
 			}
@@ -234,4 +243,14 @@ public class Ticket extends JFrame {
 			e1.printStackTrace();
 		}
 	}
+	
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==btnVolverAlInicio) {
+			this.dispose();
+			vent = new Bienvenida();
+			vent.setVisible(true);
+		}
+	}
+	
+	
 }

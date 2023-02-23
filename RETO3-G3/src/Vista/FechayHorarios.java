@@ -185,7 +185,7 @@ public class FechayHorarios extends JFrame implements ActionListener{
 		btnNewButton = new JButton("ACEPTAR");
 		btnNewButton.setBackground(new Color(255, 255, 255));
 		btnNewButton.addActionListener((ActionListener) this);
-		btnNewButton.setBounds(324, 227, 89, 23);
+		btnNewButton.setBounds(302, 227, 111, 23);
 		contentPane.add(btnNewButton);
 		
 		cambioDia = 0;
@@ -272,7 +272,7 @@ public class FechayHorarios extends JFrame implements ActionListener{
 		btnNewButton_2 = new JButton("Volver al inicio");
 		btnNewButton_2.setBackground(new Color(255, 255, 255));
 		btnNewButton_2.addActionListener((ActionListener) this);
-		btnNewButton_2.setBounds(177, 227, 137, 23);
+		btnNewButton_2.setBounds(158, 227, 137, 23);
 		contentPane.add(btnNewButton_2);
 		
 		lblNewLabel_1 = new JLabel("*Sesion no seleccionada");

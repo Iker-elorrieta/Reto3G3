@@ -200,7 +200,7 @@ public class BienvenidaCines extends JFrame implements ActionListener {
 		btnNewButton = new JButton("ACEPTAR");
 		btnNewButton.setBackground(new Color(255, 255, 255));
 		btnNewButton.addActionListener((ActionListener)this);
-		btnNewButton.setBounds(328, 227, 89, 23);
+		btnNewButton.setBounds(315, 227, 102, 23);
 		contentPane.add(btnNewButton);
 		
 
@@ -211,14 +211,14 @@ public class BienvenidaCines extends JFrame implements ActionListener {
 		btnNewButton_1 = new JButton("Finalizar");
 		btnNewButton_1.setBackground(new Color(255, 255, 255));
 		btnNewButton_1.addActionListener((ActionListener)this);
-		btnNewButton_1.setBounds(229, 227, 89, 23);
+		btnNewButton_1.setBounds(216, 227, 89, 23);
 		contentPane.add(btnNewButton_1);
 		
 		
 		
 		lblNewLabel_1 = new JLabel("*No has seleccionado ningún cine");
 		lblNewLabel_1.setForeground(new Color(255, 0, 0));
-		lblNewLabel_1.setBounds(37, 231, 182, 14);
+		lblNewLabel_1.setBounds(10, 231, 209, 14);
 		contentPane.add(lblNewLabel_1);
 		lblNewLabel_1.setVisible(false);
 		

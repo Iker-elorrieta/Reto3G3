@@ -187,7 +187,7 @@ public class SeleccionPeliculas extends JFrame implements ActionListener{
 		}
 	}
 		
-		if(e.getSource()==btnNewButton_1) {
+		if(e.getSource()==btnNewButton_1 && resumenSesAE.length==0) {
 		this.dispose();
 		vent2 = new BienvenidaCines(null, null, null, null, 0, null, 0, null, 0, rAE, resumenSalAE, resumenSesAE, resumenCinAE);
 		vent2.setVisible(true);

@@ -56,6 +56,7 @@ public class SingIn extends JFrame implements ActionListener{
 		int opcionPeliAL;
 		Date selectedDateAL;
 		int opcionSesionAL;
+		float precioFinalAL;
 		int rAL;
 		int[] resumenSalAL;
 		int[] resumenSesAL;
@@ -85,8 +86,9 @@ public class SingIn extends JFrame implements ActionListener{
 	 * @param pel 
 	 * @param arrayCines 
 	 * @param arrayPedidos 
+	 * @param precioFinal 
 	 */
-	public SingIn(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, Pedido[] arrayPedidos, int opcionCine, Pelicula[] nombresPelisCine, int opcionPeli, Date selectedDate, int opcionSesion, int r, int[] resumenSal, int[] resumenSes, int[] resumenCin, int nCliente) {
+	public SingIn(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes, Entrada[] arrayEntradas, Pedido[] arrayPedidos, int opcionCine, Pelicula[] nombresPelisCine, int opcionPeli, Date selectedDate, int opcionSesion, float precioFinal, int r, int[] resumenSal, int[] resumenSes, int[] resumenCin, int nCliente) {
 		
 		arrayCinesAL = arrayCines;
 		pelAL = pel;
@@ -98,6 +100,7 @@ public class SingIn extends JFrame implements ActionListener{
 		opcionPeliAL = opcionPeli;
 		selectedDateAL = selectedDate;
 		opcionSesionAL = opcionSesion;
+		precioFinalAL = precioFinal;
 		rAL = r;
 		resumenSalAL = resumenSal;
 		resumenSesAL = resumenSes;
@@ -158,7 +161,7 @@ public class SingIn extends JFrame implements ActionListener{
 		btnAceptar = new JButton("ACEPTAR");
 		btnAceptar.setBackground(new Color(255, 255, 255));
 		btnAceptar.addActionListener((ActionListener)this);
-		btnAceptar.setBounds(299, 227, 89, 23);
+		btnAceptar.setBounds(283, 227, 121, 23);
 		contentPane.add(btnAceptar);
 		
 		comboBoxSexo = new JComboBox<String>();
@@ -202,7 +205,7 @@ public class SingIn extends JFrame implements ActionListener{
 						//System.out.println(String.valueOf(textContrasenya.getPassword()));
 						
 						this.dispose();
-						vent = new Ticket(arrayCinesAL, pelAL, arrayClientesAL, arrayEntradasAL, arrayPedidosAL, opcionCineAL, nombresPelisCineAL, opcionPeliAL, selectedDateAL, opcionSesionAL, rAL, resumenSalAL, resumenSesAL, resumenCinAL, nClienteAL, arrayNuevoCliente);
+						vent = new Ticket(arrayCinesAL, pelAL, arrayClientesAL, arrayEntradasAL, arrayPedidosAL, opcionCineAL, nombresPelisCineAL, opcionPeliAL, selectedDateAL, opcionSesionAL, precioFinalAL, rAL, resumenSalAL, resumenSesAL, resumenCinAL, nClienteAL, arrayNuevoCliente);
 						vent.setVisible(true);
 					}
 			}else {
