@@ -10,7 +10,7 @@ import Modelo.Entrada;
 class ClienteTest {
 
 	private Entrada[] arrayEntradas= new Entrada[1];
-	Entrada obj1 = new Entrada(null, 0, null, null);
+	Entrada obj1 = new Entrada();
 	
 Cliente cli0 = new Cliente("4737J", "George", "Smith", "H", "lmao999");
 	

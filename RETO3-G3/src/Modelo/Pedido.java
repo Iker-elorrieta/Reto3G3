@@ -1,5 +1,7 @@
 package Modelo;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
@@ -30,7 +32,9 @@ public class Pedido {
 
 	@Override
 	public String toString() {
-		return "Pedido [codigoPedido=" + codigoPedido + ", importe=" + importe + ", fechaCompra=" + fechaCompra + "]";
+		DateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
+		
+		return "Pedido [codigoPedido=" + codigoPedido + ", importe=" + importe + ", fechaCompra=" + dt.format(fechaCompra) + "]";
 	}
 
 
