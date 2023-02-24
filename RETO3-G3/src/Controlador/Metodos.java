@@ -546,7 +546,7 @@ public void guardarBDD(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes,
 	
 	Pedido[] arrayPedidosIntro = new Pedido[0];
 	try {
-		Connection conexion = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/reto3_grupo3","root","");
+		Connection conexion = (Connection) DriverManager.getConnection(conexion1,conexion2,conexion3);
 		Object insert = conexion.createStatement();
 		if(arrayNuevoCliente==null) {
 			int autoEnt =arrayEntradas.length+1;
