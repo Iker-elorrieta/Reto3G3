@@ -3,14 +3,14 @@ package Modelo;
 import java.util.Objects;
 
 public class Pelicula {
-	private String codigoPelícula;
+	private String codigoPelicula;
 	private int duracion; //(en minutos)
 	private String nombre;
 	private String genero;
 	
 	public Pelicula(String codigoPelícula, int duracion, String nombre, String genero) {
 		super();
-		this.codigoPelícula = codigoPelícula;
+		this.codigoPelicula = codigoPelícula;
 		this.duracion = duracion;
 		this.nombre = nombre;
 		this.genero = genero;
@@ -18,9 +18,15 @@ public class Pelicula {
 
 
 
+	public Pelicula() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	@Override
 	public String toString() {
-		return "Pelicula [codigoPelícula=" + codigoPelícula + ", duracion=" + duracion + ", nombre=" + nombre
+		return "Pelicula [codigoPelícula=" + codigoPelicula + ", duracion=" + duracion + ", nombre=" + nombre
 				+ ", genero=" + genero + "]";
 	}
 
@@ -35,13 +41,13 @@ public class Pelicula {
 		if (getClass() != obj.getClass())
 			return false;
 		Pelicula other = (Pelicula) obj;
-		return Objects.equals(codigoPelícula, other.codigoPelícula);
+		return Objects.equals(codigoPelicula, other.codigoPelicula);
 	}
 	
 	
 	
-	public String getCodigoPelícula() {
-		return codigoPelícula;
+	public String getCodigoPelicula() {
+		return codigoPelicula;
 	}
 	public int getDuracion() {
 		return duracion;
@@ -52,8 +58,8 @@ public class Pelicula {
 	public String getGenero() {
 		return genero;
 	}
-	public void setCodigoPelícula(String codigoPelícula) {
-		this.codigoPelícula = codigoPelícula;
+	public void setCodigoPelicula(String codigoPelícula) {
+		this.codigoPelicula = codigoPelícula;
 	}
 	public void setDuracion(int duracion) {
 		this.duracion = duracion;

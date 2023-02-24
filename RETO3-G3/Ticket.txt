@@ -1,0 +1,12 @@
+Nombre de Cine: Cinesa Zaratán Valladolid
+ Cliente: ppdpp
+ DNI de Cliente: 64538235M
+ Direccion: Autovía Valladolid-León, N-601, km 3, 47610 Zaratán, Valladolid
+ Nombre de Pelicula: El planeta de los simios
+ Fecha de compra: 23-02-2023 07:55
+ Fecha de emision: 03-04-2023 08:00
+ Sala: 3
+ Precio: 6.5
+
+
+ Precio Final de compra: 6.5

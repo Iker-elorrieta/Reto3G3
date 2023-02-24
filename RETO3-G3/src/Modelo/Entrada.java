@@ -6,20 +6,23 @@ import java.util.Objects;
 public class Entrada {
 	private String codigoEntrada;
 	private float precio;
-	private Cliente xCliente;
+	//private Cliente xCliente;
 	private Sesion[] arraySesiones;
 	
 	
 	
 	
 
-	public Entrada(String codigoEntrada, float precio, Cliente xCliente,
-			Sesion[] arraySesiones) {
+	public Entrada(String codigoEntrada, float precio, Sesion[] arraySesiones) {
 		super();
 		this.codigoEntrada = codigoEntrada;
 		this.precio = precio;
-		this.xCliente = xCliente;
 		this.arraySesiones = arraySesiones;
+	}
+
+
+	public Entrada() {
+		// TODO Auto-generated constructor stub
 	}
 
 
@@ -48,9 +51,6 @@ public class Entrada {
 	public float getPrecio() {
 		return precio;
 	}
-	public Cliente getArrayCliente() {
-		return xCliente;
-	}
 	public Sesion[] getArraySesiones() {
 		return arraySesiones;
 	}
@@ -59,9 +59,6 @@ public class Entrada {
 	}
 	public void setPrecio(float precio) {
 		this.precio = precio;
-	}
-	public void setArrayCliente(Cliente arrayCliente) {
-		this.xCliente = arrayCliente;
 	}
 	public void setArraySesiones(Sesion[] arraySesiones) {
 		this.arraySesiones = arraySesiones;
