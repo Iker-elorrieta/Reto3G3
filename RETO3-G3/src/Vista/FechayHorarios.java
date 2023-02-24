@@ -301,9 +301,7 @@ if(e.getSource()==btnNewButton) {
 			
 		
 		Date selectedDate = (Date) datePicker.getModel().getValue();
-//		System.out.println(selectedDate);
-//		String selectedDateDT = dt.format(String.valueOf(selectedDate));
-//		System.out.println(selectedDate);
+
 		
 		boolean seleccion=false;
 		for(int b=0; b<arraybotones.length;b++) {

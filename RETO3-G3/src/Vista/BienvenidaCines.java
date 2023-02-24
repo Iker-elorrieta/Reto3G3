@@ -92,19 +92,7 @@ public class BienvenidaCines extends JFrame implements ActionListener {
 	 * Launch the application.
 	 */
 	
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					//int dato = 0;
-//					BienvenidaCines frame = new BienvenidaCines();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+
 
 	/**
 	 * Create the frame.

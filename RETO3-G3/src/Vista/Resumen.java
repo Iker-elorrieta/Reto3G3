@@ -152,19 +152,7 @@ public class Resumen extends JFrame implements ActionListener{
 		));
 		scrollPane.setViewportView(table);
 		
-//		JTextArea textArea = new JTextArea();
-//		textArea.setBounds(22, 36, 383, 187);
-//		contentPane.add(textArea);
-//		
-//		//textArea.setText("sdsdh\n\nsddf\n\nsddf\n\nsddf\n\nsddf\n\nsddf\n\nsddf\n\nsddf\n\nsdd77f");
 
-//		
-//		sesion=mts.mostrarSesiones(arrayCines2, opcionCine2, nSala, nSesion);
-//		
-//		for(int b=0;b<1;b++) {
-//			//textArea.setText(""+nombresPelisCine[b]+"\n");
-//			textArea.append(""+sesion[opcionSesion]+"\n");
-//		}
 		
 		btnNewButton_1 = new JButton("Comprar");
 		btnNewButton_1.addActionListener((ActionListener) this);

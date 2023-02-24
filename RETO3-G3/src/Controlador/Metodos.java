@@ -15,8 +15,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Pattern;
 
-import javax.swing.AbstractButton;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
@@ -32,7 +30,6 @@ import Modelo.Pedido;
 import Modelo.Pelicula;
 import Modelo.Sala;
 import Modelo.Sesion;
-import Vista.Ticket;
 
 public class Metodos {
 	Sesion[] arraySesiones;
@@ -554,7 +551,7 @@ public void guardarBDD(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes,
 		if(arrayNuevoCliente==null) {
 			int autoEnt =arrayEntradas.length+1;
 			for(int i = 0;i<resumenSes.length;i++){
-				System.out.println(arrayCines[resumenCin[0]].getArraySalas()[resumenSal[0]].getArraySesiones()[resumenSes[0]].getCodigoSesion());
+				//System.out.println(arrayCines[resumenCin[0]].getArraySalas()[resumenSal[0]].getArraySesiones()[resumenSes[0]].getCodigoSesion());
 				((Statement) insert).executeUpdate("insert into entrada value("+(autoEnt)+", '"+arrayCines[resumenCin[i]].getArraySalas()[resumenSal[i]].getArraySesiones()[resumenSes[i]].getPrecio()+"', '"+arrayCines[resumenCin[i]].getArraySalas()[resumenSal[i]].getArraySesiones()[resumenSes[i]].getCodigoSesion()+"');");
 				
 				Entrada ent1 = new Entrada();
@@ -578,7 +575,7 @@ public void guardarBDD(Cine[] arrayCines, Pelicula pel, Cliente[] arrayClientes,
 			
 			int autoEnt =arrayEntradas.length+1;
 			for(int i = 0;i<resumenSes.length;i++){
-				System.out.println(arrayCines[resumenCin[0]].getArraySalas()[resumenSal[0]].getArraySesiones()[resumenSes[0]].getCodigoSesion());
+				//System.out.println(arrayCines[resumenCin[0]].getArraySalas()[resumenSal[0]].getArraySesiones()[resumenSes[0]].getCodigoSesion());
 				((Statement) insert).executeUpdate("insert into entrada value("+(autoEnt)+", '"+arrayCines[resumenCin[i]].getArraySalas()[resumenSal[i]].getArraySesiones()[resumenSes[i]].getPrecio()+"', '"+arrayCines[resumenCin[i]].getArraySalas()[resumenSal[i]].getArraySesiones()[resumenSes[i]].getCodigoSesion()+"');");
 				
 				Entrada ent1 = new Entrada();
