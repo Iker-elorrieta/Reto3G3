@@ -167,7 +167,7 @@ public class BienvenidaCines extends JFrame implements ActionListener {
 //		                    System.out.println("tool tip text"+button1.getToolTipText());
 		                }
 		            });
-		            button1.setBounds(37, 31+contR, 227, 23);
+		            button1.setBounds(37, 31+contR, 300, 23);
 		            buttonGroup.add(button1);
 		            contentPane.add(button1);
 		            arraybotones = mts.reescribirArrayButtons(arraybotones);

@@ -57,9 +57,9 @@ public class Metodos {
 	private final String tabla3 = "sesion";
 	private final String tabla4 = "peliculas";
 
-	private final String conexion1 = "jdbc:mysql://localhost:3306/reto3_grupo3";
-	private final String conexion2 = "root";
-	private final String conexion3 = "";
+	private final String conexion1 = "jdbc:mysql://10.5.14.220/reto3_grupo3";
+	private final String conexion2 = "peio";
+	private final String conexion3 = "Elorrieta00@";
 	//"+tabla1+"
 
 	public Cine[] mostrarCines() {
